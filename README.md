@@ -16,7 +16,7 @@ These libraries have already been under active development for a few years and a
 
 Please check them out and feel free to share your thoughts and ideas by contacting me or submitting a pull request.
 
-Besides the source code you'll also find practicle examples on how to use these libraries in Console applications, Web applications or API's.
+Besides the source code you'll also find practicle [examples](./tree/master/examples) on how to use these libraries in Console applications, Web applications or API's.
 
 Currently this repo lacks unit tests, but I consider them to be very stable and practicle in every day use.
 
