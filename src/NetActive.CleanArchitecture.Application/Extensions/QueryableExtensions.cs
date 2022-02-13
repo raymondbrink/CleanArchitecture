@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
+using Domain.Interfaces;
+
 /// <summary>
 /// Queryable Extensions
 /// </summary>
@@ -62,5 +64,25 @@ internal static class QueryableExtensions
         bool descending)
     {
         return descending ? source.ThenByDescending(keySelector) : source.ThenBy(keySelector);
+    }
+
+    /// <summary>
+    /// Applies paging to the given query using Skip and Take.
+    /// </summary>
+    /// <typeparam name="TEntity">Type of entity.</typeparam>
+    /// <typeparam name="TKey">Type of entity key.</typeparam>
+    /// <param name="query">Query to apply paging to.</param>
+    /// <param name="pageSize">Page size.</param>
+    /// <param name="pageIndex">Page index.</param>
+    /// <returns>Paged query.</returns>
+    internal static IQueryable<TEntity> GetPaged<TEntity, TKey>(
+        this IOrderedQueryable<TEntity> query,
+        uint pageSize,
+        uint pageIndex)
+        where TEntity : class, IEntityBase<TKey>
+        where TKey : struct
+    {
+        var itemsToSkip = pageIndex * pageSize;
+        return query.Skip((int)itemsToSkip).Take((int)pageSize);
     }
 }

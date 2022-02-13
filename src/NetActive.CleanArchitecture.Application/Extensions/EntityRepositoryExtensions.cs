@@ -1,5 +1,6 @@
 ﻿namespace NetActive.CleanArchitecture.Application.Extensions;
 
+using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -48,7 +49,7 @@ public static class EntityRepositoryExtensions
     /// <param name="predicate">Predicate to match.</param>
     /// <returns>Boolean value indicating whether an entity that complies with the given predicate exists or not.</returns>
     public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository,
-        Expression<System.Func<TEntity, bool>> predicate)
+        Expression<Func<TEntity, bool>> predicate)
         where TEntity : class, IEntityBase<TKey>
         where TKey : struct
     {
