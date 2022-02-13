@@ -7,7 +7,6 @@ Inspired by the video series [Clean Architecture: Patterns, Practices and Princi
 I started creating these libraries around the idea of Clean Architecture a few years ago.
 
 The open source community has given me so much over the past decade, I decided it was time to give something back.
-
 Since I find them very practicle and I recently ported them to .NET 6 and Entity Framework Core 6,
 I felt it was the right time to share these Clean Architecture libraries with the rest of the world.
 
