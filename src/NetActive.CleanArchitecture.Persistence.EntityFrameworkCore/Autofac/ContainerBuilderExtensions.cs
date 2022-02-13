@@ -12,6 +12,8 @@ using Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
+using Persistence.Autofac;
+
 /// <summary>
 /// ContainerBuilder extension methods.
 /// </summary>
@@ -25,7 +27,7 @@ public static class ContainerBuilderExtensions
     /// <typeparam name="TDbContext">The type of the database context.</typeparam>
     /// <param name="builder">The builder.</param>
     /// <param name="connectionString">The connection string.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
+    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>
     public static IRegistrationBuilder<TDbContext, ConcreteReflectionActivatorData, SingleRegistrationStyle>
         RegisterDbContext<TDbContext>(
             this ContainerBuilder builder,
@@ -46,39 +48,6 @@ public static class ContainerBuilderExtensions
 
     #endregion
 
-    #region Unit of Work
-
-    /// <summary>
-    /// Registers the specified unit of work as <see cref="IUnitOfWork"/>.
-    /// </summary>
-    /// <typeparam name="TUnitOfWork">The type of the unit of work.</typeparam>
-    /// <param name="builder">The builder.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
-    public static IRegistrationBuilder<TUnitOfWork, ConcreteReflectionActivatorData, SingleRegistrationStyle>
-        RegisterUnitOfWork<TUnitOfWork>(this ContainerBuilder builder, bool registerSingleInstance)
-        where TUnitOfWork : IUnitOfWork
-    {
-        return builder.RegisterUnitOfWork<IUnitOfWork, TUnitOfWork>(registerSingleInstance);
-    }
-
-    /// <summary>
-    /// Registers the specified unit of work.
-    /// </summary>
-    /// <typeparam name="TUnitOfWork">The type of the unit of work.</typeparam>
-    /// <typeparam name="TIUnitOfWork">The interface extension of <see cref="IUnitOfWork"/> to register as.</typeparam>
-    /// <param name="builder">The builder.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
-    public static IRegistrationBuilder<TUnitOfWork, ConcreteReflectionActivatorData, SingleRegistrationStyle>
-        RegisterUnitOfWork<TIUnitOfWork, TUnitOfWork>(this ContainerBuilder builder, bool registerSingleInstance)
-        where TIUnitOfWork : IUnitOfWork where TUnitOfWork : TIUnitOfWork
-    {
-        var registration = builder.RegisterType<TUnitOfWork>().As<TIUnitOfWork>();
-
-        return registerSingleInstance ? registration.SingleInstance() : registration.InstancePerLifetimeScope();
-    }
-
-    #endregion
-
     #region Entity Framework DbContext and Entity Framework Unit of Work
 
     /// <summary>
@@ -87,7 +56,7 @@ public static class ContainerBuilderExtensions
     /// <typeparam name="TDbContext">The type of the database context.</typeparam>
     /// <param name="builder">The builder.</param>
     /// <param name="nameOrConnectionString">The name or connection string.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
+    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>
     public static void RegisterDbContextAndEfUnitOfWork<TDbContext>(
         this ContainerBuilder builder,
         string nameOrConnectionString,
@@ -106,7 +75,7 @@ public static class ContainerBuilderExtensions
     /// <typeparam name="TUnitOfWork">The type of unit of work.</typeparam>
     /// <param name="builder">The builder.</param>
     /// <param name="nameOrConnectionString">The name or connection string.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
+    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>
     public static void RegisterDbContextAndUnitOfWork<TDbContext, TUnitOfWork>(
         this ContainerBuilder builder,
         string nameOrConnectionString,
@@ -127,7 +96,7 @@ public static class ContainerBuilderExtensions
     /// Registers a default unit of work.
     /// </summary>
     /// <param name="builder">The builder.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
+    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>
     public static IRegistrationBuilder<EfUnitOfWork, ConcreteReflectionActivatorData, SingleRegistrationStyle>
         RegisterEfUnitOfWork(this ContainerBuilder builder, bool registerSingleInstance)
     {
@@ -145,7 +114,7 @@ public static class ContainerBuilderExtensions
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     /// <param name="builder">The builder.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
+    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>
     public static
         IRegistrationBuilder<EfRepository<TDbContext, TEntity, TKey>, ConcreteReflectionActivatorData,
             SingleRegistrationStyle>
@@ -170,7 +139,7 @@ public static class ContainerBuilderExtensions
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     /// <param name="builder">The builder.</param>
-    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per request.</param>
+    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>
     public static
         IRegistrationBuilder<EfArchivableRepository<TDbContext, TEntity, TKey>, ConcreteReflectionActivatorData,
             SingleRegistrationStyle>

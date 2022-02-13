@@ -19,7 +19,7 @@ public static class ContainerBuilderExtensions
     /// <param name="builder">The builder.</param>
     /// <param name="registerSingleInstance">
     ///     Boolean value indicating whether a single instance should be used instead of an
-    ///     instance per request.
+    ///     instance per lifetime scope.
     /// </param>
     public static IRegistrationBuilder<TService, ConcreteReflectionActivatorData, SingleRegistrationStyle>
         RegisterService<TServiceInterface, TService>(this ContainerBuilder builder, bool registerSingleInstance)

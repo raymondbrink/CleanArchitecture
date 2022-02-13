@@ -23,9 +23,9 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
     where TModel : class, IModel<TKey>
     where TKey : struct
 {
-    internal IQueryable<TEntity> GetQuery();
+    protected internal IQueryable<TEntity> GetQuery();
 
-    internal IMapper Mapper { get; }
+    protected internal IMapper Mapper { get; }
 
     /// <summary>
     /// Gets the model for the entity with the specified identifier.

@@ -11,8 +11,8 @@ using Domain.Validation;
 
 using global::Autofac;
 
+using NetActive.CleanArchitecture.Application.EntityFrameworkCore.Services;
 using NetActive.CleanArchitecture.Application.Interfaces;
-using NetActive.CleanArchitecture.Application.Services;
 using NetActive.CleanArchitecture.Autofac;
 using NetActive.CleanArchitecture.Autofac.Extensions;
 using NetActive.CleanArchitecture.Domain.Interfaces;

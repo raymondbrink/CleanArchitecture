@@ -1,4 +1,4 @@
-﻿namespace NetActive.CleanArchitecture.Application.Services;
+﻿namespace NetActive.CleanArchitecture.Application.EntityFrameworkCore.Services;
 
 using System;
 using System.Collections.Generic;

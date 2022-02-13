@@ -10,7 +10,7 @@ using Domain.Interfaces;
 /// <summary>
 /// Queryable Extensions
 /// </summary>
-internal static class QueryableExtensions
+public static class QueryableExtensions
 {
     /// <summary>
     /// Sorts the elements of a sequence in ascending order according to a key.
@@ -21,7 +21,7 @@ internal static class QueryableExtensions
     /// <param name="keySelector">A function to extract a key from an element.</param>
     /// <param name="descending">If set to <c>true</c>, order the elements in descending order. If set to <c>false</c>, order the elements in ascending order.</param>
     /// <returns>An System.Linq.IOrderedQueryable`1 whose elements are sorted according to a key.</returns>
-    internal static IOrderedQueryable<TSource> OrderBy<TSource, TKey>(
+    public static IOrderedQueryable<TSource> OrderBy<TSource, TKey>(
         this IQueryable<TSource> source,
         Expression<Func<TSource, TKey>> keySelector,
         bool descending)
@@ -39,7 +39,7 @@ internal static class QueryableExtensions
     /// <param name="comparer">An System.Collections.Generic.IComparer`1 to compare keys.</param>
     /// <param name="descending">If set to <c>true</c>, order the elements in descending order. If set to <c>false</c>, order the elements in ascending order.</param>
     /// <returns>An System.Linq.IOrderedQueryable`1 whose elements are sorted according to a key.</returns>
-    internal static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(
+    public static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(
         this IOrderedQueryable<TSource> source,
         Expression<Func<TSource, TKey>> keySelector,
         IComparer<TKey> comparer,
@@ -58,7 +58,7 @@ internal static class QueryableExtensions
     /// <param name="keySelector">A function to extract a key from each element.</param>
     /// <param name="descending">If set to <c>true</c>, order the elements in descending order. If set to <c>false</c>, order the elements in ascending order.</param>
     /// <returns>An System.Linq.IOrderedQueryable`1 whose elements are sorted according to a key.</returns>
-    internal static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(
+    public static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(
         this IOrderedQueryable<TSource> source,
         Expression<Func<TSource, TKey>> keySelector,
         bool descending)
@@ -75,7 +75,7 @@ internal static class QueryableExtensions
     /// <param name="pageSize">Page size.</param>
     /// <param name="pageIndex">Page index.</param>
     /// <returns>Paged query.</returns>
-    internal static IQueryable<TEntity> GetPaged<TEntity, TKey>(
+    public static IQueryable<TEntity> GetPaged<TEntity, TKey>(
         this IOrderedQueryable<TEntity> query,
         uint pageSize,
         uint pageIndex)

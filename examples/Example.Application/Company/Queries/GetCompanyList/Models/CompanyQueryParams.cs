@@ -13,9 +13,9 @@ public class CompanyQueryParams
 {
     public override Expression<Func<Company, bool>> GetFilterExpression()
     {
-        Expression<Func<Company, bool>> predicate = PredicateBuilder.New<Company>(true).DefaultExpression;
+        var predicate = PredicateBuilder.New<Company>(true).DefaultExpression;
 
-        if (!string.IsNullOrWhiteSpace(Filters?.NameContains))
+        if (!string.IsNullOrWhiteSpace(Filters.NameContains))
         {
             // Filter by company name.
             predicate = predicate.And(c => c.Name.Contains(Filters.NameContains));

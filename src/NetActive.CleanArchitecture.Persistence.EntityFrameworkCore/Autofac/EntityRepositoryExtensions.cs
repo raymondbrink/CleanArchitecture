@@ -1,15 +1,18 @@
-﻿namespace NetActive.CleanArchitecture.Application.Extensions;
+﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac;
 
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-using Domain.Interfaces;
+using Application.Interfaces;
 
-using Interfaces;
+using Domain.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
+/// <summary>
+/// Extensions for <see cref="IRepository&lt;TEntity&gt;"/> or  <see cref="IRepository&lt;TEntity, TKey&gt;"/>
+/// </summary>
 public static class EntityRepositoryExtensions
 {
     /// <summary>

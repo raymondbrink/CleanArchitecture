@@ -14,7 +14,7 @@ public class CustomerQueryParams
 {
     public override Expression<Func<Customer, bool>> GetFilterExpression()
     {
-        Expression<Func<Customer, bool>> predicate = PredicateBuilder.New<Customer>(true).DefaultExpression;
+        var predicate = PredicateBuilder.New<Customer>(true).DefaultExpression;
 
         if (!string.IsNullOrWhiteSpace(Filters.NameContains))
         {

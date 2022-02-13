@@ -14,6 +14,7 @@
 
     using NetActive.CleanArchitecture.Application.Interfaces;
     using NetActive.CleanArchitecture.Autofac.Extensions;
+    using NetActive.CleanArchitecture.Persistence.Autofac;
     using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac;
     using NetActive.CleanArchitecture.Persistence.Interfaces;
 
@@ -24,7 +25,7 @@
         /// <summary>
         /// Gets the root of the application's <see cref="IConfiguration"/> hierarchy.
         /// </summary>
-        internal static IConfigurationRoot? ApplicationConfiguration { get; private set; }
+        internal static IConfigurationRoot ApplicationConfiguration { get; private set; }
 
         /// <summary>
         /// Registers components.
