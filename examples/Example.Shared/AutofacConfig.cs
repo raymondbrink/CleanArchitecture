@@ -19,8 +19,6 @@
 
     using Persistence;
 
-    using Module = Application.Company.Autofac.Module;
-
     public static class AutofacConfig
     {
         /// <summary>
@@ -70,7 +68,7 @@
             }
 
             // Register other application layer modules we need.
-            builder.RegisterModule<Module>(singleInstance);
+            builder.RegisterModule<Application.Company.Autofac.Module>(singleInstance);
             builder.RegisterModule<Application.Customer.Autofac.Module>(singleInstance);
             builder.RegisterModule<Application.Supplier.Autofac.Module>(singleInstance);
         }
