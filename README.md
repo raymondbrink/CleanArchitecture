@@ -16,6 +16,43 @@ These libraries have already been under active development for a few years and a
 Please check them out and feel free to share your thoughts and ideas by contacting me or submitting a pull request.
 
 Besides the source code you'll also find practicle [examples](examples) on how to use these libraries in Console applications, Web applications or API's.
+Here's a quick example (from the `Example.Console.CommandAdd` example project) of what your application code could look like:
+
+```csharp
+using Autofac;
+
+using Example.Application.Supplier.Commands.AddSupplier;
+using Example.Application.Supplier.Commands.AddSupplier.Models;
+
+// Build single-instance DI container.
+var builder = new ContainerBuilder();
+Example.Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
+var container = builder.Build();
+
+using (var scope = container.BeginLifetimeScope())
+{
+    // Create supplier model.
+    var supplierName = $"My Supplier ({DateTime.Now:yyyyMMddHHmmsssmmm})";
+    var supplierToAdd = new AddSupplierCommandModel
+        {
+            SupplierName = supplierName,
+            Contact =
+                {
+                    FamilyName = "Raymond",
+                    GivenName = "Brink"
+                }
+        };
+
+    // Resolve add command.
+    var addSupplierCommand = scope.Resolve<IAddSupplierCommand>();
+
+    // Execute add command.
+    var newSupplierId = await addSupplierCommand.ExecuteAsync(supplierToAdd);
+
+    Console.WriteLine($"Added: {newSupplierId}: {supplierToAdd.SupplierName}");
+    Console.WriteLine();
+}
+```
 
 Currently this repo lacks unit tests, but I consider them to be very stable and practicle in every day use.
 

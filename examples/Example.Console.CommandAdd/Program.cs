@@ -1,44 +1,33 @@
-﻿namespace Example.Console.CommandAdd;
+﻿using Autofac;
 
-using System;
-using System.Threading.Tasks;
+using Example.Application.Supplier.Commands.AddSupplier;
+using Example.Application.Supplier.Commands.AddSupplier.Models;
 
-using Application.Supplier.Commands.AddSupplier;
-using Application.Supplier.Commands.AddSupplier.Models;
+// Build single-instance DI container.
+var builder = new ContainerBuilder();
+Example.Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
+var container = builder.Build();
 
-using Autofac;
-
-class Program
+using (var scope = container.BeginLifetimeScope())
 {
-    static async Task Main(string[] args)
-    {
-        // Build single-instance DI container.
-        var builder = new ContainerBuilder();
-        Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
-        var container = builder.Build();
-
-        using (var scope = container.BeginLifetimeScope())
+    // Create supplier model.
+    var supplierName = $"My Supplier ({DateTime.Now:yyyyMMddHHmmsssmmm})";
+    var supplierToAdd = new AddSupplierCommandModel
         {
-            // Create supplier model.
-            var supplierName = $"My Supplier ({DateTime.Now:yyyyMMddHHmmsssmmm})";
-            var supplierToAdd = new AddSupplierCommandModel
+            SupplierName = supplierName,
+            Contact =
                 {
-                    SupplierName = supplierName,
-                    Contact =
-                        {
-                            FamilyName = "Raymond",
-                            GivenName = "Brink"
-                        }
-                };
+                    FamilyName = "Raymond",
+                    GivenName = "Brink"
+                }
+        };
 
-            // Resolve add command.
-            var addSupplierCommand = scope.Resolve<IAddSupplierCommand>();
+    // Resolve add command.
+    var addSupplierCommand = scope.Resolve<IAddSupplierCommand>();
 
-            // Execute add command.
-            var newSupplierId = await addSupplierCommand.ExecuteAsync(supplierToAdd);
+    // Execute add command.
+    var newSupplierId = await addSupplierCommand.ExecuteAsync(supplierToAdd);
 
-            Console.WriteLine($"Added: {newSupplierId}: {supplierToAdd.SupplierName}");
-            Console.WriteLine();
-        }
-    }
+    Console.WriteLine($"Added: {newSupplierId}: {supplierToAdd.SupplierName}");
+    Console.WriteLine();
 }
