@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 /// <summary>
 /// Entity Framework Core (6) specific implementation of <see cref="IUnitOfWork"/>.
 /// </summary>
-public class EfUnitOfWork : IUnitOfWork
+public class EfUnitOfWork : IUnitOfWork, IDisposable
 {
     /// <summary>
     /// Constructor used to create a new instance of EfUnitOfWork.
@@ -71,17 +71,6 @@ public class EfUnitOfWork : IUnitOfWork
     #endregion
 
     #region IUnitOfWork Members
-
-    /// <inheritdoc />
-    public int SaveChanges()
-    {
-        if (Context == null)
-        {
-            throw new InvalidOperationException("Context has not been initialized.");
-        }
-
-        return Context.SaveChanges();
-    }
 
     /// <inheritdoc />
     public Task<int> SaveChangesAsync()

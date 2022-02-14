@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 public interface IUnitOfWork
 {
     /// <summary>
-    /// Saves the changes.
-    /// </summary>
-    /// <returns></returns>
-    /// <exception cref="System.InvalidOperationException">Context has not been initialized.</exception>
-    int SaveChanges();
-
-    /// <summary>
     /// Saves the changes asynchronously.
     /// </summary>
     /// <returns></returns>
