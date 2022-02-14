@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
+    <ProjectReference Include="..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
   </ItemGroup>
 
 </Project>

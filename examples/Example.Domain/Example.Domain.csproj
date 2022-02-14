@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
+    <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Domain.FluentValidation\NetActive.CleanArchitecture.Domain.FluentValidation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

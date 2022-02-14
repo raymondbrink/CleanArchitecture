@@ -17,7 +17,6 @@ using NetActive.CleanArchitecture.Autofac;
 using NetActive.CleanArchitecture.Autofac.Extensions;
 using NetActive.CleanArchitecture.Domain.Interfaces;
 
-using Queries;
 using Queries.GetSupplierList;
 using Queries.GetSupplierList.Mapping;
 using Queries.GetSupplierList.Models;

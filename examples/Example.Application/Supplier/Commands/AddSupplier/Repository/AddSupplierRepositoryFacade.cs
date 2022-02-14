@@ -14,13 +14,9 @@ internal class AddSupplierRepositoryFacade : IAddSupplierRepositoryFacade
         _repo = repo;
     }
 
-    public Task<bool> SupplierExistsAsync(string name)
-    {
-        return _repo.ExistsAsync(s => s.Name.Equals(name));
-    }
+    /// <inheritdoc />
+    public Task<bool> SupplierExistsAsync(string name) => _repo.ExistsAsync(s => s.Name.Equals(name));
 
-    public void AddSupplier(Supplier supplier)
-    {
-        _repo.Add(supplier);
-    }
+    /// <inheritdoc />
+    public void AddSupplier(Supplier supplier) => _repo.Add(supplier);
 }

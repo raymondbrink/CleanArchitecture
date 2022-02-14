@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
-    <ProjectReference Include="..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,26 +1,30 @@
-﻿namespace NetActive.CleanArchitecture.Domain.Validation;
+﻿namespace NetActive.CleanArchitecture.Domain.FluentValidation;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using FluentValidation;
+using global::FluentValidation;
 
 using Interfaces;
 
 /// <summary>
-/// Base for entity validators.
-/// Override <see cref="Rules"/> to add FluentValidation rules for <see cref="T:TEntity"/>.
+/// Generic base class used to validate entities against a set of FluentValidation rules.
+/// Inherit your validator from this class and override <see cref="Rules"/> to add FluentValidation rules for <see cref="T:TEntity"/>.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public abstract class EntityValidatorBase<TEntity> : AbstractValidator<TEntity>, IEntityValidator<TEntity>
+public abstract class FluentEntityValidatorBase<TEntity> : AbstractValidator<TEntity>, IEntityValidator<TEntity>
 {
-    protected EntityValidatorBase()
+    protected FluentEntityValidatorBase()
     {
-        // ReSharper disable once VirtualMemberCallInConstructor
         Rules();
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Validates the specified entity instance asynchronously.
+    /// Throws a <see cref="ValidationException"/> if the entity is invalid.
+    /// </summary>
+    /// <param name="model">Entity to validate.</param>
+    /// <param name="data">Additional data associated with the validation request.</param>
     public async Task AssertIsValidAsync(TEntity model, IDictionary<string, object> data = null)
     {
         var validationResult = await base.ValidateAsync(getValidationContext(model, data));
@@ -30,17 +34,9 @@ public abstract class EntityValidatorBase<TEntity> : AbstractValidator<TEntity>,
         }
     }
 
-    /// <inheritdoc />
-    public void AssertIsValid(TEntity model, IDictionary<string, object> data = null)
-    {
-        var validationResult = base.Validate(getValidationContext(model, data));
-        if (!validationResult.IsValid)
-        {
-            throw new ValidationException(validationResult.Errors);
-        }
-    }
-
-    /// <inheritdoc />
+    /// <summary>
+    /// Implement this method to define the validation rules the entity will be validated against.
+    /// </summary>
     public abstract void Rules();
 
     private static ValidationContext<TEntity> getValidationContext(TEntity model, IDictionary<string, object> data)

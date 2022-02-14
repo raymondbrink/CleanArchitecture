@@ -1,9 +1,8 @@
 # Example.Console.CommandAdd
 
-This example demonstrates how to add a new entity to the database. 
-It's as simple as creating the required model of a supplier, 
+This example shows how to add a new entity to the database. 
+It's as simple as creating the required model of in this case a supplier, 
 resolving the right command from the DI container and calling the `ExecuteAsync()` method.
-
 Let's have a look at the implementation:
 
 ```csharp
@@ -29,7 +28,7 @@ public async Task<Guid> ExecuteAsync(AddSupplierCommandModel model)
     return supplier.Id;
 }
 ```
-As you can see, we first check if a supplier with the given name exists. In that case an exception is thrown.
+As you can see, we first check if a supplier with the given name already exists. In that case an exception is thrown.
 Then we use a factory to create a new instance of a supplier entity.
 Next we verify the supplier entity is valid using a validator. If not, this will generate an exception.
 Then we add the new supplier to the repository and commit our changes.
@@ -59,8 +58,6 @@ internal class SupplierFactory : ISupplierFactory
     }
 }
 ```
-Here using a factory may seem like overkill (agreed), but it's good practice in general to not instantiate (new up) classes through their constructors.
-This opens up the ability to create overrides of the factory method and maybe instantiate a different `Supplier` subclass in the future.
 
 ## Validator
 The `SupplierValidator` assures that the Supplier entity we created is valid for the database schema.
@@ -74,7 +71,7 @@ using FluentValidation;
 
 using NetActive.CleanArchitecture.Domain.Validation;
 
-public class SupplierValidator : FluentEntityValidatorBase<Supplier>
+public class SupplierValidator : EntityValidatorBase<Supplier>
 {
     public override void Rules()
     {
@@ -90,12 +87,10 @@ public class SupplierValidator : FluentEntityValidatorBase<Supplier>
     }
 }
 ```
-For validation we use our generic `FluentEntityValidatorBase<TEntity>` class, but you can easily create your own implementation of `NetActive.CleanArchitecture.Domain.Interfaces.IEntityValidator<TEntity>` with your own validation logic based on the validation library or framework you prefer.
-
 ## Repository Facade
 A respository facade wraps and therefor hides complex repository logic from the client application. 
 It provides a clean programming interface, exposing only those methods needed by this command.
-In this case it may seem like overkill (agreed again), but for more complex commands, for instance interacting with multiple repo's, this pattern becomes very useful.
+In this case it may seem like overkill (agreed), but for more complex commands, for instance interacting with multiple repo's, this pattern becomes very useful.
 
 ```csharp
 namespace Example.Application.Supplier.Commands.AddSupplier.Repository;
@@ -136,9 +131,23 @@ builder.RegisterService<IAddSupplierCommand, AddSupplierCommand>(RegisterSingleI
 builder.RegisterService<IAddSupplierRepositoryFacade, AddSupplierRepositoryFacade>(RegisterSingleInstance);
 builder.RegisterService<ISupplierFactory, SupplierFactory>(RegisterSingleInstance);
 builder.RegisterService<IEntityValidator<Supplier>, SupplierValidator>(RegisterSingleInstance);
+builder.RegisterService<IEntityQueryService<Supplier, SupplierListModel, Guid>, EntityQueryService<Supplier, SupplierListModel, Guid>>(RegisterSingleInstance)
+    .WithParameter(Constants.ServiceParameters.Mapper, SupplierMapper.Instance);
 ```
-The registrations for `IAddSupplierCommand`, `IAddSupplierRepositoryFacade` and `ISupplierFactory` are pretty straight forward.
-Finally there's a registration for the `SupplierValidator`, which is an implementation of the generic `IEntityValidator<Supplier>` interface.
+The registrations is for `IAddSupplierCommand`, `IAddSupplierRepositoryFacade` and `ISupplierFactory` are pretty straight forward.
+Then there's a registration for the `SupplierValidator`, which is a implementation of the generic `IEntityValidator<Supplier>` interface.
+
+Most interesting here is the registration of the `IEntityQueryService<Supplier, SupplierListModel, Guid>`.
+This service drastically simplifies the implementation of queries in CQRS. 
+This generic service is very powerfull and simplifies and automates a lot of things for the developer:
+
+- Provides easy understandable query parameters, supporting filtering, sorting and paging
+- Maps entities to models using AutoMapper (more on Mapping below)
+
+The first generic parameter `TEntity` defines the source entity to query. 
+The second generic parameter `TModel` defines the destination model to map the source entity to.
+
+## Mapping
 
 Happy coding!
 

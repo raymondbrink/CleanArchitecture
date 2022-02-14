@@ -4,9 +4,9 @@ using Entities;
 
 using FluentValidation;
 
-using NetActive.CleanArchitecture.Domain.Validation;
+using NetActive.CleanArchitecture.Domain.FluentValidation;
 
-public class SupplierValidator : EntityValidatorBase<Supplier>
+public class SupplierValidator : FluentEntityValidatorBase<Supplier>
 {
     public override void Rules()
     {

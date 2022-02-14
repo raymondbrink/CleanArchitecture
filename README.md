@@ -64,6 +64,7 @@ Under the hood these libraries try to apply the following principles and pattern
   - [Interface Segregation Principle](https://en.wikipedia.org/wiki/Interface_segregation_principle)
   - [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
 - [Command and Query Responsibility Segregation (CQRS)](https://martinfowler.com/bliki/CQRS.html)
+- [Facade Pattern](https://en.wikipedia.org/wiki/Facade_pattern)
 - [Repository and Unit of Work Patterns](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application)
 
 If you're a programmer and you haven't heared of these yet, please check out [Uncle Bob Martin](http://cleancoder.com/products) and [Martin Fowler](https://martinfowler.com/).
