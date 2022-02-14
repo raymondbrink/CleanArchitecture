@@ -50,12 +50,15 @@ This is where the DI "magic" happens. It ties all the layers together.
 ## Examples
 
 Please find below an overview of all examples provided.
+Each example project is separately documenten. 
+Click the links below to read about them in more detail.
 If you'd like an example to be added for a specific scenario not listed here, please let me know and I'll be more than happy to add it.
 
 ### 1. Example.Console.CommandAdd
 
 This example showcases how to add a new entity to the database. 
-
+It goes into detail on the components in play and how they all ty together.
+[Example.Console.CommandAdd](Example.Console.CommandAdd)
 
 Happy coding!
 
