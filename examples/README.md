@@ -37,15 +37,18 @@ This project deals with database design and database access.
 It contains the database context and unit of work classes.
 In this example we use Entity Developer by Devart for a model-first approach.
 [Entity Developer](https://www.devart.com/entitydeveloper/) is a database design tool, that can also generate the database context and entity classes for you.
-To top it of it can also generate SQL scripts for initial database generation, or for updates by comparing the current model with the current database schema.
-It's free to use for models with up to 10 entities, so give it a try!
+To top it off it can also generate SQL scripts for initial database generation, or for updates by comparing the current model with the current database schema.
+See [\ExampleDataModel.sql](Example.Persistence/ExampleDataModel.sql) for a SQL script generate with Entity Developer that creates the database schema used by the examples.
+
+Entity Developer is free to use for models with up to 10 entities, so give it a try!
 Other approaches for creating database models are valid too, as long as they result in a [DbContext](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbcontext?view=entity-framework-6.2.0) usable with [Entity Framework Core 6](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/).
 
 ### Example.Shared
 
 This project is just for my convinience. To not repreat ourselves I've moved configuring the DI container to a separate project.
 Basically each example project mentioned below uses the same Dependency Injection container from this project, configured with the same registered components.
-This is where the DI "magic" happens. It ties all the layers together.
+This is where the DI "magic" happens. It ties all the layers together by registering the required modules en repositories.
+It also holds a reference to the settings file and the connection string used in [\Constants\Settings.cs](Example.Shared/Constants/Settings.cs).
 
 ## Examples
 
