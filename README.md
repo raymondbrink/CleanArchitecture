@@ -65,10 +65,18 @@ Under the hood these libraries try to apply the following principles and pattern
   - [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
 - [Command and Query Responsibility Segregation (CQRS)](https://martinfowler.com/bliki/CQRS.html)
 - [Facade Pattern](https://en.wikipedia.org/wiki/Facade_pattern)
+- [Factory Method Pattern](https://en.wikipedia.org/wiki/Factory_method_pattern)
 - [Repository and Unit of Work Patterns](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application)
 
 If you're a programmer and you haven't heared of these yet, please check out [Uncle Bob Martin](http://cleancoder.com/products) and [Martin Fowler](https://martinfowler.com/).
 You might learn a thing or two ;-)
+
+Also check out these libraries as they are priceless and essential for these libraries to shine:
+
+- [Autofac](https://github.com/autofac/Autofac)
+- [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+- [FluentValidation](https://github.com/FluentValidation/FluentValidation)
+- [LINQKit](https://github.com/scottksmith95/LINQKit)
 
 Happy coding!
 
