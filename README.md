@@ -43,11 +43,8 @@ using (var scope = container.BeginLifetimeScope())
                 }
         };
 
-    // Resolve add supplier command.
-    var addSupplierCommand = scope.Resolve<IAddSupplierCommand>();
-
-    // Execute add supplier command.
-    var newSupplierId = await addSupplierCommand.ExecuteAsync(supplierToAdd);
+    // Resolve and execute add supplier command.
+    var newSupplierId = await scope.Resolve<IAddSupplierCommand>().ExecuteAsync(supplierToAdd);
 
     Console.WriteLine($"Added: {newSupplierId}: {supplierToAdd.SupplierName}");
     Console.WriteLine();
