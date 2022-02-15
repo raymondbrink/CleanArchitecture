@@ -41,10 +41,11 @@ The registration for `IGetSupplierListQuery` is pretty straight forward.
 Finally there's a registration for the `EntityQueryService<Supplier, SupplierListModel, Guid>`, which is an implementation of the generic `IEntityQueryService<Supplier, SupplierListModel, Guid>` interface.
 
 What are those types we pass to this generic service?
-Well, `Supplier` is easy, that's the entity we want to query. `SupplierListModel` is the model we want to map the entity to. It describes the details of the entity we need in our application.
+Well, `Supplier` is easy, that's the entity we want to query. `SupplierListModel` is the model we want to map the entity to. 
+It describes the details of the entity we need in our application. The query will return a list of those.
 
-Last but not least is an optional type describing the type of identifier of the entity, in this case `Guid`. 
-If omitted, by default the identifier type `long` is assumed. So whether or not you need to specify the third type parameter `TKey` depends on the type of identifier you specified when designing your entity in the datamodel.
+Last but not least is an optional type `TKey` describing the type of identifier of the entity, in this case it's a `Guid`. 
+If omitted, by default the identifier type `long` is assumed. Whether or not you need to specify the third type parameter `TKey` depends on the type of identifier you specified when designing your entity in the datamodel.
 For this to work, we must also specify the identifier type `TKey` using a generic interface `IEntityBase<TKey>` on the (base)entity we query, so in this case on `Company` (the base class of `Supplier`) we specify the identitifier (key) type like so:
 
 ```csharp
@@ -58,6 +59,7 @@ public partial class Company : IEntityBase<Guid>
 {
 }
 ```
+
 Using Entity Developer this was made easy for us, because besides the entity class itself it also generates an empty partial class that we can use to extend the entity.
 We just have to derive from `IEntityBase<Guid>` by which we specify the identifier of `Company` (and therefor also from its derived entity `Supplier`) is of type `Guid`. 
 If we wanted to use the default type `long`, we could have inherited from `IEntityBase` here (withouf specifying `TKey`).
