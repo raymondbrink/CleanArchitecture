@@ -5,7 +5,6 @@
     using Application.Interfaces.Persistence;
 
     using Autofac;
-    using Autofac.Configuration;
 
     using Domain.Entities;
 
@@ -25,7 +24,7 @@
         /// <summary>
         /// Gets the root of the application's <see cref="IConfiguration"/> hierarchy.
         /// </summary>
-        internal static IConfigurationRoot ApplicationConfiguration { get; private set; }
+        internal static IConfiguration ApplicationConfiguration { get; private set; }
 
         /// <summary>
         /// Registers components.
@@ -64,8 +63,8 @@
         {
             if (ApplicationConfiguration != null)
             {
-                // Register the ConfigurationModule with Autofac.
-                builder.RegisterModule(new ConfigurationModule(ApplicationConfiguration));
+                // Register the ApplicationConfiguration with Autofac.
+                builder.Register(_ => ApplicationConfiguration).As<IConfiguration>();
             }
 
             // Register other application layer modules we need.
