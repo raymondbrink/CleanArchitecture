@@ -23,18 +23,20 @@ internal class GetSupplierListQuery : IGetSupplierListQuery
 ```
 As you can see, there's not much to it. 
 This is because the `IEntityQueryService` that gets injected into the constructor of our query, does all the heavy lifting for us.
-We just have call the `GetItemsAsync()` method on that interface and return the result.
-To find out where this "magical" `IEntityQueryService` comes from we should look at the Supplier module.
+We just have to call the `GetItemsAsync()` method on that interface and return the result.
+To find out where this "magical" generic `IEntityQueryService` comes from we should look at the Supplier module.
 
 ## Module
-To ty all this together we need some registrations in our DI container. 
-These are the relevant supplier Module registrations:
+To make this work we need two registrations in our DI container.
+These are the relevant supplier Module registrations for this query:
+
 ```csharp
 // IGetSupplierListQuery
 builder.RegisterService<IGetSupplierListQuery, GetSupplierListQuery>(RegisterSingleInstance);
 builder.RegisterService<IEntityQueryService<Supplier, SupplierListModel, Guid>, EntityQueryService<Supplier, SupplierListModel, Guid>>(RegisterSingleInstance)
     .WithParameter(Constants.ServiceParameters.Mapper, SupplierMapper.Instance);
 ```
+
 The registration for `IGetSupplierListQuery` is pretty straight forward.
 Finally there's a registration for the `EntityQueryService<Supplier, SupplierListModel, Guid>`, which is an implementation of the generic `IEntityQueryService<Supplier, SupplierListModel, Guid>` interface.
 
