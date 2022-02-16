@@ -1,4 +1,4 @@
-﻿namespace Example.Application.Company.Queries.GetCompanyList.Models;
+﻿namespace Example.Application.Company.Queries.GetPageOfCompanies.Models;
 
 public class CompanyFilterModel
 {

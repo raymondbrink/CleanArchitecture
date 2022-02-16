@@ -13,7 +13,8 @@ internal class SupplierFactory : ISupplierFactory
                     {
                         FamilyName = contactFamilyName,
                         GivenName = contractGivenName
-                    }
+                    },
+                CreatedAtUtc = DateTime.UtcNow
             };
     }
 }

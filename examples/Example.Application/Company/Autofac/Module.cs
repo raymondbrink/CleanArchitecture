@@ -11,9 +11,9 @@ using NetActive.CleanArchitecture.Autofac.Extensions;
 
 using Queries.CompanyExists;
 using Queries.CompanyExists.Models;
-using Queries.GetCompanyList;
-using Queries.GetCompanyList.Mapping;
-using Queries.GetCompanyList.Models;
+using Queries.GetPageOfCompanies;
+using Queries.GetPageOfCompanies.Mapping;
+using Queries.GetPageOfCompanies.Models;
 
 public class Module : BaseModule
 {
@@ -25,10 +25,9 @@ public class Module : BaseModule
     /// <inheritdoc />
     protected override void Load(ContainerBuilder builder)
     {
-        // IGetCompanyListQuery
-        builder.RegisterService<IGetCompanyListQuery, GetCompanyListQuery>(RegisterSingleInstance);
-        builder
-            .RegisterService<IEntityQueryService<Company, CompanyListModel, Guid>,
+        // IGetPageOfCompaniesQuery
+        builder.RegisterService<IGetPageOfCompaniesQuery, GetPageOfCompaniesQuery>(RegisterSingleInstance);
+        builder.RegisterService<IEntityQueryService<Company, CompanyListModel, Guid>,
                 EntityQueryService<Company, CompanyListModel, Guid>>(RegisterSingleInstance)
             .WithParameter(Constants.ServiceParameters.Mapper, CompanyMapper.Instance);
 

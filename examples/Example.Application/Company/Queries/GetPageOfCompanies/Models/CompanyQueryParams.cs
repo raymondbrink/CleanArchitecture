@@ -1,4 +1,4 @@
-﻿namespace Example.Application.Company.Queries.GetCompanyList.Models;
+﻿namespace Example.Application.Company.Queries.GetPageOfCompanies.Models;
 
 using System.Linq.Expressions;
 
@@ -24,11 +24,16 @@ public class CompanyQueryParams
         return predicate;
     }
 
-    public override Expression<Func<Company, object>> GetSortingExpression()
+    public override Expression<Func<Company, object>> GetSortingExpression() => getSortExpression(SortBy);
+
+    public override Expression<Func<Company, object>> GetAdditionalSortingExpression() => getSortExpression(ThenBy);
+
+    private static Expression<Func<Company, object>> getSortExpression(CompanySortBy sortColumn)
     {
-        return SortBy switch
+        return sortColumn switch
             {
                 CompanySortBy.Id => c => c.Id,
+                CompanySortBy.CreatedAtUtc => c => c.CreatedAtUtc,
                 CompanySortBy.Name => c => c.Name,
                 _ => throw new ArgumentOutOfRangeException()
             };

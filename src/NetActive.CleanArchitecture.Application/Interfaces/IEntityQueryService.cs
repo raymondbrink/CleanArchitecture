@@ -78,11 +78,22 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
     /// </summary>
     /// <param name="pageSize">Number of items requested per page.</param>
     /// <param name="pageIndex">Zero-based page index.</param>
-    /// <param name="where">Optional filtering based on a filter function.</param>
     /// <returns>Paged query result.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
-        Expression<Func<TEntity, bool>> where = null,
+        uint pageIndex = 0,
+        uint pageSize = Constants.DefaultPageSize);
+
+    /// <summary>
+    /// Gets one page of results for the given query, sorted by entity Id ascending.
+    /// </summary>
+    /// <param name="pageSize">Number of items requested per page.</param>
+    /// <param name="pageIndex">Zero-based page index.</param>
+    /// <param name="where">Filter expression.</param>
+    /// <returns>Paged query result.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
+        Expression<Func<TEntity, bool>> where,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize);
 
@@ -93,11 +104,15 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
     /// <param name="pageIndex">Zero-based page index.</param>
     /// <param name="orderBy">Optional sorting according to a key (default: by entity Id).</param>
     /// <param name="orderDescending">Sorting direction, default value: false, meaning ASCENDING order)</param>
+    /// <param name="thenBy">Optional additional sorting according to a key (default: by entity Id).</param>
+    /// <param name="thenDescending">Sorting additional direction, default value: false, meaning ASCENDING order)</param>
     /// <returns>Paged query result.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
         Expression<Func<TEntity, object>> orderBy,
         bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize);
 
@@ -106,17 +121,29 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
     /// </summary>
     /// <param name="pageSize">Number of items requested per page.</param>
     /// <param name="pageIndex">Zero-based page index.</param>
-    /// <param name="where">Optional filtering based on a filter function.</param>
+    /// <param name="where">Optional filter expression.</param>
     /// <param name="orderBy">Optional sorting according to a key (default: by entity Id).</param>
     /// <param name="orderDescending">Sorting direction, default value: false, meaning ASCENDING order)</param>
+    /// <param name="thenBy">Optional additional sorting according to a key (default: by entity Id).</param>
+    /// <param name="thenDescending">Sorting additional direction, default value: false, meaning ASCENDING order)</param>
     /// <returns>Paged query result.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
         Expression<Func<TEntity, bool>> where,
         Expression<Func<TEntity, object>> orderBy,
         bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize);
+
+    /// <summary>
+    /// Gets one page of results for the given query.
+    /// </summary>
+    /// <param name="parameters">Filtering, sorting and paging parameters to apply.</param>
+    /// <returns>Paged query result.</returns>
+    Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync<TSortModel, TFilterModel>(
+        BasePagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new();
 
     /// <summary>
     /// Gets results for the given query, sorted by entity Id ascending.
@@ -131,10 +158,14 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
     /// </summary>
     /// <param name="orderBy">Optional sorting according to a key (default: by entity Id).</param>
     /// <param name="orderDescending">Sorting direction, default value: false, meaning ASCENDING order)</param>
+    /// <param name="thenBy">Optional additional sorting according to a key (default: by entity Id).</param>
+    /// <param name="thenDescending">Sorting additional direction, default value: false, meaning ASCENDING order)</param>
     /// <returns>List of items.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, TKey>> orderBy,
-        bool orderDescending = false);
+        bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false);
 
     /// <summary>
     /// Gets results for the given query.
@@ -142,9 +173,13 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
     /// <param name="where">Filtering based on a filter function.</param>
     /// <param name="orderBy">Optional sorting according to a key (default: by entity Id).</param>
     /// <param name="orderDescending">Sorting direction, default value: false, meaning ASCENDING order)</param>
+    /// <param name="thenBy">Optional additional sorting according to a key (default: by entity Id).</param>
+    /// <param name="thenDescending">Sorting additional direction, default value: false, meaning ASCENDING order)</param>
     /// <returns>List of items.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, bool>> where,
         Expression<Func<TEntity, object>> orderBy,
-        bool orderDescending = false);
+        bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false);
 }

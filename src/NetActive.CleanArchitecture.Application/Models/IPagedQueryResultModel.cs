@@ -6,22 +6,27 @@
 public interface IPagedQueryResultModel
 {
     /// <summary>
-    /// Gets the page index.
+    /// Gets the page requested index.
     /// </summary>
     public uint PageIndex { get; }
 
     /// <summary>
-    /// Gets the page number.
+    /// Gets the page requested number.
     /// </summary>
     public uint PageNumber { get; }
 
     /// <summary>
-    /// Gets the page size.
+    /// Returns a boolean value indicating whether there's another page of results available.
+    /// </summary>
+    bool HasNextPage();
+
+    /// <summary>
+    /// Gets the requested page size.
     /// </summary>
     public uint PageSize { get; }
 
     /// <summary>
-    /// Gets the page count.
+    /// Gets the total number of pages.
     /// </summary>
     public uint PageCount { get; }
 
@@ -29,5 +34,4 @@ public interface IPagedQueryResultModel
     /// Gets the total number of matching entities found.
     /// </summary>
     public ulong ItemCount { get; }
-
 }

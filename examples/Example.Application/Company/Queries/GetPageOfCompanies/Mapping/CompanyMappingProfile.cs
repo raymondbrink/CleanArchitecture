@@ -1,4 +1,4 @@
-﻿namespace Example.Application.Company.Queries.GetCompanyList.Mapping;
+﻿namespace Example.Application.Company.Queries.GetPageOfCompanies.Mapping;
 
 using AutoMapper;
 

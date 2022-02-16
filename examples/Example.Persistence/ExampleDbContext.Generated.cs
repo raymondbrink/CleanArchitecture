@@ -47,6 +47,7 @@ namespace Example.Persistence
                 (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
                  !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
             {
+                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CleanArch;Integrated Security=True;Persist Security Info=True");
             }
             CustomizeConfiguration(ref optionsBuilder);
             base.OnConfiguring(optionsBuilder);
@@ -145,6 +146,7 @@ namespace Example.Persistence
             modelBuilder.Entity<Company>().ToTable(@"Companies", @"dbo");
             modelBuilder.Entity<Company>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<Company>().Property(x => x.Name).HasColumnName(@"Name").IsRequired().ValueGeneratedNever().HasMaxLength(100);
+            modelBuilder.Entity<Company>().Property(x => x.CreatedAtUtc).HasColumnName(@"CreatedAtUtc").IsRequired().ValueGeneratedNever();
             modelBuilder.Entity<Company>().HasKey(@"Id");
         }
 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EntityDeveloper Version="6.12.1354.0">
-  <ModelSettings xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" ConnectionStringInAppConfig="False" TargetFramework="Net50" DetectTPTInheritance="True" EntityFrameworkCoreVersion="Version5" DetectFunctionBasedColumnDefault="True">
+  <ModelSettings xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" ConnectionStringInAppConfig="False" TargetFramework="Net60" DetectTPTInheritance="True" EntityFrameworkCoreVersion="Version6" DetectFunctionBasedColumnDefault="True">
     <Connection ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CleanArch;Integrated Security=True;Persist Security Info=True" Provider="System.Data.SqlClient" />
     <Generation>
       <GeneratedFiles>
@@ -34,7 +34,7 @@
       <Diagram Name="TestDbContextDiagram" DefaultDiagram="True" />
     </Diagrams>
     <Templates>
-      <Template Name="EF Core" Description="Use this template to generate classes for an Entity Framework Core model." Enabled="True" File=".\ExampleDataModel.EF Core.tmpl">
+      <Template Name="EF Core" Description="Use this template to generate classes for an Entity Framework Core model." Enabled="True" PredefinedTemplateName="EF Core C#">
         <ed:Property Name="ValidationFramework" Type="EntityDeveloper.TemplateEngine.ValidationFramework, EntityDeveloper.Common, Version=6.12.1354.0, Culture=neutral, PublicKeyToken=09af7300eec23701">
           <ValidationFramework>None</ValidationFramework>
         </ed:Property>
@@ -59,7 +59,7 @@
           <OutputInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
             <Project />
             <ProjectFolder />
-            <DestinationFolder>..\Example.CleanArchitecture.Domain</DestinationFolder>
+            <DestinationFolder />
           </OutputInfo>
         </ed:Property>
         <ed:Property Name="FilePerClass" Type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

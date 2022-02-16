@@ -22,7 +22,7 @@ internal class GetSupplierListQuery : IGetSupplierListQuery
 }
 ```
 As you can see, there's not much to it. 
-This is because the `IEntityQueryService` that gets injected into the constructor of our query, does all the heavy lifting for us.
+That's because the `IEntityQueryService` that gets injected into the constructor of our query, does all the heavy lifting for us.
 We just have to call the `GetItemsAsync()` method on that interface and return the result.
 To find out where this "magical" generic `IEntityQueryService` comes from we should look at the Supplier module.
 
@@ -42,11 +42,12 @@ Finally there's a registration for the `EntityQueryService<Supplier, SupplierLis
 
 What are those types we pass to this generic service?
 Well, `Supplier` is easy, that's the entity we want to query. `SupplierListModel` is the model we want to map the entity to. 
-It describes the details of the entity we need in our application. The query will return a list of those.
+It describes only those details of the supplier that we need in our application. 
+The query makes sure it only retrieves those entity details from the database and returns a list of those.
 
 Last but not least is an optional type `TKey` describing the type of identifier of the entity, in this case it's a `Guid`. 
 If omitted, by default the identifier type `long` is assumed. Whether or not you need to specify the third type parameter `TKey` depends on the type of identifier you specified when designing your entity in the datamodel.
-For this to work, we must also specify the identifier type `TKey` using a generic interface `IEntityBase<TKey>` on the (base)entity we query, so in this case on `Company` (the base class of `Supplier`) we specify the identitifier (key) type like so:
+For this to work, we must also specify the identifier type `TKey` using a generic interface `IEntityBase<TKey>` on the (base)entity we query, so in this case on `Company` (the base class of `Supplier`), like so:
 
 ```csharp
 namespace Example.Domain.Entities;
@@ -68,8 +69,8 @@ Besides the types, the `EntityQueryService` also requires a mapper instance as i
 
 ## Mapping
 The mapping from `Supplier` to `SupplierModel` is defined in a `SupplierMappingProfile`. 
-This mapping profile is then used by a singleton mapper instance, of which a singleton instance can be retrieved (lazy loaded) by calling `SupplierMapper.Instance`. 
-This static method is used in the registration above as a parameter for `EntityQueryService`.
+This mapping profile is then used by a mapper, of which a singleton instance can be retrieved (lazy loaded) by calling `SupplierMapper.Instance`. 
+This static method is used in the registration above as a constructor parameter for `EntityQueryService`.
 
 The mapping profile in this example looks like this:
 

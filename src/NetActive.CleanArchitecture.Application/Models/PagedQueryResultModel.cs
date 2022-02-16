@@ -26,6 +26,12 @@ public class PagedQueryResultModel<TModel> : IPagedQueryResultModel
     public uint PageNumber => PageIndex + 1;
 
     /// <inheritdoc />
+    public bool HasNextPage()
+    {
+        return PageIndex < PageCount - 1;
+    }
+
+    /// <inheritdoc />
     public uint PageSize { get; }
 
     /// <inheritdoc />

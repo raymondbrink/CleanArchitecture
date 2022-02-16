@@ -32,14 +32,33 @@ public interface IQueryParameters<TEntity, TKey, TSortModel, out TFilterModel>
     bool SortDescending { get; set; }
 
     /// <summary>
+    /// Additional sorting to apply (on top of SortBy).
+    /// </summary>
+    TSortModel ThenBy { get; set; }
+
+    /// <summary>
+    /// Additional sorting descending if true.
+    /// </summary>
+    bool ThenDescending { get; set; }
+
+    /// <summary>
     /// Gets the filtering expression.
+    /// Override this method to apply filtering to the query.
     /// </summary>
     /// <returns>IQueryable&lt;TEntity&gt;.</returns>
     Expression<Func<TEntity, bool>> GetFilterExpression();
 
     /// <summary>
     /// Gets the sorting expression.
+    /// Override this method to apply sorting to the query.
     /// </summary>
     /// <returns>IOrderedQueryable&lt;TEntity&gt;.</returns>
     Expression<Func<TEntity, object>> GetSortingExpression();
+
+    /// <summary>
+    /// Gets the additional sorting expression (on top of GetSortingExpression()).
+    /// Override this method to apply sorting by a second parameter to the query.
+    /// </summary>
+    /// <returns>IOrderedQueryable&lt;TEntity&gt;.</returns>
+    Expression<Func<TEntity, object>> GetAdditionalSortingExpression();
 }

@@ -32,8 +32,26 @@ public abstract class BaseQueryParameters<TEntity, TKey, TSortModel, TFilterMode
     public bool SortDescending { get; set; }
 
     /// <inheritdoc />
-    public abstract Expression<Func<TEntity, bool>> GetFilterExpression();
+    public TSortModel ThenBy { get; set; }
 
     /// <inheritdoc />
-    public abstract Expression<Func<TEntity, object>> GetSortingExpression();
+    public bool ThenDescending { get; set; }
+
+    /// <inheritdoc />
+    public virtual Expression<Func<TEntity, bool>> GetFilterExpression()
+    {
+        return null;
+    }
+
+    /// <inheritdoc />
+    public virtual Expression<Func<TEntity, object>> GetSortingExpression()
+    {
+        return null;
+    }
+
+    /// <inheritdoc />
+    public virtual Expression<Func<TEntity, object>> GetAdditionalSortingExpression()
+    {
+        return null;
+    }
 }

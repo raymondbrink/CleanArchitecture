@@ -29,6 +29,8 @@ namespace Example.Domain.Entities
 
         public virtual string Name { get; set; }
 
+        public virtual DateTime CreatedAtUtc { get; set; }
+
         #region Extensibility Method Definitions
 
         partial void OnCreated();

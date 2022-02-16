@@ -94,9 +94,15 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
         return where == null ? query.AnyAsync() : query.Where(where).AnyAsync();
     }
 
+    public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(uint pageIndex = 0,
+        uint pageSize = Constants.DefaultPageSize)
+    {
+        return GetPageOfItemsAsync(null, pageIndex, pageSize);
+    }
+
     /// <inheritdoc />
     public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
-        Expression<Func<TEntity, bool>> where = null,
+        Expression<Func<TEntity, bool>> where,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize)
     {
@@ -111,6 +117,8 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
     public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
         Expression<Func<TEntity, object>> orderBy,
         bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize)
     {
@@ -118,9 +126,27 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
             null,
             orderBy,
             orderDescending,
+            thenBy,
+            thenDescending,
             pageIndex,
             pageSize
         );
+    }
+
+    /// <inheritdoc />
+    public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync<TSortModel, TFilterModel>(
+        BasePagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new()
+    {
+        return parameters != null
+            ? GetPageOfItemsAsync(
+                parameters.GetFilterExpression(),
+                parameters.GetSortingExpression(),
+                parameters.SortDescending,
+                parameters.GetAdditionalSortingExpression(),
+                parameters.ThenDescending,
+                parameters.PageIndex,
+                parameters.PageSize ?? Constants.DefaultPageSize)
+            : GetPageOfItemsAsync();
     }
 
     /// <inheritdoc />
@@ -128,6 +154,8 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
         Expression<Func<TEntity, bool>> where,
         Expression<Func<TEntity, object>> orderBy,
         bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize)
     {
@@ -141,10 +169,9 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
 
         var itemCount = query.LongCount();
 
-        var ordered = query.OrderBy(orderBy ?? (e => e.Id), orderDescending);
+        var ordered = applySorting(query, orderBy, orderDescending, thenBy, thenDescending);
 
         var paged = ordered.GetPaged<TEntity, TKey>(pageSize, pageIndex);
-
         var pageOfItems = await paged.ProjectTo<TModel>(_mapper.ConfigurationProvider).ToListAsync();
 
         return new PagedQueryResultModel<TModel>(pageIndex, pageSize, (ulong)itemCount, pageOfItems);
@@ -159,7 +186,9 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
 
     /// <inheritdoc />
     public Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, TKey>> orderBy = null,
-        bool orderDescending = false)
+        bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false)
     {
         // By default use no filtering.
         return GetItemsAsync(null, e => e.Id);
@@ -168,20 +197,33 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
     /// <inheritdoc />
     public Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, bool>> where,
         Expression<Func<TEntity, object>> orderBy,
-        bool orderDescending = false)
+        bool orderDescending = false,
+        Expression<Func<TEntity, object>> thenBy = null,
+        bool thenDescending = false)
     {
         var query = getQuery(where);
 
-        query = orderBy != null
-            ? query.OrderBy(orderBy, orderDescending)
-            : query.OrderBy(e => e.Id);
+        var ordered = applySorting(query, orderBy, orderDescending, thenBy, thenDescending);
 
-        return query.ProjectTo<TModel>(_mapper.ConfigurationProvider).ToListAsync();
+        return ordered.ProjectTo<TModel>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
     private IQueryable<TEntity> getQuery(Expression<Func<TEntity, bool>> where = null)
     {
         var query = _repo.All();
         return where != null ? query.Where(where) : query;
+    }
+
+    private static IOrderedQueryable<TEntity> applySorting(IQueryable<TEntity> query,
+        Expression<Func<TEntity, object>> orderBy, bool orderDescending, Expression<Func<TEntity, object>> thenBy,
+        bool thenDescending)
+    {
+        var ordered = query.OrderBy(orderBy ?? (e => e.Id), orderDescending);
+        if (thenBy != null)
+        {
+            ordered = ordered.ThenBy(thenBy, thenDescending);
+        }
+
+        return ordered;
     }
 }

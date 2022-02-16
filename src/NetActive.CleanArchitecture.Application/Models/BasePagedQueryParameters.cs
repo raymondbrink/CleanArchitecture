@@ -19,7 +19,7 @@ public abstract class BasePagedQueryParameters<TEntity, TKey, TSortModel, TFilte
     where TFilterModel : new()
 {
     /// <inheritdoc />
-    public uint? PageIndex { get; set; }
+    public uint PageIndex { get; set; }
 
     /// <inheritdoc />
     public uint? PageSize { get; set; }
