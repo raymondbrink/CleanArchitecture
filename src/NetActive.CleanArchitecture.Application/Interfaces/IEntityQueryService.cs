@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 /// <typeparam name="TEntity">Type of entity to query.</typeparam>
 /// <typeparam name="TKey">Type of entity key.</typeparam>
 public interface IEntityQueryService<TEntity, TModel, TKey>
-    where TEntity : class, IEntityBase<TKey>
+    where TEntity : class, IEntity<TKey>
     where TModel : class, IModel<TKey>
     where TKey : struct
 {

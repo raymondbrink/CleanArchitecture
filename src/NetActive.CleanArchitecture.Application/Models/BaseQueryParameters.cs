@@ -7,17 +7,17 @@ using Domain.Interfaces;
 
 using Interfaces;
 
-/// <inheritdoc cref="IQueryParameters&lt;TEntity, TKey, TSortModel, TFilterModel&gt;" />
-public abstract class QueryParametersBase<TEntity, TKey, TSortModel, TFilterModel>
+/// <inheritdoc cref="IQueryParameters{TEntity, TKey, TSortModel, TFilterModel}" />
+public abstract class BaseQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
     : IQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
-    where TEntity : class, IEntityBase<TKey>
+    where TEntity : class, IEntity<TKey>
     where TKey : struct
     where TFilterModel : new()
 {
     /// <summary>
-    /// Test
+    /// Constructor.
     /// </summary>
-    protected QueryParametersBase()
+    protected BaseQueryParameters()
     {
         Filters = new TFilterModel();
     }

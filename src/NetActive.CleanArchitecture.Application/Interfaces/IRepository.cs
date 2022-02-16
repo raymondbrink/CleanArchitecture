@@ -10,7 +10,7 @@ using Domain.Interfaces;
 /// </summary>
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 public interface IRepository<TEntity> : IRepository<TEntity, long>
-    where TEntity : IEntityBase
+    where TEntity : IEntity
 {
 }
 
@@ -20,7 +20,7 @@ public interface IRepository<TEntity> : IRepository<TEntity, long>
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 /// <typeparam name="TKey">Type of entity key (default: long).</typeparam>
 public interface IRepository<TEntity, TKey>
-    where TEntity : IEntityBase<TKey>
+    where TEntity : IEntity<TKey>
     where TKey : struct
 {
     /// <summary>

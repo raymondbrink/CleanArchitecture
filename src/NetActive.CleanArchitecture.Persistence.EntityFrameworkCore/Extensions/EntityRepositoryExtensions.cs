@@ -1,4 +1,4 @@
-﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac;
+﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Extensions;
 
 using System;
 using System.Linq.Expressions;
@@ -11,7 +11,7 @@ using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Extensions for <see cref="IRepository&lt;TEntity&gt;"/> or  <see cref="IRepository&lt;TEntity, TKey&gt;"/>
+/// Extensions for <see cref="IRepository{TEntity}"/> or  <see cref="IRepository{TEntity, TKey}"/>
 /// </summary>
 public static class EntityRepositoryExtensions
 {
@@ -23,7 +23,7 @@ public static class EntityRepositoryExtensions
     /// <param name="entityId">Entity Id to match.</param>
     /// <returns>Boolean value indicating whether an entity with the given Id exists or not.</returns>
     public static Task<bool> ExistsAsync<TEntity>(this IRepository<TEntity> repository, long entityId)
-        where TEntity : class, IEntityBase
+        where TEntity : class, IEntity
     {
         return repository.ExistsAsync(e => e.Id.Equals(entityId));
     }
@@ -37,7 +37,7 @@ public static class EntityRepositoryExtensions
     /// <param name="entityId">Entity Id to match.</param>
     /// <returns>Boolean value indicating whether an entity with the given Id exists or not.</returns>
     public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository, TKey entityId)
-        where TEntity : class, IEntityBase<TKey>
+        where TEntity : class, IEntity<TKey>
         where TKey : struct
     {
         return repository.ExistsAsync(e => e.Id.Equals(entityId));
@@ -53,7 +53,7 @@ public static class EntityRepositoryExtensions
     /// <returns>Boolean value indicating whether an entity that complies with the given predicate exists or not.</returns>
     public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository,
         Expression<Func<TEntity, bool>> predicate)
-        where TEntity : class, IEntityBase<TKey>
+        where TEntity : class, IEntity<TKey>
         where TKey : struct
     {
         return repository.All().AnyAsync(predicate);

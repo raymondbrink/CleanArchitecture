@@ -10,23 +10,23 @@ using Domain.Interfaces;
 using Interfaces;
 
 /// <summary>
-/// Abstract class defining an entity based repository of type <see cref="T:TEntity"/>.
+/// Abstract base for a repository of entity type <see cref="T:TEntity"/> with key of type <see cref="T:long"/> in context <see cref="T:TDbContext"/>.
 /// </summary>
 /// <typeparam name="TDbContext">Type of IDbContext.</typeparam>
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 public abstract class BaseRepository<TDbContext, TEntity> : BaseRepository<TDbContext, TEntity, long>
-    where TEntity : class, IEntityBase where TDbContext : IDbContext
+    where TEntity : class, IEntity where TDbContext : IDbContext
 {
 }
 
 /// <summary>
-/// Abstract class defining an entity based repository of type <see cref="T:TEntity"/>.
+/// Abstract base for a repository of entity type <see cref="T:TEntity"/> with key of type <see cref="T:TKey"/> in context <see cref="T:TDbContext"/>.
 /// </summary>
 /// <typeparam name="TDbContext">Type of IDbContext.</typeparam>
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 /// <typeparam name="TKey">Type of entity key.</typeparam>
 public abstract class BaseRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
-    where TEntity : class, IEntityBase<TKey>
+    where TEntity : class, IEntity<TKey>
     where TDbContext : IDbContext
     where TKey : struct
 {

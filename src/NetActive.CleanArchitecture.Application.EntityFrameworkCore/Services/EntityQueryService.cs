@@ -22,13 +22,13 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 
 /// <summary>
-/// Base service class that can be used to query the given model's entity repository. 
+/// Service class that can be used to query the given model's entity repository. 
 /// </summary>
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 /// <typeparam name="TModel">Type of model returned.</typeparam>
 /// <typeparam name="TKey">Type of entity key.</typeparam>
 public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEntity, TModel, TKey>
-    where TEntity : class, IEntityBase<TKey>
+    where TEntity : class, IEntity<TKey>
     where TModel : class, IModel<TKey>
     where TKey : struct
 {

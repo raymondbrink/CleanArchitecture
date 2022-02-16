@@ -5,10 +5,10 @@ using System;
 using AutoMapper;
 
 /// <summary>
-/// Base for a lazy loading mapper based on a generic AutoMapper profile.
+/// Base for a lazy loading mapper adding a generic AutoMapper profile.
 /// </summary>
 /// <typeparam name="TProfile"></typeparam>
-public class BaseMapper<TProfile> where TProfile : Profile, new()
+public abstract class BaseMapper<TProfile> where TProfile : Profile, new()
 {
     private static readonly Lazy<IMapper> LazyInstance = new(createMapper);
 

@@ -8,13 +8,13 @@ using global::FluentValidation;
 using Interfaces;
 
 /// <summary>
-/// Generic base class used to validate entities against a set of FluentValidation rules.
+/// Generic abstract base used to validate entities against a set of FluentValidation rules.
 /// Inherit your validator from this class and override <see cref="Rules"/> to add FluentValidation rules for <see cref="T:TEntity"/>.
 /// </summary>
-/// <typeparam name="TEntity"></typeparam>
-public abstract class FluentEntityValidatorBase<TEntity> : AbstractValidator<TEntity>, IEntityValidator<TEntity>
+/// <typeparam name="TEntity">Type of entity.</typeparam>
+public abstract class BaseFluentEntityValidator<TEntity> : AbstractValidator<TEntity>, IEntityValidator<TEntity>
 {
-    protected FluentEntityValidatorBase()
+    protected BaseFluentEntityValidator()
     {
         Rules();
     }

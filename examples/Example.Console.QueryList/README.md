@@ -55,14 +55,14 @@ using System;
 
 using NetActive.CleanArchitecture.Domain.Interfaces;
 
-public partial class Company : IEntityBase<Guid>
+public partial class Company : IEntity<Guid>
 {
 }
 ```
 
 Using Entity Developer this was made easy for us, because besides the entity class itself it also generates an empty partial class that we can use to extend the entity.
-We just have to derive from `IEntityBase<Guid>` by which we specify the identifier of `Company` (and therefor also from its derived entity `Supplier`) is of type `Guid`. 
-If we wanted to use the default type `long`, we could have inherited from `IEntityBase` here (withouf specifying `TKey`).
+We just have to derive from `IEntity<Guid>` by which we specify the identifier of `Company` (and therefor also from its derived entity `Supplier`) is of type `Guid`. 
+If we wanted to use the default type `long`, we could have inherited from `IEntity` here (withouf specifying `TKey`).
 
 Besides the types, the `EntityQueryService` also requires a mapper instance as input, which it will use to transform each entity (`Supplier`) to the specified model (`SupplierListModel`).
 

@@ -119,7 +119,7 @@ public static class ContainerBuilderExtensions
         IRegistrationBuilder<EfRepository<TDbContext, TEntity, TKey>, ConcreteReflectionActivatorData,
             SingleRegistrationStyle>
         RegisterEfRepository<TDbContext, TEntity, TKey>(this ContainerBuilder builder, bool registerSingleInstance)
-        where TEntity : class, IEntityBase<TKey>
+        where TEntity : class, IEntity<TKey>
         where TKey : struct
         where TDbContext : DbContext, IDbContext
     {
@@ -144,7 +144,7 @@ public static class ContainerBuilderExtensions
         IRegistrationBuilder<EfArchivableRepository<TDbContext, TEntity, TKey>, ConcreteReflectionActivatorData,
             SingleRegistrationStyle>
         RegisterArchivableEfRepository<TDbContext, TEntity, TKey>(this ContainerBuilder builder, bool registerSingleInstance)
-        where TEntity : class, IEntityBase<TKey>, IArchivableEntity
+        where TEntity : class, IEntity<TKey>, IArchivableEntity
         where TKey : struct
         where TDbContext : DbContext, IDbContext
     {

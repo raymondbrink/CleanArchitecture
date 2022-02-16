@@ -74,7 +74,7 @@ using FluentValidation;
 
 using NetActive.CleanArchitecture.Domain.Validation;
 
-public class SupplierValidator : FluentEntityValidatorBase<Supplier>
+public class SupplierValidator : BaseFluentEntityValidator<Supplier>
 {
     public override void Rules()
     {
@@ -90,7 +90,7 @@ public class SupplierValidator : FluentEntityValidatorBase<Supplier>
     }
 }
 ```
-For validation we use our generic `FluentEntityValidatorBase<TEntity>` class, but you can easily create your own implementation of `NetActive.CleanArchitecture.Domain.Interfaces.IEntityValidator<TEntity>` with your own validation logic based on the validation library or framework you prefer.
+For validation we use our generic `BaseFluentEntityValidator<TEntity>` class, but you can easily create your own implementation of `NetActive.CleanArchitecture.Domain.Interfaces.IEntityValidator<TEntity>` with your own validation logic based on the validation library or framework you prefer.
 
 ## Repository Facade
 A respository facade wraps and therefor hides complex repository logic from the client application. 

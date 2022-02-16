@@ -13,7 +13,7 @@ using Domain.Interfaces;
 /// <typeparam name="TSortModel">Sorting model.</typeparam>
 /// <typeparam name="TFilterModel">Filtering model.</typeparam>
 public interface IQueryParameters<TEntity, TKey, TSortModel, out TFilterModel>
-    where TEntity : class, IEntityBase<TKey>
+    where TEntity : class, IEntity<TKey>
     where TKey : struct
 {
     /// <summary>

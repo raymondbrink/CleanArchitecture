@@ -12,12 +12,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+using LinqKit;
+
 /// <inheritdoc cref="IRepository{TEntity}" />
 public class EfRepository<TDbContext, TEntity> : EfRepository<TDbContext, TEntity, long>
-    where TEntity : class, IEntityBase
+    where TEntity : class, IEntity
     where TDbContext : DbContext, IDbContext
 {
-
     /// <inheritdoc />
     public EfRepository(TDbContext context) : base(context)
     {
@@ -25,8 +26,9 @@ public class EfRepository<TDbContext, TEntity> : EfRepository<TDbContext, TEntit
 }
 
 /// <inheritdoc cref="IRepository{TEntity, TKey}" />
-public class EfRepository<TDbContext, TEntity, TKey> : BaseRepository<TDbContext, TEntity, TKey>
-    where TEntity : class, IEntityBase<TKey>
+public class EfRepository<TDbContext, TEntity, TKey> 
+    : BaseRepository<TDbContext, TEntity, TKey>
+    where TEntity : class, IEntity<TKey>
     where TKey : struct
     where TDbContext : DbContext, IDbContext
 {
@@ -61,7 +63,7 @@ public class EfRepository<TDbContext, TEntity, TKey> : BaseRepository<TDbContext
     /// <inheritdoc />
     public override IQueryable<TEntity> All()
     {
-        return ObjectSet;
+        return ObjectSet.AsExpandable();
     }
 
     /// <inheritdoc />

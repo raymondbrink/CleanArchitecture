@@ -17,4 +17,8 @@
     <ProjectReference Include="..\NetActive.CleanArchitecture.Persistence\NetActive.CleanArchitecture.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

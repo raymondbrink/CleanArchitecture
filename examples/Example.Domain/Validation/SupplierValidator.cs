@@ -6,7 +6,7 @@ using FluentValidation;
 
 using NetActive.CleanArchitecture.Domain.FluentValidation;
 
-public class SupplierValidator : FluentEntityValidatorBase<Supplier>
+public class SupplierValidator : BaseFluentEntityValidator<Supplier>
 {
     public override void Rules()
     {

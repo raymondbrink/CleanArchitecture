@@ -4,6 +4,7 @@ using Domain.Entities;
 
 using NetActive.CleanArchitecture.Application.Interfaces;
 using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac;
+using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Extensions;
 
 internal class AddSupplierRepositoryFacade : IAddSupplierRepositoryFacade
 {

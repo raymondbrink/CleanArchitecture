@@ -11,7 +11,7 @@
     /// <typeparam name="TFilterModel">Filtering model.</typeparam>
     public interface IPagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
         : IQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
-        where TEntity : class, IEntityBase<TKey>
+        where TEntity : class, IEntity<TKey>
         where TKey : struct
     {
         /// <summary>

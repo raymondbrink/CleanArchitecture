@@ -8,9 +8,9 @@ using LinqKit;
 
 using NetActive.CleanArchitecture.Application.Models;
 
-/// <inheritdoc cref="QueryParametersBase&lt;TEntity, TKey, TSortModel, TFilterModel&gt;" />
+/// <inheritdoc cref="BaseQueryParameters{TEntity,TKey,TSortModel,TFilterModel}" />
 public class CustomerQueryParams
-    : QueryParametersBase<Customer, int, CustomerSortBy, CustomerFilterModel>
+    : BaseQueryParameters<Customer, int, CustomerSortBy, CustomerFilterModel>
 {
     public override Expression<Func<Customer, bool>> GetFilterExpression()
     {

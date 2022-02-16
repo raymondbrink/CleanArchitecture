@@ -9,7 +9,7 @@ using LinqKit;
 using NetActive.CleanArchitecture.Application.Models;
 
 public class CompanyQueryParams
-    : PagedQueryParametersBase<Company, Guid, CompanySortBy, CompanyFilterModel>
+    : BasePagedQueryParameters<Company, Guid, CompanySortBy, CompanyFilterModel>
 {
     public override Expression<Func<Company, bool>> GetFilterExpression()
     {

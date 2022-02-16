@@ -4,6 +4,6 @@ using System;
 
 using NetActive.CleanArchitecture.Domain.Interfaces;
 
-public partial class Company : IEntityBase<Guid>
+public partial class Company : IEntity<Guid>
 {
 }

@@ -7,7 +7,7 @@ using Domain.Interfaces;
 /// </summary>
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 public interface IArchivableRepository<TEntity> : IArchivableRepository<TEntity, long>
-    where TEntity : IEntityBase, IArchivableEntity
+    where TEntity : IEntity, IArchivableEntity
 {
 }
 
@@ -17,7 +17,7 @@ public interface IArchivableRepository<TEntity> : IArchivableRepository<TEntity,
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 /// <typeparam name="TKey">Type of entity key (default: long).</typeparam>
 public interface IArchivableRepository<TEntity, TKey> : IRepository<TEntity, TKey>
-    where TEntity : IEntityBase<TKey>, IArchivableEntity
+    where TEntity : IEntity<TKey>, IArchivableEntity
     where TKey : struct
 {
     /// <summary>

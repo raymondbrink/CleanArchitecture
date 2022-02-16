@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 /// <inheritdoc />
 public class EfArchivableRepository<TDbContext, TEntity> : EfArchivableRepository<TDbContext, TEntity, long>
-    where TEntity : class, IEntityBase, IArchivableEntity
+    where TEntity : class, IEntity, IArchivableEntity
     where TDbContext : DbContext, IDbContext
 {
     /// <inheritdoc />
@@ -22,10 +22,10 @@ public class EfArchivableRepository<TDbContext, TEntity> : EfArchivableRepositor
     }
 }
 
-/// <inheritdoc cref="IArchivableRepository&lt;TEntity, TKey&gt;" />
+/// <inheritdoc cref="IArchivableRepository{TEntity, TKey}" />
 public class EfArchivableRepository<TDbContext, TEntity, TKey> 
     : EfRepository<TDbContext, TEntity, TKey>, IArchivableRepository<TEntity, TKey>
-    where TEntity : class, IEntityBase<TKey>, IArchivableEntity
+    where TEntity : class, IEntity<TKey>, IArchivableEntity
     where TKey : struct
     where TDbContext : DbContext, IDbContext
 {

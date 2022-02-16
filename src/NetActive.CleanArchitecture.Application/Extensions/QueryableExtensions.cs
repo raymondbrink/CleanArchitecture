@@ -79,7 +79,7 @@ public static class QueryableExtensions
         this IOrderedQueryable<TEntity> query,
         uint pageSize,
         uint pageIndex)
-        where TEntity : class, IEntityBase<TKey>
+        where TEntity : class, IEntity<TKey>
         where TKey : struct
     {
         var itemsToSkip = pageIndex * pageSize;
