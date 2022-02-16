@@ -6,62 +6,46 @@ With some tweaking other dependency inversion frameworks can be used as well.
 ## Clear Architecture layer projects
 A few project here are examples of Clean Architecture layer projects.
 You can think of them as examples that follow some convention based guidelines.
-You need one project for each layer of the Clean Architecture model:
+You need one project for each layer of the Clean Architecture model ([more info here](SolutionStructure.md)).
 
-### Example.Application
+## Examples
 
-This project contains all query and command logic in a folder per entity.
-Under each entity folder you'll find a folder named:
-- /Autofac: Contains a module definition to be registered in DI;
-- /Commands: Contains a folder per command with some specific subfolders;
-- /Queries: Contains a folder per query with some specific subfolders.
+All example applications in this repo use the same `Example.Shared` project. 
+Besides that, please find below an overview of all example application projects provided.
+Each example project is separately documented. 
+Click the links below to read about them in more detail.
+If you'd like an example to be added for a specific scenario not listed here, please let us know and we'll be more than happy to add it.
 
-For Dependency Inversion this project also defines the interface for the unit of work it needs from the Persistence layer (see: /Interfaces/Persistence).
+### 0. Example.Shared
 
-### Example.Domain
-
-This project should contain (generated) entities and validation rules.
-Entities are generated from the datamodel using Entity Developer (see: Example.Persistence).
-Besides the entities this project contains the validation rules to be used by commands for specific entities.
-If validation rules for an entity are not met, the validators in this project will throw an exception.
-
-### Example.Infrastructure
-
-This project contains interfaces and implementations for all external resources and systems your project communicates with.
-Think of external mail services, payment services, caching or calculation logic.
-This project is empty, because there's no connection to any such service required for these examples.
-
-### Example.Persistence
-
-This project deals with database design and database access. 
-It contains the database context and unit of work classes.
-In this example we use Entity Developer by Devart for a model-first approach.
-[Entity Developer](https://www.devart.com/entitydeveloper/) is a database design tool, that can also generate the database context and entity classes for you.
-To top it off it can also generate SQL scripts for initial database generation, or for updates by comparing the current model with the current database schema.
-See [\ExampleDataModel.sql](Example.Persistence/ExampleDataModel.sql) for a SQL script generate with Entity Developer that creates the database schema used by the examples.
-
-Entity Developer is free to use for models with up to 10 entities, so give it a try!
-Other approaches for creating database models are valid too, as long as they result in a [DbContext](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbcontext?view=entity-framework-6.2.0) usable with [Entity Framework Core 6](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/).
-
-### Example.Shared
-
-This project is just for my convinience. To not repreat ourselves I've moved configuring the DI container to a separate project.
+This project is just for our convinience. To not repreat ourselves in every example application project, we've combined all DI container configuration in one separate project.
 Basically each example project mentioned below uses the same Dependency Injection container from this project, configured with the same registered components.
 This is where the DI "magic" happens. It ties all the layers together by registering the required modules en repositories.
 It also holds a reference to the settings file and the connection string used in [\Constants\Settings.cs](Example.Shared/Constants/Settings.cs).
 
-## Examples
-
-Please find below an overview of all examples provided.
-Each example project is separately documenten. 
-Click the links below to read about them in more detail.
-If you'd like an example to be added for a specific scenario not listed here, please let me know and I'll be more than happy to add it.
-
 ### 1. Example.Console.CommandAdd
 
-This example showcases how to add a new entity to the database. 
-It goes into detail on the components in play and how they all ty together.
-[Example.Console.CommandAdd](Example.Console.CommandAdd)
+This example showcases a Command example on how to add a new entity to the database. 
+It goes into detail about a typical Command structure, usage of entity factory, implementing input validation and working with a unit of work.  
+More info: [Example.Console.CommandAdd](Example.Console.CommandAdd)
+
+### 2. Example.Console.QueryExists
+
+This example showcases a Query to determine if a specific entity exists in the database. 
+It goes into detail on the components in play and how they all ty together.  
+More info: [Example.Console.CommandAdd](Example.Console.QueryExists)
+
+### 3. Example.Console.QueryList
+
+This example showcases a Query to retrieve a list of entities from the database. 
+It goes into detail on the components in play and how they all ty together.  
+More info: [Example.Console.CommandAdd](Example.Console.QueryList)
+
+### 4. Example.Console.QueryPaged
+
+This example showcases a Query to retrieve a **paged** list of entities from the database. 
+It goes into detail on the components in play, how to manipulate the query parameters and how it all ties together.  
+More info: [Example.Console.CommandAdd](Example.Console.QueryPaged)
 
 Happy coding!
 
