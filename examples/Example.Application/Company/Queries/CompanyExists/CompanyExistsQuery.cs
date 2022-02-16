@@ -6,7 +6,7 @@ using Models;
 
 using NetActive.CleanArchitecture.Application.Interfaces;
 
-public class CompanyExistsQuery : ICompanyExistsQuery
+internal class CompanyExistsQuery : ICompanyExistsQuery
 {
     private readonly IEntityQueryService<Company, CompanyExistsModel, Guid> _query;
 
