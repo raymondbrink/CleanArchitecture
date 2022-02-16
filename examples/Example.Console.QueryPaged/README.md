@@ -37,7 +37,7 @@ var pageOfCompanies = await query.ExecuteAsync(parameters);
 ```
 
 Here we specify we want a page of max 3 companies, sorted by the company's name.
-After checking of there is another page available, we can easily get the next page of companies (using the same page size and sorting parameters):
+After checking if there is another page available, we can easily get the next page of companies (using the same page size and sorting parameters):
 
 ```csharp
 if (!pageOfCompanies.HasNextPage())
