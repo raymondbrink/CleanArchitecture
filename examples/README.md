@@ -33,19 +33,19 @@ More info: [Example.Console.CommandAdd](Example.Console.CommandAdd)
 
 This example showcases a Query to determine if a specific entity exists in the database. 
 It goes into detail on the components in play and how they all ty together.  
-More info: [Example.Console.CommandAdd](Example.Console.QueryExists)
+More info: [Example.Console.QueryExists](Example.Console.QueryExists)
 
 ### 3. Example.Console.QueryList
 
 This example showcases a Query to retrieve a list of entities from the database. 
 It goes into detail on the components in play and how they all ty together.  
-More info: [Example.Console.CommandAdd](Example.Console.QueryList)
+More info: [Example.Console.QueryList](Example.Console.QueryList)
 
 ### 4. Example.Console.QueryPaged
 
 This example showcases a Query to retrieve a **paged** list of entities from the database. 
 It goes into detail on the components in play, how to manipulate the query parameters and how it all ties together.  
-More info: [Example.Console.CommandAdd](Example.Console.QueryPaged)
+More info: [Example.Console.QueryPaged](Example.Console.QueryPaged)
 
 Happy coding!
 
