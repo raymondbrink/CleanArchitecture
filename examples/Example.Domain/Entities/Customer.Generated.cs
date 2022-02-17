@@ -22,16 +22,21 @@ namespace Example.Domain.Entities
 
         public Customer()
         {
+            this.Name = new Person();
             OnCreated();
         }
 
         public virtual int Id { get; set; }
 
-        public virtual string Name { get; set; }
+        public virtual Person Name { get; set; }
+
+        public virtual Guid StoreId { get; set; }
 
         public virtual DateTime? ArchivedAtUtc { get; set; }
 
         public virtual string ArchivedBy { get; set; }
+
+        public virtual Store Store { get; set; }
 
         #region Extensibility Method Definitions
 

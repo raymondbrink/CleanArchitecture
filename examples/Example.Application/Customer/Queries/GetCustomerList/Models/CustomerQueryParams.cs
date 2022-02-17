@@ -19,7 +19,9 @@ public class CustomerQueryParams
         if (!string.IsNullOrWhiteSpace(Filters.NameContains))
         {
             // Filter by customer name.
-            predicate = predicate.And(c => c.Name.Contains(Filters.NameContains));
+            predicate = predicate.And(
+                c => c.Name.GivenName.Contains(Filters.NameContains) ||
+                     c.Name.FamilyName.Contains(Filters.NameContains));
         }
 
         // Filter by customer availability.

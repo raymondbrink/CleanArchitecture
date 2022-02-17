@@ -22,8 +22,14 @@ namespace Example.Domain.Entities
 
         public Store()
         {
+            this.Customers = new List<Customer>();
+            this.ProductRange = new List<StoreProduct>();
             OnCreated();
         }
+
+        public virtual IList<Customer> Customers { get; set; }
+
+        public virtual IList<StoreProduct> ProductRange { get; set; }
 
         #region Extensibility Method Definitions
 

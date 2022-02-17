@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-using Example.Application.Supplier.Queries.GetSupplierList;
+using Example.Application.Manufacturer.Queries.GetManufacturerList;
 
 // Build single-instance DI container.
 var builder = new ContainerBuilder();
@@ -9,11 +9,11 @@ var container = builder.Build();
 
 using (var scope = container.BeginLifetimeScope())
 {
-    // List all suppliers.
-    var suppliers = await scope.Resolve<IGetSupplierListQuery>().ExecuteAsync();
-    foreach (var supplier in suppliers)
+    // List all manufacturers.
+    var manufacturers = await scope.Resolve<IGetManufacturerListQuery>().ExecuteAsync();
+    foreach (var manufacturer in manufacturers)
     {
-        Console.WriteLine($"{supplier.Id}: {supplier.Name}");
+        Console.WriteLine($"{manufacturer.Id}: {manufacturer.Name}");
     }
 
     Console.WriteLine();

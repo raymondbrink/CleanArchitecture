@@ -70,7 +70,7 @@
             // Register other application layer modules we need.
             builder.RegisterModule<Application.Company.Autofac.Module>(singleInstance);
             builder.RegisterModule<Application.Customer.Autofac.Module>(singleInstance);
-            builder.RegisterModule<Application.Supplier.Autofac.Module>(singleInstance);
+            builder.RegisterModule<Application.Manufacturer.Autofac.Module>(singleInstance);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@
             builder.RegisterEfRepository<TDbContext, Company, Guid>(singleInstance);
             builder.RegisterEfRepository<TDbContext, Customer, int>(singleInstance);
             builder.RegisterArchivableEfRepository<TDbContext, Customer, int>(singleInstance);
-            builder.RegisterEfRepository<TDbContext, Supplier, Guid>(singleInstance);
+            builder.RegisterEfRepository<TDbContext, Manufacturer, Guid>(singleInstance);
         }
 
         /// <summary>

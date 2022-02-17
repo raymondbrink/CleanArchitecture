@@ -1,17 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Supplier\Commands\AddSupplier\Models\" />
-    <Folder Include="Supplier\Commands\AddSupplier\Repository\" />
-    <Folder Include="Supplier\Autofac\" />
-    <Folder Include="Supplier\Queries\GetSupplierList\Mapping\" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Application.EntityFrameworkCore\NetActive.CleanArchitecture.Application.EntityFrameworkCore.csproj" />

@@ -18,21 +18,18 @@ using System.Linq.Expressions;
 
 namespace Example.Domain.Entities
 {
-    public partial class Company {
+    public partial class ProductTranslation : Translation {
 
-        public Company()
+        public ProductTranslation()
         {
-            this.Employees = new List<Employee>();
             OnCreated();
         }
 
-        public virtual Guid Id { get; set; }
+        public virtual int ProductId { get; set; }
 
         public virtual string Name { get; set; }
 
-        public virtual DateTime CreatedAtUtc { get; set; }
-
-        public virtual IList<Employee> Employees { get; set; }
+        public virtual string Description { get; set; }
 
         #region Extensibility Method Definitions
 

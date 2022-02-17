@@ -21,8 +21,8 @@ Here's a quick example (from the `Example.Console.CommandAdd` example project) o
 ```csharp
 using Autofac;
 
-using Example.Application.Supplier.Commands.AddSupplier;
-using Example.Application.Supplier.Commands.AddSupplier.Models;
+using Example.Application.Manufacturer.Commands.AddManufacturer;
+using Example.Application.Manufacturer.Commands.AddManufacturer.Models;
 
 // Build single-instance DI container.
 var builder = new ContainerBuilder();
@@ -31,11 +31,11 @@ var container = builder.Build();
 
 using (var scope = container.BeginLifetimeScope())
 {
-    // Create supplier model.
-    var supplierName = $"My Supplier ({DateTime.Now:yyyyMMddHHmmsssmmm})";
-    var supplierToAdd = new AddSupplierCommandModel
+    // Create manufacturer model.
+    var manufacturerName = $"My Manufacturer ({DateTime.Now:yyyyMMddHHmmsssmmm})";
+    var manufacturerToAdd = new AddManufacturerCommandModel
         {
-            SupplierName = supplierName,
+            ManufacturerName = manufacturerName,
             Contact =
                 {
                     FamilyName = "Raymond",
@@ -43,10 +43,10 @@ using (var scope = container.BeginLifetimeScope())
                 }
         };
 
-    // Resolve and execute add supplier command.
-    var newSupplierId = await scope.Resolve<IAddSupplierCommand>().ExecuteAsync(supplierToAdd);
+    // Resolve and execute add manufacturer command.
+    var newManufacturerId = await scope.Resolve<IAddManufacturerCommand>().ExecuteAsync(manufacturerToAdd);
 
-    Console.WriteLine($"Added: {newSupplierId}: {supplierToAdd.SupplierName}");
+    Console.WriteLine($"Added: {newManufacturerId}: {manufacturerToAdd.ManufacturerName}");
     Console.WriteLine();
 }
 ```
