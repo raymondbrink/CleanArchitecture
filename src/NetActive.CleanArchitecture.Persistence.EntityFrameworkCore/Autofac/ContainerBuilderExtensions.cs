@@ -112,6 +112,23 @@ public static class ContainerBuilderExtensions
     /// </summary>
     /// <typeparam name="TDbContext">Type of DbContext to inject.</typeparam>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
+    /// <param name="builder">The builder.</param>
+    /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>
+    public static
+        IRegistrationBuilder<EfRepository<TDbContext, TEntity, long>, ConcreteReflectionActivatorData,
+            SingleRegistrationStyle> RegisterEfRepository<TDbContext, TEntity>(this ContainerBuilder builder,
+            bool registerSingleInstance)
+        where TEntity : class, IEntity
+        where TDbContext : DbContext, IDbContext
+    {
+        return builder.RegisterEfRepository<TDbContext, TEntity, long>(registerSingleInstance);
+    }
+
+    /// <summary>
+    /// Registers a repository for the given database context.
+    /// </summary>
+    /// <typeparam name="TDbContext">Type of DbContext to inject.</typeparam>
+    /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     /// <param name="builder">The builder.</param>
     /// <param name="registerSingleInstance">Boolean value indicating whether a single instance should be used instead of an instance per lifetime scope.</param>

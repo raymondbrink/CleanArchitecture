@@ -13,6 +13,17 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 /// <summary>
+/// Base service interface that can be used to query the given model's entity repository.
+/// </summary>
+/// <typeparam name="TModel">Type of model to output.</typeparam>
+/// <typeparam name="TEntity">Type of entity to query.</typeparam>
+public interface IEntityQueryService<TEntity, TModel> : IEntityQueryService<TEntity, TModel, long> 
+    where TEntity : class, IEntity<long> 
+    where TModel : class, IModel<long>
+{
+}
+
+/// <summary>
 /// Base service interface that can be used to query the given model's entity repository. 
 /// </summary>
 /// <typeparam name="TModel">Type of model to output.</typeparam>
@@ -119,6 +130,14 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
     /// <summary>
     /// Gets one page of results for the given query.
     /// </summary>
+    /// <param name="parameters">Filtering, sorting and paging parameters to apply.</param>
+    /// <returns>Paged query result.</returns>
+    Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync<TSortModel, TFilterModel>(
+        BasePagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new();
+
+    /// <summary>
+    /// Gets one page of results for the given query.
+    /// </summary>
     /// <param name="pageSize">Number of items requested per page.</param>
     /// <param name="pageIndex">Zero-based page index.</param>
     /// <param name="where">Optional filter expression.</param>
@@ -136,14 +155,6 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
         bool thenDescending = false,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize);
-
-    /// <summary>
-    /// Gets one page of results for the given query.
-    /// </summary>
-    /// <param name="parameters">Filtering, sorting and paging parameters to apply.</param>
-    /// <returns>Paged query result.</returns>
-    Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync<TSortModel, TFilterModel>(
-        BasePagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new();
 
     /// <summary>
     /// Gets results for the given query, sorted by entity Id ascending.
@@ -166,6 +177,14 @@ public interface IEntityQueryService<TEntity, TModel, TKey>
         bool orderDescending = false,
         Expression<Func<TEntity, object>> thenBy = null,
         bool thenDescending = false);
+
+    /// <summary>
+    /// Gets results for the given query.
+    /// </summary>
+    /// <param name="parameters">Filtering and sorting parameters to apply.</param>
+    /// <returns>List of items.</returns>
+    Task<List<TModel>> GetItemsAsync<TSortModel, TFilterModel>(
+        BaseQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new();
 
     /// <summary>
     /// Gets results for the given query.

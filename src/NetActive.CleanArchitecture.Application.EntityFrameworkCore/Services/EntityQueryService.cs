@@ -26,8 +26,25 @@ using Models;
 /// </summary>
 /// <typeparam name="TEntity">Type of entity.</typeparam>
 /// <typeparam name="TModel">Type of model returned.</typeparam>
+public class EntityQueryService<TEntity, TModel> 
+    : EntityQueryService<TEntity, TModel, long>, IEntityQueryService<TEntity, TModel>
+    where TEntity : class, IEntity<long>
+    where TModel : class, IModel<long>
+{
+    public EntityQueryService(IRepository<TEntity, long> repo, IMapper mapper) 
+        : base(repo, mapper)
+    {
+    }
+}
+
+/// <summary>
+/// Service class that can be used to query the given model's entity repository. 
+/// </summary>
+/// <typeparam name="TEntity">Type of entity.</typeparam>
+/// <typeparam name="TModel">Type of model returned.</typeparam>
 /// <typeparam name="TKey">Type of entity key.</typeparam>
-public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEntity, TModel, TKey>
+public class EntityQueryService<TEntity, TModel, TKey> 
+    : IEntityQueryService<TEntity, TModel, TKey>
     where TEntity : class, IEntity<TKey>
     where TModel : class, IModel<TKey>
     where TKey : struct
@@ -192,6 +209,18 @@ public class EntityQueryService<TEntity, TModel, TKey> : IEntityQueryService<TEn
     {
         // By default use no filtering.
         return GetItemsAsync(null, e => e.Id);
+    }
+
+    /// <inheritdoc />
+    public Task<List<TModel>> GetItemsAsync<TSortModel, TFilterModel>(
+        BaseQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new()
+    {
+        return parameters != null ? GetItemsAsync(
+            parameters.GetFilterExpression(),
+            parameters.GetSortingExpression(),
+            parameters.SortDescending,
+            parameters.GetAdditionalSortingExpression(),
+            parameters.ThenDescending) : GetItemsAsync(null);
     }
 
     /// <inheritdoc />

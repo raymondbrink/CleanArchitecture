@@ -71,6 +71,7 @@
             builder.RegisterModule<Application.Company.Autofac.Module>(singleInstance);
             builder.RegisterModule<Application.Customer.Autofac.Module>(singleInstance);
             builder.RegisterModule<Application.Manufacturer.Autofac.Module>(singleInstance);
+            builder.RegisterModule<Application.StoreProduct.Autofac.Module>(singleInstance);
         }
 
         /// <summary>
@@ -97,6 +98,7 @@
             builder.RegisterEfRepository<TDbContext, Customer, int>(singleInstance);
             builder.RegisterArchivableEfRepository<TDbContext, Customer, int>(singleInstance);
             builder.RegisterEfRepository<TDbContext, Manufacturer, Guid>(singleInstance);
+            builder.RegisterEfRepository<TDbContext, StoreProduct>(singleInstance);
         }
 
         /// <summary>

@@ -8,6 +8,14 @@ using Domain.Interfaces;
 using Interfaces;
 
 /// <inheritdoc cref="IQueryParameters{TEntity, TKey, TSortModel, TFilterModel}" />
+public abstract class BaseQueryParameters<TEntity, TSortModel, TFilterModel> 
+    : BaseQueryParameters<TEntity, long, TSortModel, TFilterModel>
+    where TEntity : class, IEntity
+    where TFilterModel : new()
+{
+}
+
+/// <inheritdoc cref="IQueryParameters{TEntity, TKey, TSortModel, TFilterModel}" />
 public abstract class BaseQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
     : IQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
     where TEntity : class, IEntity<TKey>

@@ -65,6 +65,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00. Documentation", "00. Do
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryExists", "..\examples\Example.Console.QueryExists\Example.Console.QueryExists.csproj", "{801D6C7B-BE9B-4E9C-B2CF-E68D76F999FD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryMultilingual", "..\examples\Example.Console.QueryMultilingual\Example.Console.QueryMultilingual.csproj", "{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,10 @@ Global
 		{801D6C7B-BE9B-4E9C-B2CF-E68D76F999FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{801D6C7B-BE9B-4E9C-B2CF-E68D76F999FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{801D6C7B-BE9B-4E9C-B2CF-E68D76F999FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,6 +168,7 @@ Global
 		{93E5C24B-0CE6-4492-A82A-67F7DA3F9499} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 		{E185B0A7-FA2B-43D0-B6F0-A48A4FF7AEB3} = {95CCACC7-31CF-4B0A-B9F0-631DC306A766}
 		{801D6C7B-BE9B-4E9C-B2CF-E68D76F999FD} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
+		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C1C43B8-0C54-412D-98FB-CED189B4D48D}

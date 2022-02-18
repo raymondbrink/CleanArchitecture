@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Linq.Expressions;
+﻿namespace Example.Domain.Entities;
 
-namespace Example.Domain.Entities
+using NetActive.CleanArchitecture.Domain.Interfaces;
+
+public partial class Translation : IEntityTranslation
 {
-
-    public partial class Translation
-    {
-    }
 }
