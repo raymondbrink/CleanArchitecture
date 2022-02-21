@@ -64,41 +64,33 @@ public class EntityQueryService<TEntity, TModel, TKey>
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    IQueryable<TEntity> IEntityQueryService<TEntity, TModel, TKey>.GetQuery() =>
-        _repo.All();
-
     IMapper IEntityQueryService<TEntity, TModel, TKey>.Mapper => _mapper;
 
     /// <inheritdoc />
-    public Task<TModel> GetAsync(TKey entityId) => GetAsync(e => e.Id.Equals(entityId));
+    public Task<TModel> GetAsync(TKey entityId, string[] includes = null) => GetAsync(e => e.Id.Equals(entityId));
 
     /// <inheritdoc />
-    public async Task<TModel> GetAsync(Expression<Func<TEntity, bool>> where)
+    public async Task<TModel> GetAsync(Expression<Func<TEntity, bool>> where, string[] includes = null)
     {
         if (where == null)
         {
             throw new ArgumentNullException(nameof(where));
         }
 
-        var query = _repo.All().Where(where);
+        var query = getQuery(where, includes);
         var result = await query.SingleOrDefaultAsync();
 
         return _mapper.Map<TModel>(result);
     }
 
     /// <inheritdoc />
-    public Task<TModel> ReadAsync(TKey entityId) => ReadAsync(e => e.Id.Equals(entityId));
+    public Task<TModel> ReadAsync(TKey entityId, string[] includes = null) => ReadAsync(e => e.Id.Equals(entityId));
 
     /// <inheritdoc />
-    public async Task<TModel> ReadAsync(Expression<Func<TEntity, bool>> where)
+    public async Task<TModel> ReadAsync(Expression<Func<TEntity, bool>> where, string[] includes = null)
     {
-        var model = await GetAsync(where);
-        if (model == null)
-        {
-            throw new EntityNotFoundException(typeof(TEntity));
-        }
-
-        return model;
+        var model = await GetAsync(where, includes);
+        return model ?? throw new EntityNotFoundException(typeof(TEntity));
     }
 
     /// <inheritdoc />
@@ -111,21 +103,25 @@ public class EntityQueryService<TEntity, TModel, TKey>
         return where == null ? query.AnyAsync() : query.Where(where).AnyAsync();
     }
 
-    public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(uint pageIndex = 0,
+    public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
+        string[] includes = null, 
+        uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize)
     {
-        return GetPageOfItemsAsync(null, pageIndex, pageSize);
+        return GetPageOfItemsAsync(null, includes, pageIndex, pageSize);
     }
 
     /// <inheritdoc />
     public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
         Expression<Func<TEntity, bool>> where,
+        string[] includes = null,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize)
     {
         return GetPageOfItemsAsync(
             where,
             null,
+            includes: includes,
             pageIndex: pageIndex,
             pageSize: pageSize);
     }
@@ -136,6 +132,7 @@ public class EntityQueryService<TEntity, TModel, TKey>
         bool orderDescending = false,
         Expression<Func<TEntity, object>> thenBy = null,
         bool thenDescending = false,
+        string[] includes = null,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize)
     {
@@ -145,6 +142,7 @@ public class EntityQueryService<TEntity, TModel, TKey>
             orderDescending,
             thenBy,
             thenDescending,
+            includes,
             pageIndex,
             pageSize
         );
@@ -161,6 +159,7 @@ public class EntityQueryService<TEntity, TModel, TKey>
                 parameters.SortDescending,
                 parameters.GetAdditionalSortingExpression(),
                 parameters.ThenDescending,
+                parameters.Includes,
                 parameters.PageIndex,
                 parameters.PageSize ?? Constants.DefaultPageSize)
             : GetPageOfItemsAsync();
@@ -172,7 +171,8 @@ public class EntityQueryService<TEntity, TModel, TKey>
         Expression<Func<TEntity, object>> orderBy,
         bool orderDescending = false,
         Expression<Func<TEntity, object>> thenBy = null,
-        bool thenDescending = false,
+        bool thenDescending = false, 
+        string[] includes = null,
         uint pageIndex = 0,
         uint pageSize = Constants.DefaultPageSize)
     {
@@ -182,7 +182,7 @@ public class EntityQueryService<TEntity, TModel, TKey>
             throw new ArgumentException("Page size should be larger than 0", nameof(pageSize));
         }
 
-        var query = getQuery(where);
+        var query = getQuery(where, includes);
 
         var itemCount = query.LongCount();
 
@@ -195,20 +195,22 @@ public class EntityQueryService<TEntity, TModel, TKey>
     }
 
     /// <inheritdoc />
-    public Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, bool>> where = null)
+    public Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, bool>> where = null,
+        string[] includes = null)
     {
         // By default sort results by id, ascending.
-        return GetItemsAsync(where, e => e.Id);
+        return GetItemsAsync(where, e => e.Id, includes: includes);
     }
 
     /// <inheritdoc />
-    public Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, TKey>> orderBy = null,
+    public Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, object>> orderBy,
         bool orderDescending = false,
         Expression<Func<TEntity, object>> thenBy = null,
-        bool thenDescending = false)
+        bool thenDescending = false,
+        string[] includes = null)
     {
         // By default use no filtering.
-        return GetItemsAsync(null, e => e.Id);
+        return GetItemsAsync(null, orderBy, orderDescending, thenBy, thenDescending, includes);
     }
 
     /// <inheritdoc />
@@ -220,7 +222,8 @@ public class EntityQueryService<TEntity, TModel, TKey>
             parameters.GetSortingExpression(),
             parameters.SortDescending,
             parameters.GetAdditionalSortingExpression(),
-            parameters.ThenDescending) : GetItemsAsync(null);
+            parameters.ThenDescending,
+            parameters.Includes) : GetItemsAsync();
     }
 
     /// <inheritdoc />
@@ -228,19 +231,26 @@ public class EntityQueryService<TEntity, TModel, TKey>
         Expression<Func<TEntity, object>> orderBy,
         bool orderDescending = false,
         Expression<Func<TEntity, object>> thenBy = null,
-        bool thenDescending = false)
+        bool thenDescending = false, 
+        string[] includes = null)
     {
-        var query = getQuery(where);
+        var query = getQuery(where, includes);
 
         var ordered = applySorting(query, orderBy, orderDescending, thenBy, thenDescending);
 
         return ordered.ProjectTo<TModel>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
-    private IQueryable<TEntity> getQuery(Expression<Func<TEntity, bool>> where = null)
+    private IQueryable<TEntity> getQuery(Expression<Func<TEntity, bool>> where, string[] includes)
     {
-        var query = _repo.All();
-        return where != null ? query.Where(where) : query;
+        var query = _repo.All(includes);
+
+        if (where != null)
+        {
+            query = query.Where(where);
+        }
+
+        return query;
     }
 
     private static IOrderedQueryable<TEntity> applySorting(IQueryable<TEntity> query,

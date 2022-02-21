@@ -46,6 +46,9 @@ public abstract class BaseQueryParameters<TEntity, TKey, TSortModel, TFilterMode
     public bool ThenDescending { get; set; }
 
     /// <inheritdoc />
+    public string[] Includes { get; set; }
+
+    /// <inheritdoc />
     public virtual Expression<Func<TEntity, bool>> GetFilterExpression()
     {
         return null;

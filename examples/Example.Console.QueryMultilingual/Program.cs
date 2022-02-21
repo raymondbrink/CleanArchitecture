@@ -16,7 +16,7 @@ using (var scope = container.BeginLifetimeScope())
         {
             SortBy = StoreProductSortBy.Status,
             ThenBy = StoreProductSortBy.ProductName
-    };
+        };
 
     var products = await scope.Resolve<IGetStoreProductListQuery>().ExecuteAsync(parameters);
 

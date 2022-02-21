@@ -67,6 +67,12 @@ namespace Example.Persistence
             set;
         }
 
+        public virtual DbSet<Manufacturer> Manufacturers
+        {
+            get;
+            set;
+        }
+
         public virtual DbSet<Company> Companies
         {
             get;
@@ -79,19 +85,13 @@ namespace Example.Persistence
             set;
         }
 
-        public virtual DbSet<Translation> Translations
-        {
-            get;
-            set;
-        }
-
         public virtual DbSet<ProductTranslation> ProductTranslations
         {
             get;
             set;
         }
 
-        public virtual DbSet<Manufacturer> Manufacturers
+        public virtual DbSet<Translation> Translations
         {
             get;
             set;
@@ -119,20 +119,20 @@ namespace Example.Persistence
             this.StoreMapping(modelBuilder);
             this.CustomizeStoreMapping(modelBuilder);
 
+            this.ManufacturerMapping(modelBuilder);
+            this.CustomizeManufacturerMapping(modelBuilder);
+
             this.CompanyMapping(modelBuilder);
             this.CustomizeCompanyMapping(modelBuilder);
 
             this.ProductMapping(modelBuilder);
             this.CustomizeProductMapping(modelBuilder);
 
-            this.TranslationMapping(modelBuilder);
-            this.CustomizeTranslationMapping(modelBuilder);
-
             this.ProductTranslationMapping(modelBuilder);
             this.CustomizeProductTranslationMapping(modelBuilder);
 
-            this.ManufacturerMapping(modelBuilder);
-            this.CustomizeManufacturerMapping(modelBuilder);
+            this.TranslationMapping(modelBuilder);
+            this.CustomizeTranslationMapping(modelBuilder);
 
             this.EmployeeMapping(modelBuilder);
             this.CustomizeEmployeeMapping(modelBuilder);
@@ -173,6 +173,19 @@ namespace Example.Persistence
 
         #endregion
 
+        #region Manufacturer Mapping
+
+        private void ManufacturerMapping(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Manufacturer>().ToTable(@"Manufacturers", @"dbo");
+            modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
+            modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
+        }
+
+        partial void CustomizeManufacturerMapping(ModelBuilder modelBuilder);
+
+        #endregion
+
         #region Company Mapping
 
         private void CompanyMapping(ModelBuilder modelBuilder)
@@ -204,20 +217,6 @@ namespace Example.Persistence
 
         #endregion
 
-        #region Translation Mapping
-
-        private void TranslationMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Translation>().ToTable(@"Translations", @"dbo");
-            modelBuilder.Entity<Translation>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Translation>().Property(x => x.Culture).HasColumnName(@"Culture").IsRequired().ValueGeneratedNever().HasMaxLength(5);
-            modelBuilder.Entity<Translation>().HasKey(@"Id");
-        }
-
-        partial void CustomizeTranslationMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
         #region ProductTranslation Mapping
 
         private void ProductTranslationMapping(ModelBuilder modelBuilder)
@@ -232,16 +231,17 @@ namespace Example.Persistence
 
         #endregion
 
-        #region Manufacturer Mapping
+        #region Translation Mapping
 
-        private void ManufacturerMapping(ModelBuilder modelBuilder)
+        private void TranslationMapping(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Manufacturer>().ToTable(@"Manufacturers", @"dbo");
-            modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
+            modelBuilder.Entity<Translation>().ToTable(@"Translations", @"dbo");
+            modelBuilder.Entity<Translation>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Translation>().Property(x => x.Culture).HasColumnName(@"Culture").IsRequired().ValueGeneratedNever().HasMaxLength(5);
+            modelBuilder.Entity<Translation>().HasKey(@"Id");
         }
 
-        partial void CustomizeManufacturerMapping(ModelBuilder modelBuilder);
+        partial void CustomizeTranslationMapping(ModelBuilder modelBuilder);
 
         #endregion
 
@@ -284,12 +284,12 @@ namespace Example.Persistence
             modelBuilder.Entity<Store>().HasMany(x => x.Customers).WithOne(op => op.Store).HasForeignKey(@"StoreId").IsRequired(true);
             modelBuilder.Entity<Store>().HasMany(x => x.ProductRange).WithOne().HasForeignKey(@"StoreId").IsRequired(true);
 
+            modelBuilder.Entity<Manufacturer>().HasMany(x => x.Products).WithOne(op => op.Manufacturer).HasForeignKey(@"ManufacturerId").IsRequired(true);
+
             modelBuilder.Entity<Company>().HasMany(x => x.Employees).WithOne(op => op.Company).HasForeignKey(@"CompanyId").IsRequired(true);
 
             modelBuilder.Entity<Product>().HasMany(x => x.Translations).WithOne().HasForeignKey(@"ProductId").IsRequired(true);
             modelBuilder.Entity<Product>().HasOne(x => x.Manufacturer).WithMany(op => op.Products).HasForeignKey(@"ManufacturerId").IsRequired(true);
-
-            modelBuilder.Entity<Manufacturer>().HasMany(x => x.Products).WithOne(op => op.Manufacturer).HasForeignKey(@"ManufacturerId").IsRequired(true);
 
             modelBuilder.Entity<Employee>().HasOne(x => x.Company).WithMany(op => op.Employees).HasForeignKey(@"CompanyId").IsRequired(true);
 

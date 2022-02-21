@@ -16,6 +16,7 @@ public class StoreProductQueryParameters
     public StoreProductQueryParameters(Guid storeId)
     {
         Filters.StoreId = storeId;
+        Includes = new[] { nameof(StoreProduct.Product) };
     }
 
     public override Expression<Func<StoreProduct, bool>> GetFilterExpression()
@@ -44,7 +45,7 @@ public class StoreProductQueryParameters
                 //StoreProductSortBy.ProductName => c => MappingExpressions.FromTranslation(t => t.Name).Invoke(c.Product.Translations),
                 StoreProductSortBy.Status => c => MappingExpressions.Status.Invoke(c),
                 StoreProductSortBy.InStock => c => c.InStock,
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(nameof(sortColumn))
             };
     }
 }

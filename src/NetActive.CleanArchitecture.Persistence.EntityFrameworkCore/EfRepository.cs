@@ -46,9 +46,9 @@ public class EfRepository<TDbContext, TEntity, TKey>
 
     /// <inheritdoc />
     /// <inheritdoc />
-    public override Task<TEntity> GetAsync(TKey entityId)
+    public override Task<TEntity> GetAsync(TKey entityId, string[] includes = null)
     {
-        return All().SingleOrDefaultAsync(c => c.Id.Equals(entityId));
+        return All(includes).SingleOrDefaultAsync(c => c.Id.Equals(entityId));
     }
 
     /// <inheritdoc />
@@ -61,9 +61,16 @@ public class EfRepository<TDbContext, TEntity, TKey>
     }
 
     /// <inheritdoc />
-    public override IQueryable<TEntity> All()
+    public override IQueryable<TEntity> All(string[] includes = null)
     {
-        return ObjectSet.AsExpandable();
+        IQueryable<TEntity> query = ObjectSet;
+
+        if (includes != null)
+        {
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        }
+
+        return query.AsExpandable();
     }
 
     /// <inheritdoc />

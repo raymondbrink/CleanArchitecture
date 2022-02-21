@@ -38,7 +38,7 @@ public static class ContainerBuilderExtensions
         var contextBuilder = new DbContextOptionsBuilder<TDbContext>();
         contextBuilder
             .UseSqlServer(connectionString)
-            .UseLazyLoadingProxies();
+            .UseLazyLoadingProxies(false);
 
         var registration = builder.RegisterType<TDbContext>()
             .WithParameter("options", contextBuilder.Options);

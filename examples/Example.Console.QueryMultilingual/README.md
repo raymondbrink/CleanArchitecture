@@ -7,7 +7,7 @@ This is what the mapping looks like:
 
 ![Mapping from Entity Model to Application Model](Resources/AdvancedMapping.png)
 
-`AutoMapper` uses convention based mapping so this simplifies things for us.
+`AutoMapper` uses convention based mapping so this simplifies things for us.  
 //TODO : For instance the solid green lines indicate directly mapped properties from `StoreProduct` to `StoreProductModel`. 
 These are handled by AutoMapper by convention.
 

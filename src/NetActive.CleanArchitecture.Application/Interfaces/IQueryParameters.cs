@@ -42,6 +42,11 @@ public interface IQueryParameters<TEntity, TKey, TSortModel, out TFilterModel>
     bool ThenDescending { get; set; }
 
     /// <summary>
+    /// An array of strings of '.' separated navigation property names to be included.
+    /// </summary>
+    string[] Includes { get; set; }
+
+    /// <summary>
     /// Gets the filtering expression.
     /// Override this method to apply filtering to the query.
     /// </summary>
