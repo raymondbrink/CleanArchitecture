@@ -18,9 +18,9 @@ using (var scope = container.BeginLifetimeScope())
             ThenBy = StoreProductSortBy.ProductName
         };
 
-    var products = await scope.Resolve<IGetStoreProductListQuery>().ExecuteAsync(parameters);
+    var productsInStore = await scope.Resolve<IGetStoreProductListQuery>().ExecuteAsync(parameters);
 
-    foreach (var product in products)
+    foreach (var product in productsInStore)
     {
         Console.Write($"{product.Id}: {product.Name} is {product.Status} (");
         Console.Write($"IsAvailable: {product.IsAvailable}");

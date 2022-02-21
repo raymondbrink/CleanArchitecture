@@ -17,17 +17,8 @@ internal class GetCustomerListQuery : IGetCustomerListQuery
     }
 
     /// <inheritdoc />
-    public Task<List<CustomerListModel>> ExecuteAsync()
+    public Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams parameters = null)
     {
-        return ExecuteAsync(new CustomerQueryParams());
-    }
-
-    /// <inheritdoc />
-    public Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams parameters)
-    {
-        return _query.GetItemsAsync(
-            parameters.GetFilterExpression(),
-            parameters.GetSortingExpression(),
-            parameters.SortDescending);
+        return _query.GetItemsAsync(parameters);
     }
 }

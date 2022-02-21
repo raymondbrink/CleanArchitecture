@@ -8,15 +8,9 @@ using Models;
 public interface IGetCustomerListQuery
 {
     /// <summary>
-    /// Executes the query and returns the first page of results.
-    /// </summary>
-    /// <returns>Page of companies.</returns>
-    Task<List<CustomerListModel>> ExecuteAsync();
-
-    /// <summary>
     /// Executes the query applying the given parameters.
     /// </summary>
-    /// <param name="parameters">Parameters to apply to the query.</param>
+    /// <param name="parameters">Optional parameters to apply to the query.</param>
     /// <returns>Page of customers.</returns>
-    Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams parameters);
+    Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams parameters = null);
 }

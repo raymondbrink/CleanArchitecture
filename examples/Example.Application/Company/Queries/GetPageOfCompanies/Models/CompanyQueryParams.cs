@@ -13,7 +13,7 @@ public class CompanyQueryParams
 {
     public override Expression<Func<Company, bool>> GetFilterExpression()
     {
-        var predicate = PredicateBuilder.New<Company>(true).DefaultExpression;
+        var predicate = PredicateBuilder.New<Company>(true);
 
         if (!string.IsNullOrWhiteSpace(Filters.NameContains))
         {

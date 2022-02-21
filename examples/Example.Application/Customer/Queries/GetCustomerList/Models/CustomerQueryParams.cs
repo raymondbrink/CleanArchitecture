@@ -14,35 +14,35 @@ public class CustomerQueryParams
 {
     public override Expression<Func<Customer, bool>> GetFilterExpression()
     {
-        var predicate = PredicateBuilder.New<Customer>(true).DefaultExpression;
+        var expression = PredicateBuilder.New<Customer>(true);
 
         if (!string.IsNullOrWhiteSpace(Filters.NameContains))
         {
             // Filter by customer name.
-            predicate = predicate.And(
+            expression = expression.And(
                 c => c.Name.GivenName.Contains(Filters.NameContains) ||
                      c.Name.FamilyName.Contains(Filters.NameContains));
         }
 
         // Filter by customer availability.
-        predicate = Filters.Availability switch
-        {
-            EntityAvailability.Archived => predicate.And(c => c.ArchivedAtUtc.HasValue),
-            EntityAvailability.NonArchived => predicate.And(c => !c.ArchivedAtUtc.HasValue),
-            _ => predicate
-        };
+        expression = Filters.Availability switch
+            {
+                EntityAvailability.Archived => expression.And(c => c.ArchivedAtUtc.HasValue),
+                EntityAvailability.NonArchived => expression.And(c => !c.ArchivedAtUtc.HasValue),
+                _ => expression
+            };
 
-        return predicate;
+        return expression;
     }
 
     public override Expression<Func<Customer, object>> GetSortingExpression()
     {
         return SortBy switch
-        {
-            CustomerSortBy.Id => c => c.Id,
-            CustomerSortBy.Name => c => c.Name,
-            CustomerSortBy.ArchivedAtUtc => c => c.ArchivedAtUtc ?? new DateTime(),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            {
+                CustomerSortBy.Id => c => c.Id,
+                CustomerSortBy.Name => c => c.Name,
+                CustomerSortBy.ArchivedAtUtc => c => c.ArchivedAtUtc ?? new DateTime(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
     }
 }
