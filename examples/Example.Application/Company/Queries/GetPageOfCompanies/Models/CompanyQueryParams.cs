@@ -15,7 +15,7 @@ public class CompanyQueryParams
     {
         var predicate = PredicateBuilder.New<Company>(true);
 
-        if (!string.IsNullOrWhiteSpace(Filters.NameContains))
+        if (!string.IsNullOrWhiteSpace(Filters?.NameContains))
         {
             // Filter by company name.
             predicate = predicate.And(c => c.Name.Contains(Filters.NameContains));

@@ -9,7 +9,7 @@
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     /// <typeparam name="TSortModel">Sorting model.</typeparam>
     /// <typeparam name="TFilterModel">Filtering model.</typeparam>
-    public interface IPagedQueryParameters<TEntity, TKey, TSortModel, out TFilterModel>
+    public interface IPagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
         : IQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
         where TEntity : class, IEntity<TKey>
         where TKey : struct

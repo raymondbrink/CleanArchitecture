@@ -31,7 +31,7 @@ public abstract class BaseQueryParameters<TEntity, TKey, TSortModel, TFilterMode
     }
 
     /// <inheritdoc />
-    public TFilterModel Filters { get; }
+    public TFilterModel Filters { get; set; }
 
     /// <inheritdoc />
     public TSortModel SortBy { get; set; }

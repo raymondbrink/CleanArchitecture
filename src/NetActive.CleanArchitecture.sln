@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryExists
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryMultilingual", "..\examples\Example.Console.QueryMultilingual\Example.Console.QueryMultilingual.csproj", "{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Web.API", "Example.Web.API\Example.Web.API.csproj", "{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +175,7 @@ Global
 		{E185B0A7-FA2B-43D0-B6F0-A48A4FF7AEB3} = {95CCACC7-31CF-4B0A-B9F0-631DC306A766}
 		{801D6C7B-BE9B-4E9C-B2CF-E68D76F999FD} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
+		{F3D1FADD-16F1-4EEC-A519-DFFE20F24113} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C1C43B8-0C54-412D-98FB-CED189B4D48D}

@@ -12,14 +12,14 @@ using Domain.Interfaces;
 /// <typeparam name="TKey">Type of entity key.</typeparam>
 /// <typeparam name="TSortModel">Sorting model.</typeparam>
 /// <typeparam name="TFilterModel">Filtering model.</typeparam>
-public interface IQueryParameters<TEntity, TKey, TSortModel, out TFilterModel>
+public interface IQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
     where TEntity : class, IEntity<TKey>
     where TKey : struct
 {
     /// <summary>
     /// Filtering to apply.
     /// </summary>
-    TFilterModel Filters { get; }
+    TFilterModel Filters { get; set; }
 
     /// <summary>
     /// Sorting to apply.

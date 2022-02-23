@@ -6,9 +6,9 @@ using Domain.Entities;
 
 using Models;
 
-internal class CompanyMappingProfile : Profile
+internal class CompanyListMappingProfile : Profile
 {
-    public CompanyMappingProfile()
+    public CompanyListMappingProfile()
     {
         CreateMap<Company, CompanyListModel>();
     }
