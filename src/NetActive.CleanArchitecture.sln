@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryExists
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryMultilingual", "..\examples\Example.Console.QueryMultilingual\Example.Console.QueryMultilingual.csproj", "{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Web.API", "Example.Web.API\Example.Web.API.csproj", "{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Web.API", "..\examples\Example.Web.API\Example.Web.API.csproj", "{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
