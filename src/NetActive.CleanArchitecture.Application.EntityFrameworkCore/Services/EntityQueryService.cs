@@ -159,7 +159,7 @@ public class EntityQueryService<TEntity, TModel, TKey>
                 parameters.SortDescending,
                 parameters.GetAdditionalSortingExpression(),
                 parameters.ThenDescending,
-                parameters.Includes,
+                parameters.GetIncludes(),
                 parameters.PageIndex,
                 parameters.PageSize ?? Constants.DefaultPageSize)
             : GetPageOfItemsAsync();
@@ -223,7 +223,7 @@ public class EntityQueryService<TEntity, TModel, TKey>
             parameters.SortDescending,
             parameters.GetAdditionalSortingExpression(),
             parameters.ThenDescending,
-            parameters.Includes) : GetItemsAsync();
+            parameters.GetIncludes()) : GetItemsAsync();
     }
 
     /// <inheritdoc />

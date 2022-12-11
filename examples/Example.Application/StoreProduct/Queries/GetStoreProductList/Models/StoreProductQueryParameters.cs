@@ -16,7 +16,7 @@ public class StoreProductQueryParameters
     public StoreProductQueryParameters(Guid storeId)
     {
         Filters.StoreId = storeId;
-        Includes = new[] { nameof(StoreProduct.Product) };
+        AddInclude(nameof(StoreProduct.Product));
     }
 
     public override Expression<Func<StoreProduct, bool>> GetFilterExpression()

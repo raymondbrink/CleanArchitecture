@@ -1,6 +1,8 @@
 ﻿namespace NetActive.CleanArchitecture.Application.Models;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 using Domain.Interfaces;
@@ -8,7 +10,7 @@ using Domain.Interfaces;
 using Interfaces;
 
 /// <inheritdoc cref="IQueryParameters{TEntity, TKey, TSortModel, TFilterModel}" />
-public abstract class BaseQueryParameters<TEntity, TSortModel, TFilterModel> 
+public abstract class BaseQueryParameters<TEntity, TSortModel, TFilterModel>
     : BaseQueryParameters<TEntity, long, TSortModel, TFilterModel>
     where TEntity : class, IEntity
     where TFilterModel : new()
@@ -22,12 +24,15 @@ public abstract class BaseQueryParameters<TEntity, TKey, TSortModel, TFilterMode
     where TKey : struct
     where TFilterModel : new()
 {
+    private readonly List<string> _includes;
+
     /// <summary>
     /// Constructor.
     /// </summary>
     protected BaseQueryParameters()
     {
         Filters = new TFilterModel();
+        _includes = new List<string>();
     }
 
     /// <inheritdoc />
@@ -46,7 +51,16 @@ public abstract class BaseQueryParameters<TEntity, TKey, TSortModel, TFilterMode
     public bool ThenDescending { get; set; }
 
     /// <inheritdoc />
-    public string[] Includes { get; set; }
+    public void AddInclude(string include)
+    {
+        _includes.Add(include);
+    }
+
+    /// <inheritdoc />
+    public string[] GetIncludes()
+    {
+        return _includes.Any() ? _includes.ToArray() : null;
+    }
 
     /// <inheritdoc />
     public virtual Expression<Func<TEntity, bool>> GetFilterExpression()

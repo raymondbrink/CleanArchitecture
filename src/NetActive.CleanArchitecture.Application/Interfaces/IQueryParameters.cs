@@ -42,9 +42,15 @@ public interface IQueryParameters<TEntity, TKey, TSortModel, TFilterModel>
     bool ThenDescending { get; set; }
 
     /// <summary>
-    /// An array of strings of '.' separated navigation property names to be included.
+    /// Adds the given '.' separated navigation property name to the list of includes.
     /// </summary>
-    string[] Includes { get; set; }
+    /// <param name="include">'.' separated navigation property name.</param>
+    void AddInclude(string include);
+
+    /// <summary>
+    /// Returns an array of strings of '.' separated navigation property names to be included.
+    /// </summary>
+    string[] GetIncludes();
 
     /// <summary>
     /// Gets the filtering expression.
