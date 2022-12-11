@@ -11,5 +11,5 @@ public interface IGetPageOfCompaniesQuery
     /// </summary>
     /// <param name="parameters">Parameters to apply to the query.</param>
     /// <returns>Page of companies.</returns>
-    Task<PagedQueryResultModel<CompanyListModel>> ExecuteAsync(CompanyQueryParams parameters = null);
+    Task<PagedQueryResultModel<CompanyListModel>> ExecuteAsync(CompanyQueryParams? parameters = null);
 }

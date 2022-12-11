@@ -33,16 +33,16 @@ public abstract class BaseRepository<TDbContext, TEntity, TKey> : IRepository<TE
     /// <summary>
     /// Gets a reference to the DbContext used by this repository.
     /// </summary>
-    protected TDbContext Context { get; set; }
+    protected TDbContext? Context { get; set; }
 
     /// <inheritdoc />
-    public abstract Task<TEntity> GetAsync(TKey entityId, string[] includes = null);
+    public abstract Task<TEntity> GetAsync(TKey entityId, string[]? includes = null);
 
     /// <inheritdoc />
     public abstract TEntity Create();
 
     /// <inheritdoc />
-    public abstract IQueryable<TEntity> All(string[] includes = null);
+    public abstract IQueryable<TEntity> All(string[]? includes = null);
 
     /// <inheritdoc />
     public abstract void Add(TEntity entity);

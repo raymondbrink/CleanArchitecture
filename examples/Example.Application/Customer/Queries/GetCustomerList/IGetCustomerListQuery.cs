@@ -12,5 +12,5 @@ public interface IGetCustomerListQuery
     /// </summary>
     /// <param name="parameters">Optional parameters to apply to the query.</param>
     /// <returns>Page of customers.</returns>
-    Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams parameters = null);
+    Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams? parameters = null);
 }

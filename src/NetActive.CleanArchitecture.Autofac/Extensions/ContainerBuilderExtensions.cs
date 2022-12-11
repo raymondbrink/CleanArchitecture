@@ -9,6 +9,8 @@ using global::Autofac.Builder;
 using global::Autofac.Core;
 using global::Autofac.Core.Registration;
 
+using Autofac.Exceptions;
+
 public static class ContainerBuilderExtensions
 {
     /// <summary>
@@ -45,7 +47,7 @@ public static class ContainerBuilderExtensions
     public static IModuleRegistrar RegisterModule<TModule>(
         this ContainerBuilder builder,
         bool registerSingleInstance,
-        IDictionary<string, object> serviceParams = null)
+        IDictionary<string, object>? serviceParams = null)
         where TModule : BaseModule
     {
         return registerModuleWithDependencies(builder, typeof(TModule), registerSingleInstance, serviceParams);
@@ -66,7 +68,7 @@ public static class ContainerBuilderExtensions
         this ContainerBuilder builder,
         Type moduleType,
         bool registerSingleInstance,
-        IDictionary<string, object> serviceParams)
+        IDictionary<string, object>? serviceParams)
     {
         if (!typeof(BaseModule).IsAssignableFrom(moduleType))
         {
@@ -87,7 +89,11 @@ public static class ContainerBuilderExtensions
 
         // Register the module itself.
         var arguments = serviceParams != null ? new object[] { serviceParams, registerSingleInstance } : new object[] { registerSingleInstance };
-        var instance = Activator.CreateInstance(moduleType, arguments) as IModule;
+
+        if (Activator.CreateInstance(moduleType, arguments) is not IModule instance)
+        {
+            throw new UnableToCreateInstanceOfTypeException(moduleType.Name);
+        }
 
         return builder.RegisterModule(instance);
     }

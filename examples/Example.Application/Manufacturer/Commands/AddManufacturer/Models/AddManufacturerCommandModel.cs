@@ -2,8 +2,9 @@
 
 public class AddManufacturerCommandModel
 {
-    public AddManufacturerCommandModel()
+    public AddManufacturerCommandModel(string manufacturerName)
     {
+        ManufacturerName = manufacturerName;
         Contact = new ManufacturerContactModel();
     }
 

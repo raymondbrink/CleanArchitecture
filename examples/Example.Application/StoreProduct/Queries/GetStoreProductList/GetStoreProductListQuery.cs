@@ -15,7 +15,7 @@ internal class GetStoreProductListQuery : IGetStoreProductListQuery
         _query = query;
     }
 
-    public Task<List<StoreProductListModel>> ExecuteAsync(StoreProductQueryParameters parameters = null)
+    public Task<List<StoreProductListModel>> ExecuteAsync(StoreProductQueryParameters? parameters = null)
     {
         return _query.GetItemsAsync(parameters);
     }

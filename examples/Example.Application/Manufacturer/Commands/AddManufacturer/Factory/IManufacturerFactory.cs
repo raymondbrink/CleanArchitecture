@@ -11,5 +11,5 @@ internal interface IManufacturerFactory
     /// <param name="contactFamilyName">Family name of the contact (optional).</param>
     /// <param name="contractGivenName">Given name of the contact (optional).</param>
     /// <returns>Manufacturer.</returns>
-    Manufacturer Create(string name, string contactFamilyName = null, string contractGivenName = null);
+    Manufacturer Create(string name, string? contactFamilyName = null, string? contractGivenName = null);
 }

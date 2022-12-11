@@ -32,9 +32,11 @@ internal static class MappingExpressions
             var cultureName = Thread.CurrentThread.CurrentCulture.Name;
             var languageName = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return s => s.Product.Translations.FirstOrDefault(e => matchesCulture(cultureName).Invoke(e)).Name ??
                         s.Product.Translations.FirstOrDefault(e => matchesCulture(languageName).Invoke(e)).Name ??
                         s.Product.Translations.FirstOrDefault().Name;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
     }
 

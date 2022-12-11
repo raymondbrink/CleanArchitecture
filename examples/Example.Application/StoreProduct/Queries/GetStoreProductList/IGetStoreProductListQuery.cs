@@ -4,5 +4,5 @@ using Models;
 
 public interface IGetStoreProductListQuery
 {
-    Task<List<StoreProductListModel>> ExecuteAsync(StoreProductQueryParameters parameters = null);
+    Task<List<StoreProductListModel>> ExecuteAsync(StoreProductQueryParameters? parameters = null);
 }

@@ -24,7 +24,7 @@
         /// <summary>
         /// Gets the root of the application's <see cref="IConfiguration"/> hierarchy.
         /// </summary>
-        internal static IConfiguration ApplicationConfiguration { get; private set; }
+        internal static IConfiguration? ApplicationConfiguration { get; private set; }
 
         /// <summary>
         /// Registers components.

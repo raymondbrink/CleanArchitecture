@@ -12,13 +12,12 @@ using (var scope = container.BeginLifetimeScope())
 {
     // Create manufacturer model.
     var manufacturerName = $"My Manufacturer ({DateTime.Now:yyyyMMddHHmmsssmmm})";
-    var manufacturerToAdd = new AddManufacturerCommandModel
+    var manufacturerToAdd = new AddManufacturerCommandModel(manufacturerName)
         {
-            ManufacturerName = manufacturerName,
             Contact =
                 {
-                    FamilyName = "Raymond",
-                    GivenName = "Brink"
+                    FamilyName = "Brink",
+                    GivenName = "Raymond" // Optional
                 }
         };
 

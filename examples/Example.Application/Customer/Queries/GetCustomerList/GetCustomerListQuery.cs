@@ -17,7 +17,7 @@ internal class GetCustomerListQuery : IGetCustomerListQuery
     }
 
     /// <inheritdoc />
-    public Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams parameters = null)
+    public Task<List<CustomerListModel>> ExecuteAsync(CustomerQueryParams? parameters = null)
     {
         return _query.GetItemsAsync(parameters);
     }

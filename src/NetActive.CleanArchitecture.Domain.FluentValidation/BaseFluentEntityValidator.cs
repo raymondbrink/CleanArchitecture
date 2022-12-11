@@ -25,7 +25,7 @@ public abstract class BaseFluentEntityValidator<TEntity> : AbstractValidator<TEn
     /// </summary>
     /// <param name="model">Entity to validate.</param>
     /// <param name="data">Additional data associated with the validation request.</param>
-    public async Task AssertIsValidAsync(TEntity model, IDictionary<string, object> data = null)
+    public async Task AssertIsValidAsync(TEntity model, IDictionary<string, object>? data = null)
     {
         var validationResult = await base.ValidateAsync(getValidationContext(model, data));
         if (!validationResult.IsValid)
@@ -39,7 +39,7 @@ public abstract class BaseFluentEntityValidator<TEntity> : AbstractValidator<TEn
     /// </summary>
     public abstract void Rules();
 
-    private static ValidationContext<TEntity> getValidationContext(TEntity model, IDictionary<string, object> data)
+    private static ValidationContext<TEntity> getValidationContext(TEntity model, IDictionary<string, object>? data)
     {
         var validationContext = new ValidationContext<TEntity>(model);
         if (data != null)

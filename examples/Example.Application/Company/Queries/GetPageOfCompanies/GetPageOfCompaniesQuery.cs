@@ -17,7 +17,7 @@ internal class GetPageOfCompaniesQuery : IGetPageOfCompaniesQuery
     }
 
     /// <inheritdoc />
-    public Task<PagedQueryResultModel<CompanyListModel>> ExecuteAsync(CompanyQueryParams parameters = null)
+    public Task<PagedQueryResultModel<CompanyListModel>> ExecuteAsync(CompanyQueryParams? parameters = null)
     {
         return _query.GetPageOfItemsAsync(parameters);
     }

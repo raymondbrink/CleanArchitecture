@@ -4,7 +4,7 @@ using Domain.Entities;
 
 internal class ManufacturerFactory : IManufacturerFactory
 {
-    public Manufacturer Create(string name, string contactFamilyName = null, string contractGivenName = null)
+    public Manufacturer Create(string name, string? contactFamilyName = null, string? contractGivenName = null)
     {
         return new Manufacturer
             {

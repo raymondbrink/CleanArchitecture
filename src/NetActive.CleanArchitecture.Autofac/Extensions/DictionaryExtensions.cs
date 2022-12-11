@@ -22,13 +22,13 @@ public static class DictionaryExtensions
         this IDictionary<string, object> registrationParams,
         string paramName,
         bool canBeNull = true,
-        object defaultValue = null)
+        object? defaultValue = null)
     {
         var paramValue = registrationParams.GetParameterValue(paramName) ?? defaultValue;
 
         assertParamValue(paramName, paramValue, canBeNull);
 
-        return new NamedParameter(paramName, paramValue);
+        return new NamedParameter(paramName, paramValue!);
     }
 
     /// <summary>
@@ -38,12 +38,12 @@ public static class DictionaryExtensions
     /// <param name="paramName">Name of the parameter to return.</param>
     /// <param name="canBeNull">if set to <c>true</c> setting can be null.</param>
     /// <returns>Parameter value object.</returns>
-    public static object GetParameterValue(
+    public static object? GetParameterValue(
         this IDictionary<string, object> registrationParams,
         string paramName,
         bool canBeNull = true)
     {
-        object paramValue = null;
+        object? paramValue = null;
         registrationParams?.TryGetValue(paramName, out paramValue);
 
         assertParamValue(paramName, paramValue, canBeNull);
@@ -51,7 +51,7 @@ public static class DictionaryExtensions
         return paramValue;
     }
 
-    private static void assertParamValue(string paramName, object paramValue, bool canBeNull)
+    private static void assertParamValue(string paramName, object? paramValue, bool canBeNull)
     {
         if (!canBeNull && (paramValue == null || string.IsNullOrWhiteSpace(paramValue.ToString())))
         {
