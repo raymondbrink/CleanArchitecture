@@ -67,7 +67,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryExists
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Console.QueryMultilingual", "..\examples\Example.Console.QueryMultilingual\Example.Console.QueryMultilingual.csproj", "{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Web.API", "..\examples\Example.Web.API\Example.Web.API.csproj", "{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Web.API", "..\examples\Example.Web.API\Example.Web.API.csproj", "{F3D1FADD-16F1-4EEC-A519-DFFE20F24113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{D0C19308-A5A5-4123-84E0-C5505D439087}"
+	ProjectSection(SolutionItems) = preProject
+		.build\pack.bat = .build\pack.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,6 +181,7 @@ Global
 		{801D6C7B-BE9B-4E9C-B2CF-E68D76F999FD} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 		{5AAF507C-1016-48AD-8BBF-99BA33F8A9D8} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 		{F3D1FADD-16F1-4EEC-A519-DFFE20F24113} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
+		{D0C19308-A5A5-4123-84E0-C5505D439087} = {0E17773C-BBCA-43FA-970F-B5754A8DBF8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C1C43B8-0C54-412D-98FB-CED189B4D48D}

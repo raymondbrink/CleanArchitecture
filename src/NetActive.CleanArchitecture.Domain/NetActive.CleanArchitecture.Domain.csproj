@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net6</TargetFramework>
+	<PackageId>NetActive.CleanArchitecture.Domain</PackageId>
+	<Description>Provides domain related interfaces.</Description>
+	<Authors>R. Brink</Authors>
+	<Company>Net@ctive</Company>
+	<Copyright>Copyright Net@ctive 2022</Copyright>
   </PropertyGroup>
 
 </Project>

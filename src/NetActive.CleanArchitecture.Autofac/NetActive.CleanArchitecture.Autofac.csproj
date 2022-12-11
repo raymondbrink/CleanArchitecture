@@ -1,13 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<PackageId>NetActive.CleanArchitecture.Autofac</PackageId>
+		<Description>Adds AutoFac module support</Description>
+		<Authors>R. Brink</Authors>
+		<Company>Net@ctive</Company>
+		<Copyright>Copyright Net@ctive 2022</Copyright>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.3.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="6.3.0" />
+	</ItemGroup>
 
 </Project>

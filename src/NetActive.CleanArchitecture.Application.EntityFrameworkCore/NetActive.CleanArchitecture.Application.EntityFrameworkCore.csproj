@@ -1,17 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<PackageId>NetActive.CleanArchitecture.Application.EntityFrameworkCore</PackageId>
+		<Description>Handles command and query construction and execution for Entity Framework Core</Description>
+		<Authors>R. Brink</Authors>
+		<Company>Net@ctive</Company>
+		<Copyright>Copyright Net@ctive 2022</Copyright>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
+	</ItemGroup>
 
 </Project>

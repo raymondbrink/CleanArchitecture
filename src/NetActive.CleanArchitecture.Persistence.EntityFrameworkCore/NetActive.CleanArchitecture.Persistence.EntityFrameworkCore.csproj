@@ -4,6 +4,11 @@
 	  <TargetFramework>net6</TargetFramework>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	  <DocumentationFile>bin\Debug\net6\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.xml</DocumentationFile>
+	  <PackageId>NetActive.CleanArchitecture.Persistence.EntityFrameworkCore</PackageId>
+	  <Description>Handles data access and persistence for Entity Framework Core</Description>
+	  <Authors>R. Brink</Authors>
+	  <Company>Net@ctive</Company>
+	  <Copyright>Copyright Net@ctive 2022</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,6 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <PackageId>NetActive.CleanArchitecture.Persistence</PackageId>
+	<Description>Handles generic data access and persistence</Description>
+    <Authors>R. Brink</Authors>
+    <Company>Net@ctive</Company>
+	<Copyright>Copyright Net@ctive 2022</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

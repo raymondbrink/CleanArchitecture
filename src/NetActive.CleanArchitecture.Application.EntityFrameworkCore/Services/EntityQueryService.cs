@@ -99,8 +99,7 @@ public class EntityQueryService<TEntity, TModel, TKey>
     /// <inheritdoc />
     public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where = null)
     {
-        var query = _repo.All();
-        return where == null ? query.AnyAsync() : query.Where(where).AnyAsync();
+        return getQuery(where).AnyAsync();
     }
 
     public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
@@ -241,9 +240,9 @@ public class EntityQueryService<TEntity, TModel, TKey>
         return ordered.ProjectTo<TModel>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
-    private IQueryable<TEntity> getQuery(Expression<Func<TEntity, bool>> where, string[] includes)
+    private IQueryable<TEntity> getQuery(Expression<Func<TEntity, bool>> where, string[] includes = null)
     {
-        var query = _repo.All(includes);
+        var query = _repo.All(includes).AsNoTracking();
 
         if (where != null)
         {
