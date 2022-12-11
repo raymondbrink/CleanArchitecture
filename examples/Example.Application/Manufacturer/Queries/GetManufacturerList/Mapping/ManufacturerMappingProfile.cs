@@ -15,5 +15,6 @@ internal class ManufacturerMappingProfile : Profile
         CreateMap<Company, CompanyListModel>();
         CreateMap<Manufacturer, ManufacturerListModel>()
             .IncludeBase<Company, CompanyListModel>();
+        CreateMap<Person, PersonModel>();
     }
 }
