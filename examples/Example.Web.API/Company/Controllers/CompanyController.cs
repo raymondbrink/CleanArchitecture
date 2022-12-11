@@ -21,15 +21,18 @@
             _getPagedQuery = getPagedQuery;
         }
 
-        [HttpGet(Name = "GetCompany")]
+        [HttpGet("{id}", Name = "GetCompany")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
             var company = await _getOneQuery.ExecuteAsync(id);
             return company == null ? NotFound(id) : Ok(company);
         }
 
-        [HttpPost(Name = "GetPagedCompanies")]
-        public async Task<PagedQueryResultModel<CompanyListModel>> GetAsync(CompanyQueryParams parameters = null) =>
-            await _getPagedQuery.ExecuteAsync(parameters);
+        [HttpGet(Name = "GetPagedCompanies")]
+        public async Task<PagedQueryResultModel<CompanyListModel>> GetAsync(
+            [FromQuery] CompanyQueryParams parameters)
+        {
+            return await _getPagedQuery.ExecuteAsync(parameters);
+        }
     }
 }
