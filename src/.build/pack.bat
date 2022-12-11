@@ -1,6 +1,6 @@
 @ECHO OFF
 SET outputFolder=..\.packed
-SET version=6.0.0
+SET version=6.0.1
 SET nugetSource=http://nuget.home.rbrink.nl/nuget
 
 ECHO.
