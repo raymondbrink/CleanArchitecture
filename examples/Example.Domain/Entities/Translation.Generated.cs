@@ -16,24 +16,22 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Example.Domain.Entities
-{
-    public partial class Translation {
+namespace Example.Domain.Entities;
 
-        public Translation()
-        {
-            OnCreated();
-        }
+public partial class Translation {
 
-        public virtual int Id { get; set; }
-
-        public virtual string Culture { get; set; }
-
-        #region Extensibility Method Definitions
-
-        partial void OnCreated();
-
-        #endregion
+    public Translation()
+    {
+        OnCreated();
     }
 
+    public virtual int Id { get; set; }
+
+    public virtual string Culture { get; set; }
+
+    #region Extensibility Method Definitions
+
+    partial void OnCreated();
+
+    #endregion
 }

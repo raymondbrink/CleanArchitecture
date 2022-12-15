@@ -23,286 +23,285 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Example.Domain.Entities;
 
-namespace Example.Persistence
+namespace Example.Persistence;
+
+
+public partial class ExampleDbContext : DbContext
 {
 
-    public partial class ExampleDbContext : DbContext
+    public ExampleDbContext() :
+        base()
     {
-
-        public ExampleDbContext() :
-            base()
-        {
-            OnCreated();
-        }
-
-        public ExampleDbContext(DbContextOptions<ExampleDbContext> options) :
-            base(options)
-        {
-            OnCreated();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured ||
-                (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
-                 !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
-            {
-                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CleanArch;Integrated Security=True;Persist Security Info=True");
-            }
-            CustomizeConfiguration(ref optionsBuilder);
-            base.OnConfiguring(optionsBuilder);
-        }
-
-        partial void CustomizeConfiguration(ref DbContextOptionsBuilder optionsBuilder);
-
-        public virtual DbSet<Customer> Customers
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<Store> Stores
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<Manufacturer> Manufacturers
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<Company> Companies
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<Product> Products
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<ProductTranslation> ProductTranslations
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<Translation> Translations
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<Employee> Employees
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<StoreProduct> StoreProducts
-        {
-            get;
-            set;
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            this.CustomerMapping(modelBuilder);
-            this.CustomizeCustomerMapping(modelBuilder);
-
-            this.StoreMapping(modelBuilder);
-            this.CustomizeStoreMapping(modelBuilder);
-
-            this.ManufacturerMapping(modelBuilder);
-            this.CustomizeManufacturerMapping(modelBuilder);
-
-            this.CompanyMapping(modelBuilder);
-            this.CustomizeCompanyMapping(modelBuilder);
-
-            this.ProductMapping(modelBuilder);
-            this.CustomizeProductMapping(modelBuilder);
-
-            this.ProductTranslationMapping(modelBuilder);
-            this.CustomizeProductTranslationMapping(modelBuilder);
-
-            this.TranslationMapping(modelBuilder);
-            this.CustomizeTranslationMapping(modelBuilder);
-
-            this.EmployeeMapping(modelBuilder);
-            this.CustomizeEmployeeMapping(modelBuilder);
-
-            this.StoreProductMapping(modelBuilder);
-            this.CustomizeStoreProductMapping(modelBuilder);
-
-            RelationshipsMapping(modelBuilder);
-            CustomizeMapping(ref modelBuilder);
-        }
-
-        #region Customer Mapping
-
-        private void CustomerMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Customer>().ToTable(@"Customers", @"dbo");
-            modelBuilder.Entity<Customer>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Customer>().OwnsOne(t => t.Name).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<Customer>().OwnsOne(t => t.Name).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<Customer>().Property(x => x.StoreId).HasColumnName(@"StoreId").ValueGeneratedNever();
-            modelBuilder.Entity<Customer>().Property(x => x.ArchivedAtUtc).HasColumnName(@"ArchivedAtUtc").ValueGeneratedNever();
-            modelBuilder.Entity<Customer>().Property(x => x.ArchivedBy).HasColumnName(@"ArchivedBy").ValueGeneratedNever().HasMaxLength(100);
-            modelBuilder.Entity<Customer>().HasKey(@"Id");
-        }
-
-        partial void CustomizeCustomerMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region Store Mapping
-
-        private void StoreMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Store>().ToTable(@"Stores", @"dbo");
-        }
-
-        partial void CustomizeStoreMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region Manufacturer Mapping
-
-        private void ManufacturerMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Manufacturer>().ToTable(@"Manufacturers", @"dbo");
-            modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
-        }
-
-        partial void CustomizeManufacturerMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region Company Mapping
-
-        private void CompanyMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Company>().ToTable(@"Companies", @"dbo");
-            modelBuilder.Entity<Company>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Company>().Property(x => x.Name).HasColumnName(@"Name").IsRequired().ValueGeneratedNever().HasMaxLength(100);
-            modelBuilder.Entity<Company>().Property(x => x.CreatedAtUtc).HasColumnName(@"CreatedAtUtc").IsRequired().ValueGeneratedNever();
-            modelBuilder.Entity<Company>().HasKey(@"Id");
-        }
-
-        partial void CustomizeCompanyMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region Product Mapping
-
-        private void ProductMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Product>().ToTable(@"Products", @"dbo");
-            modelBuilder.Entity<Product>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Product>().Property(x => x.ManufacturerId).HasColumnName(@"ManufacturerId").ValueGeneratedNever();
-            modelBuilder.Entity<Product>().Property(x => x.AvailableFrom).HasColumnName(@"AvailableFrom").IsRequired().ValueGeneratedNever();
-            modelBuilder.Entity<Product>().Property(x => x.AvailableUntil).HasColumnName(@"AvailableUntil").ValueGeneratedNever();
-            modelBuilder.Entity<Product>().HasKey(@"Id");
-        }
-
-        partial void CustomizeProductMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region ProductTranslation Mapping
-
-        private void ProductTranslationMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ProductTranslation>().ToTable(@"ProductTranslations", @"dbo");
-            modelBuilder.Entity<ProductTranslation>().Property(x => x.ProductId).HasColumnName(@"ProductId").ValueGeneratedNever();
-            modelBuilder.Entity<ProductTranslation>().Property(x => x.Name).HasColumnName(@"Name").IsRequired().ValueGeneratedNever().HasMaxLength(100);
-            modelBuilder.Entity<ProductTranslation>().Property(x => x.Description).HasColumnName(@"Description").ValueGeneratedNever().HasMaxLength(100);
-        }
-
-        partial void CustomizeProductTranslationMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region Translation Mapping
-
-        private void TranslationMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Translation>().ToTable(@"Translations", @"dbo");
-            modelBuilder.Entity<Translation>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Translation>().Property(x => x.Culture).HasColumnName(@"Culture").IsRequired().ValueGeneratedNever().HasMaxLength(5);
-            modelBuilder.Entity<Translation>().HasKey(@"Id");
-        }
-
-        partial void CustomizeTranslationMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region Employee Mapping
-
-        private void EmployeeMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Employee>().ToTable(@"Employees", @"dbo");
-            modelBuilder.Entity<Employee>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Employee>().OwnsOne(t => t.Name).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<Employee>().OwnsOne(t => t.Name).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<Employee>().Property(x => x.CompanyId).HasColumnName(@"CompanyId").ValueGeneratedNever();
-            modelBuilder.Entity<Employee>().HasKey(@"Id");
-        }
-
-        partial void CustomizeEmployeeMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        #region StoreProduct Mapping
-
-        private void StoreProductMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<StoreProduct>().ToTable(@"StoreProducts", @"dbo");
-            modelBuilder.Entity<StoreProduct>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<StoreProduct>().Property(x => x.StoreId).HasColumnName(@"StoreId").ValueGeneratedNever();
-            modelBuilder.Entity<StoreProduct>().Property(x => x.ProductId).HasColumnName(@"ProductId").ValueGeneratedNever();
-            modelBuilder.Entity<StoreProduct>().Property(x => x.InStock).HasColumnName(@"InStock").IsRequired().ValueGeneratedNever();
-            modelBuilder.Entity<StoreProduct>().HasKey(@"Id");
-        }
-
-        partial void CustomizeStoreProductMapping(ModelBuilder modelBuilder);
-
-        #endregion
-
-        private void RelationshipsMapping(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Customer>().HasOne(x => x.Store).WithMany(op => op.Customers).HasForeignKey(@"StoreId").IsRequired(true);
-
-            modelBuilder.Entity<Store>().HasMany(x => x.Customers).WithOne(op => op.Store).HasForeignKey(@"StoreId").IsRequired(true);
-            modelBuilder.Entity<Store>().HasMany(x => x.ProductRange).WithOne().HasForeignKey(@"StoreId").IsRequired(true);
-
-            modelBuilder.Entity<Manufacturer>().HasMany(x => x.Products).WithOne(op => op.Manufacturer).HasForeignKey(@"ManufacturerId").IsRequired(true);
-
-            modelBuilder.Entity<Company>().HasMany(x => x.Employees).WithOne(op => op.Company).HasForeignKey(@"CompanyId").IsRequired(true);
-
-            modelBuilder.Entity<Product>().HasMany(x => x.Translations).WithOne().HasForeignKey(@"ProductId").IsRequired(true);
-            modelBuilder.Entity<Product>().HasOne(x => x.Manufacturer).WithMany(op => op.Products).HasForeignKey(@"ManufacturerId").IsRequired(true);
-
-            modelBuilder.Entity<Employee>().HasOne(x => x.Company).WithMany(op => op.Employees).HasForeignKey(@"CompanyId").IsRequired(true);
-
-            modelBuilder.Entity<StoreProduct>().HasOne(x => x.Product).WithMany().HasForeignKey(@"ProductId").IsRequired(true);
-        }
-
-        partial void CustomizeMapping(ref ModelBuilder modelBuilder);
-
-        public bool HasChanges()
-        {
-            return ChangeTracker.Entries().Any(e => e.State == Microsoft.EntityFrameworkCore.EntityState.Added || e.State == Microsoft.EntityFrameworkCore.EntityState.Modified || e.State == Microsoft.EntityFrameworkCore.EntityState.Deleted);
-        }
-
-        partial void OnCreated();
+        OnCreated();
     }
+
+    public ExampleDbContext(DbContextOptions<ExampleDbContext> options) :
+        base(options)
+    {
+        OnCreated();
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured ||
+            (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
+             !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CleanArch;Integrated Security=True;Persist Security Info=True");
+        }
+        CustomizeConfiguration(ref optionsBuilder);
+        base.OnConfiguring(optionsBuilder);
+    }
+
+    partial void CustomizeConfiguration(ref DbContextOptionsBuilder optionsBuilder);
+
+    public virtual DbSet<Customer> Customers
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<Store> Stores
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<Manufacturer> Manufacturers
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<Company> Companies
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<Product> Products
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<ProductTranslation> ProductTranslations
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<Translation> Translations
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<Employee> Employees
+    {
+        get;
+        set;
+    }
+
+    public virtual DbSet<StoreProduct> StoreProducts
+    {
+        get;
+        set;
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        this.CustomerMapping(modelBuilder);
+        this.CustomizeCustomerMapping(modelBuilder);
+
+        this.StoreMapping(modelBuilder);
+        this.CustomizeStoreMapping(modelBuilder);
+
+        this.ManufacturerMapping(modelBuilder);
+        this.CustomizeManufacturerMapping(modelBuilder);
+
+        this.CompanyMapping(modelBuilder);
+        this.CustomizeCompanyMapping(modelBuilder);
+
+        this.ProductMapping(modelBuilder);
+        this.CustomizeProductMapping(modelBuilder);
+
+        this.ProductTranslationMapping(modelBuilder);
+        this.CustomizeProductTranslationMapping(modelBuilder);
+
+        this.TranslationMapping(modelBuilder);
+        this.CustomizeTranslationMapping(modelBuilder);
+
+        this.EmployeeMapping(modelBuilder);
+        this.CustomizeEmployeeMapping(modelBuilder);
+
+        this.StoreProductMapping(modelBuilder);
+        this.CustomizeStoreProductMapping(modelBuilder);
+
+        RelationshipsMapping(modelBuilder);
+        CustomizeMapping(ref modelBuilder);
+    }
+
+    #region Customer Mapping
+
+    private void CustomerMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Customer>().ToTable(@"Customers", @"dbo");
+        modelBuilder.Entity<Customer>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
+        modelBuilder.Entity<Customer>().OwnsOne(t => t.Name).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
+        modelBuilder.Entity<Customer>().OwnsOne(t => t.Name).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
+        modelBuilder.Entity<Customer>().Property(x => x.StoreId).HasColumnName(@"StoreId").ValueGeneratedNever();
+        modelBuilder.Entity<Customer>().Property(x => x.ArchivedAtUtc).HasColumnName(@"ArchivedAtUtc").ValueGeneratedNever();
+        modelBuilder.Entity<Customer>().Property(x => x.ArchivedBy).HasColumnName(@"ArchivedBy").ValueGeneratedNever().HasMaxLength(100);
+        modelBuilder.Entity<Customer>().HasKey(@"Id");
+    }
+
+    partial void CustomizeCustomerMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region Store Mapping
+
+    private void StoreMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Store>().ToTable(@"Stores", @"dbo");
+    }
+
+    partial void CustomizeStoreMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region Manufacturer Mapping
+
+    private void ManufacturerMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Manufacturer>().ToTable(@"Manufacturers", @"dbo");
+        modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
+        modelBuilder.Entity<Manufacturer>().OwnsOne(t => t.Contact).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
+    }
+
+    partial void CustomizeManufacturerMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region Company Mapping
+
+    private void CompanyMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Company>().ToTable(@"Companies", @"dbo");
+        modelBuilder.Entity<Company>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
+        modelBuilder.Entity<Company>().Property(x => x.Name).HasColumnName(@"Name").IsRequired().ValueGeneratedNever().HasMaxLength(100);
+        modelBuilder.Entity<Company>().Property(x => x.CreatedAtUtc).HasColumnName(@"CreatedAtUtc").IsRequired().ValueGeneratedNever();
+        modelBuilder.Entity<Company>().HasKey(@"Id");
+    }
+
+    partial void CustomizeCompanyMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region Product Mapping
+
+    private void ProductMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Product>().ToTable(@"Products", @"dbo");
+        modelBuilder.Entity<Product>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
+        modelBuilder.Entity<Product>().Property(x => x.ManufacturerId).HasColumnName(@"ManufacturerId").ValueGeneratedNever();
+        modelBuilder.Entity<Product>().Property(x => x.AvailableFrom).HasColumnName(@"AvailableFrom").IsRequired().ValueGeneratedNever();
+        modelBuilder.Entity<Product>().Property(x => x.AvailableUntil).HasColumnName(@"AvailableUntil").ValueGeneratedNever();
+        modelBuilder.Entity<Product>().HasKey(@"Id");
+    }
+
+    partial void CustomizeProductMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region ProductTranslation Mapping
+
+    private void ProductTranslationMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ProductTranslation>().ToTable(@"ProductTranslations", @"dbo");
+        modelBuilder.Entity<ProductTranslation>().Property(x => x.ProductId).HasColumnName(@"ProductId").ValueGeneratedNever();
+        modelBuilder.Entity<ProductTranslation>().Property(x => x.Name).HasColumnName(@"Name").IsRequired().ValueGeneratedNever().HasMaxLength(100);
+        modelBuilder.Entity<ProductTranslation>().Property(x => x.Description).HasColumnName(@"Description").ValueGeneratedNever().HasMaxLength(100);
+    }
+
+    partial void CustomizeProductTranslationMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region Translation Mapping
+
+    private void TranslationMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Translation>().ToTable(@"Translations", @"dbo");
+        modelBuilder.Entity<Translation>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
+        modelBuilder.Entity<Translation>().Property(x => x.Culture).HasColumnName(@"Culture").IsRequired().ValueGeneratedNever().HasMaxLength(5);
+        modelBuilder.Entity<Translation>().HasKey(@"Id");
+    }
+
+    partial void CustomizeTranslationMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region Employee Mapping
+
+    private void EmployeeMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Employee>().ToTable(@"Employees", @"dbo");
+        modelBuilder.Entity<Employee>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
+        modelBuilder.Entity<Employee>().OwnsOne(t => t.Name).Property(x => x.FamilyName).HasColumnName(@"FamilyName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
+        modelBuilder.Entity<Employee>().OwnsOne(t => t.Name).Property(x => x.GivenName).HasColumnName(@"GivenName").ValueGeneratedNever().HasMaxLength(50);
+        modelBuilder.Entity<Employee>().Property(x => x.CompanyId).HasColumnName(@"CompanyId").ValueGeneratedNever();
+        modelBuilder.Entity<Employee>().HasKey(@"Id");
+    }
+
+    partial void CustomizeEmployeeMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    #region StoreProduct Mapping
+
+    private void StoreProductMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<StoreProduct>().ToTable(@"StoreProducts", @"dbo");
+        modelBuilder.Entity<StoreProduct>().Property(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd();
+        modelBuilder.Entity<StoreProduct>().Property(x => x.StoreId).HasColumnName(@"StoreId").ValueGeneratedNever();
+        modelBuilder.Entity<StoreProduct>().Property(x => x.ProductId).HasColumnName(@"ProductId").ValueGeneratedNever();
+        modelBuilder.Entity<StoreProduct>().Property(x => x.InStock).HasColumnName(@"InStock").IsRequired().ValueGeneratedNever();
+        modelBuilder.Entity<StoreProduct>().HasKey(@"Id");
+    }
+
+    partial void CustomizeStoreProductMapping(ModelBuilder modelBuilder);
+
+    #endregion
+
+    private void RelationshipsMapping(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Customer>().HasOne(x => x.Store).WithMany(op => op.Customers).HasForeignKey(@"StoreId").IsRequired(true);
+
+        modelBuilder.Entity<Store>().HasMany(x => x.Customers).WithOne(op => op.Store).HasForeignKey(@"StoreId").IsRequired(true);
+        modelBuilder.Entity<Store>().HasMany(x => x.ProductRange).WithOne().HasForeignKey(@"StoreId").IsRequired(true);
+
+        modelBuilder.Entity<Manufacturer>().HasMany(x => x.Products).WithOne(op => op.Manufacturer).HasForeignKey(@"ManufacturerId").IsRequired(true);
+
+        modelBuilder.Entity<Company>().HasMany(x => x.Employees).WithOne(op => op.Company).HasForeignKey(@"CompanyId").IsRequired(true);
+
+        modelBuilder.Entity<Product>().HasMany(x => x.Translations).WithOne().HasForeignKey(@"ProductId").IsRequired(true);
+        modelBuilder.Entity<Product>().HasOne(x => x.Manufacturer).WithMany(op => op.Products).HasForeignKey(@"ManufacturerId").IsRequired(true);
+
+        modelBuilder.Entity<Employee>().HasOne(x => x.Company).WithMany(op => op.Employees).HasForeignKey(@"CompanyId").IsRequired(true);
+
+        modelBuilder.Entity<StoreProduct>().HasOne(x => x.Product).WithMany().HasForeignKey(@"ProductId").IsRequired(true);
+    }
+
+    partial void CustomizeMapping(ref ModelBuilder modelBuilder);
+
+    public bool HasChanges()
+    {
+        return ChangeTracker.Entries().Any(e => e.State == Microsoft.EntityFrameworkCore.EntityState.Added || e.State == Microsoft.EntityFrameworkCore.EntityState.Modified || e.State == Microsoft.EntityFrameworkCore.EntityState.Deleted);
+    }
+
+    partial void OnCreated();
 }

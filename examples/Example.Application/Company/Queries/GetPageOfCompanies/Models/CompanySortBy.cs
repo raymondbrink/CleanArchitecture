@@ -1,8 +1,9 @@
-﻿namespace Example.Application.Company.Queries.GetPageOfCompanies.Models;
-
-public enum CompanySortBy
+﻿namespace Example.Application.Company.Queries.GetPageOfCompanies.Models
 {
-    Id = 0,
-    CreatedAtUtc = 1,
-    Name = 2
+    public enum CompanySortBy
+    {
+        Id = 0,
+        CreatedAtUtc = 1,
+        Name = 2
+    }
 }

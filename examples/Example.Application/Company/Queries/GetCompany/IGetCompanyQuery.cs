@@ -1,8 +1,9 @@
-﻿namespace Example.Application.Company.Queries.GetCompany;
-
-using Models;
-
-public interface IGetCompanyQuery
+﻿namespace Example.Application.Company.Queries.GetCompany
 {
-    Task<CompanyDetailModel> ExecuteAsync(Guid id);
+    using Models;
+
+    public interface IGetCompanyQuery
+    {
+        Task<CompanyDetailModel> ExecuteAsync(Guid id);
+    }
 }

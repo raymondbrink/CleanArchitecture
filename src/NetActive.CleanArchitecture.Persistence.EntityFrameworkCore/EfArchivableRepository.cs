@@ -1,50 +1,51 @@
-﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore;
-
-using System;
-
-using Application.Exceptions;
-using Application.Interfaces;
-
-using Domain.Interfaces;
-
-using Interfaces;
-
-using Microsoft.EntityFrameworkCore;
-
-/// <inheritdoc />
-public class EfArchivableRepository<TDbContext, TEntity> : EfArchivableRepository<TDbContext, TEntity, long>
-    where TEntity : class, IEntity, IArchivableEntity
-    where TDbContext : DbContext, IDbContext
+﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore
 {
-    /// <inheritdoc />
-    public EfArchivableRepository(TDbContext context) : base(context)
-    {
-    }
-}
+    using System;
 
-/// <inheritdoc cref="IArchivableRepository{TEntity, TKey}" />
-public class EfArchivableRepository<TDbContext, TEntity, TKey> 
-    : EfRepository<TDbContext, TEntity, TKey>, IArchivableRepository<TEntity, TKey>
-    where TEntity : class, IEntity<TKey>, IArchivableEntity
-    where TKey : struct
-    where TDbContext : DbContext, IDbContext
-{
-    /// <inheritdoc />
-    public EfArchivableRepository(TDbContext context) : base(context)
-    {
-    }
+    using Application.Exceptions;
+    using Application.Interfaces;
+
+    using Domain.Interfaces;
+
+    using Interfaces;
+
+    using Microsoft.EntityFrameworkCore;
 
     /// <inheritdoc />
-    public void Archive(TEntity entity, string by)
+    public class EfArchivableRepository<TDbContext, TEntity> : EfArchivableRepository<TDbContext, TEntity, long>
+        where TEntity : class, IEntity, IArchivableEntity
+        where TDbContext : DbContext, IDbContext
     {
-        var archivableEntity = (IArchivableEntity)entity;
-
-        if (archivableEntity.ArchivedAtUtc.HasValue)
+        /// <inheritdoc />
+        public EfArchivableRepository(TDbContext context) : base(context)
         {
-            throw new EntityAlreadyArchivedException(typeof(TEntity), entity.Id);
+        }
+    }
+
+    /// <inheritdoc cref="IArchivableRepository{TEntity, TKey}" />
+    public class EfArchivableRepository<TDbContext, TEntity, TKey>
+        : EfRepository<TDbContext, TEntity, TKey>, IArchivableRepository<TEntity, TKey>
+        where TEntity : class, IEntity<TKey>, IArchivableEntity
+        where TKey : struct
+        where TDbContext : DbContext, IDbContext
+    {
+        /// <inheritdoc />
+        public EfArchivableRepository(TDbContext context) : base(context)
+        {
         }
 
-        archivableEntity.ArchivedAtUtc = DateTime.UtcNow;
-        archivableEntity.ArchivedBy = by;
+        /// <inheritdoc />
+        public void Archive(TEntity entity, string by)
+        {
+            var archivableEntity = (IArchivableEntity)entity;
+
+            if (archivableEntity.ArchivedAtUtc.HasValue)
+            {
+                throw new EntityAlreadyArchivedException(typeof(TEntity), entity.Id);
+            }
+
+            archivableEntity.ArchivedAtUtc = DateTime.UtcNow;
+            archivableEntity.ArchivedBy = by;
+        }
     }
 }

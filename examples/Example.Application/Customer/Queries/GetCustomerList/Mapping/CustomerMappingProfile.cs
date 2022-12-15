@@ -1,15 +1,16 @@
-﻿namespace Example.Application.Customer.Queries.GetCustomerList.Mapping;
-
-using AutoMapper;
-
-using Domain.Entities;
-
-using Models;
-
-internal class CustomerMappingProfile : Profile
+﻿namespace Example.Application.Customer.Queries.GetCustomerList.Mapping
 {
-    public CustomerMappingProfile()
+    using AutoMapper;
+
+    using Domain.Entities;
+
+    using Models;
+
+    internal class CustomerMappingProfile : Profile
     {
-        CreateMap<Customer, CustomerListModel>();
+        public CustomerMappingProfile()
+        {
+            CreateMap<Customer, CustomerListModel>();
+        }
     }
 }

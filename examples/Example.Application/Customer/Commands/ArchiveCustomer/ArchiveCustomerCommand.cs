@@ -1,39 +1,40 @@
-﻿namespace Example.Application.Customer.Commands.ArchiveCustomer;
-
-using Domain.Entities;
-
-using Interfaces.Persistence;
-
-using NetActive.CleanArchitecture.Application.Exceptions;
-
-using Repository;
-
-internal class ArchiveCustomerCommand : IArchiveCustomerCommand
+﻿namespace Example.Application.Customer.Commands.ArchiveCustomer
 {
-    private readonly IArchiveCustomerRepositoryFacade _repositories;
-    private readonly IExampleUnitOfWork _unitOfWork;
+    using Domain.Entities;
 
-    public ArchiveCustomerCommand(IArchiveCustomerRepositoryFacade repositories, IExampleUnitOfWork unitOfWork)
-    {
-        _repositories = repositories;
-        _unitOfWork = unitOfWork;
-    }
+    using Interfaces.Persistence;
 
-    public async Task ExecuteAsync(int customerId, string archivedBy)
+    using NetActive.CleanArchitecture.Application.Exceptions;
+
+    using Repository;
+
+    internal class ArchiveCustomerCommand : IArchiveCustomerCommand
     {
-        if (string.IsNullOrWhiteSpace(archivedBy))
+        private readonly IArchiveCustomerRepositoryFacade _repositories;
+        private readonly IExampleUnitOfWork _unitOfWork;
+
+        public ArchiveCustomerCommand(IArchiveCustomerRepositoryFacade repositories, IExampleUnitOfWork unitOfWork)
         {
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(archivedBy));
+            _repositories = repositories;
+            _unitOfWork = unitOfWork;
         }
 
-        var customer = await _repositories.GetAsync(customerId);
-        if (customer == null)
+        public async Task ExecuteAsync(int customerId, string archivedBy)
         {
-            throw new EntityNotFoundException(typeof(Customer), customerId);
+            if (string.IsNullOrWhiteSpace(archivedBy))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(archivedBy));
+            }
+
+            var customer = await _repositories.GetAsync(customerId);
+            if (customer == null)
+            {
+                throw new EntityNotFoundException(typeof(Customer), customerId);
+            }
+
+            _repositories.Archive(customer, archivedBy);
+
+            await _unitOfWork.SaveChangesAsync();
         }
-
-        _repositories.Archive(customer, archivedBy);
-
-        await _unitOfWork.SaveChangesAsync();
     }
 }

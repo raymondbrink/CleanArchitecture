@@ -1,20 +1,21 @@
-﻿namespace Example.Application.Manufacturer.Commands.AddManufacturer.Factory;
-
-using Domain.Entities;
-
-internal class ManufacturerFactory : IManufacturerFactory
+﻿namespace Example.Application.Manufacturer.Commands.AddManufacturer.Factory
 {
-    public Manufacturer Create(string name, string? contactFamilyName = null, string? contractGivenName = null)
+    using Domain.Entities;
+
+    internal class ManufacturerFactory : IManufacturerFactory
     {
-        return new Manufacturer
+        public Manufacturer Create(string name, string? contactFamilyName = null, string? contractGivenName = null)
+        {
+            return new Manufacturer
             {
                 Name = name,
                 Contact =
-                    {
-                        FamilyName = contactFamilyName,
-                        GivenName = contractGivenName
-                    },
+                {
+                    FamilyName = contactFamilyName,
+                    GivenName = contractGivenName
+                },
                 CreatedAtUtc = DateTime.UtcNow
             };
+        }
     }
 }

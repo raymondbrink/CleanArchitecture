@@ -1,6 +1,7 @@
-﻿namespace Example.Application.Customer.Commands.ArchiveCustomer;
-
-public interface IArchiveCustomerCommand
+﻿namespace Example.Application.Customer.Commands.ArchiveCustomer
 {
-    Task ExecuteAsync(int customerId, string archivedBy);
+    public interface IArchiveCustomerCommand
+    {
+        Task ExecuteAsync(int customerId, string archivedBy);
+    }
 }

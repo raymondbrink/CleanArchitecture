@@ -1,8 +1,9 @@
-﻿namespace Example.Application.Manufacturer.Queries.GetManufacturerList;
-
-using Models;
-
-public interface IGetManufacturerListQuery
+﻿namespace Example.Application.Manufacturer.Queries.GetManufacturerList
 {
-    Task<List<ManufacturerListModel>> ExecuteAsync();
+    using Models;
+
+    public interface IGetManufacturerListQuery
+    {
+        Task<List<ManufacturerListModel>> ExecuteAsync();
+    }
 }

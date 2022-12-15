@@ -1,35 +1,36 @@
-﻿namespace Example.Application.Manufacturer.Commands.DeleteManufacturer;
-
-using Domain.Entities;
-
-using Interfaces.Persistence;
-
-using NetActive.CleanArchitecture.Application.Exceptions;
-
-using Repository;
-
-internal class DeleteManufacturerCommand : IDeleteManufacturerCommand
+﻿namespace Example.Application.Manufacturer.Commands.DeleteManufacturer
 {
-    private readonly IDeleteManufacturerRepositoryFacade _repositories;
-    private readonly IExampleUnitOfWork _unitOfWork;
+    using Domain.Entities;
 
-    public DeleteManufacturerCommand(IDeleteManufacturerRepositoryFacade repositories,
-        IExampleUnitOfWork unitOfWork)
-    {
-        _repositories = repositories;
-        _unitOfWork = unitOfWork;
-    }
+    using Interfaces.Persistence;
 
-    public async Task ExecuteAsync(Guid manufacturerId)
+    using NetActive.CleanArchitecture.Application.Exceptions;
+
+    using Repository;
+
+    internal class DeleteManufacturerCommand : IDeleteManufacturerCommand
     {
-        var manufacturer = await _repositories.GetAsync(manufacturerId);
-        if (manufacturer == null)
+        private readonly IDeleteManufacturerRepositoryFacade _repositories;
+        private readonly IExampleUnitOfWork _unitOfWork;
+
+        public DeleteManufacturerCommand(IDeleteManufacturerRepositoryFacade repositories,
+            IExampleUnitOfWork unitOfWork)
         {
-            throw new EntityNotFoundException(typeof(Manufacturer), manufacturerId);
+            _repositories = repositories;
+            _unitOfWork = unitOfWork;
         }
 
-        _repositories.Delete(manufacturer);
+        public async Task ExecuteAsync(Guid manufacturerId)
+        {
+            var manufacturer = await _repositories.GetAsync(manufacturerId);
+            if (manufacturer == null)
+            {
+                throw new EntityNotFoundException(typeof(Manufacturer), manufacturerId);
+            }
 
-        await _unitOfWork.SaveChangesAsync();
+            _repositories.Delete(manufacturer);
+
+            await _unitOfWork.SaveChangesAsync();
+        }
     }
 }

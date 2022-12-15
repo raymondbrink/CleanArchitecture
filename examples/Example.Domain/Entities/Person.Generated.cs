@@ -16,24 +16,22 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Example.Domain.Entities
-{
-    public partial class Person {
+namespace Example.Domain.Entities;
 
-        public Person()
-        {
-            OnCreated();
-        }
+public partial class Person {
 
-        public virtual string FamilyName { get; set; }
-
-        public virtual string GivenName { get; set; }
-
-        #region Extensibility Method Definitions
-
-        partial void OnCreated();
-
-        #endregion
+    public Person()
+    {
+        OnCreated();
     }
 
+    public virtual string FamilyName { get; set; }
+
+    public virtual string GivenName { get; set; }
+
+    #region Extensibility Method Definitions
+
+    partial void OnCreated();
+
+    #endregion
 }

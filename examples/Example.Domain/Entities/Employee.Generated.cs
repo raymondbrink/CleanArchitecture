@@ -16,29 +16,27 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Example.Domain.Entities
-{
-    public partial class Employee {
+namespace Example.Domain.Entities;
 
-        public Employee()
-        {
-            this.Name = new Person();
-            OnCreated();
-        }
+public partial class Employee {
 
-        public virtual int Id { get; set; }
-
-        public virtual Person Name { get; set; }
-
-        public virtual Guid CompanyId { get; set; }
-
-        public virtual Company Company { get; set; }
-
-        #region Extensibility Method Definitions
-
-        partial void OnCreated();
-
-        #endregion
+    public Employee()
+    {
+        this.Name = new Person();
+        OnCreated();
     }
 
+    public virtual int Id { get; set; }
+
+    public virtual Person Name { get; set; }
+
+    public virtual Guid CompanyId { get; set; }
+
+    public virtual Company Company { get; set; }
+
+    #region Extensibility Method Definitions
+
+    partial void OnCreated();
+
+    #endregion
 }

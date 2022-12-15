@@ -1,6 +1,7 @@
-﻿namespace Example.Application.Company.Queries.CompanyExists;
-
-public interface ICompanyExistsQuery
+﻿namespace Example.Application.Company.Queries.CompanyExists
 {
-    Task<bool> ExecuteAsync(string name);
+    public interface ICompanyExistsQuery
+    {
+        Task<bool> ExecuteAsync(string name);
+    }
 }

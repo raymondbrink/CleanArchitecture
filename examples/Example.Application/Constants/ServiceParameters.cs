@@ -1,6 +1,7 @@
-﻿namespace Example.Application.Constants;
-
-internal static class ServiceParameters
+﻿namespace Example.Application.Constants
 {
-    internal const string Mapper = "mapper";
+    internal static class ServiceParameters
+    {
+        internal const string Mapper = "mapper";
+    }
 }

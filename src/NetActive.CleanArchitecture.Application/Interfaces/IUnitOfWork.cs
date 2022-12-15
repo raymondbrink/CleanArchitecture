@@ -1,27 +1,28 @@
-﻿namespace NetActive.CleanArchitecture.Application.Interfaces;
-
-using System.Threading.Tasks;
-
-/// <summary>
-/// Interface for handling changes in a unit of work.
-/// </summary>
-public interface IUnitOfWork
+﻿namespace NetActive.CleanArchitecture.Application.Interfaces
 {
-    /// <summary>
-    /// Saves the changes asynchronously.
-    /// </summary>
-    /// <returns></returns>
-    /// <exception cref="System.InvalidOperationException">Context has not been initialized.</exception>
-    Task<int> SaveChangesAsync();
+    using System.Threading.Tasks;
 
     /// <summary>
-    /// Determines whether this instance has any changes.
+    /// Interface for handling changes in a unit of work.
     /// </summary>
-    /// <returns></returns>
-    /// <exception cref="System.InvalidOperationException">
-    /// Context has not been initialized.
-    /// or
-    /// ChangeTracker has not been initialized.
-    /// </exception>
-    bool HasChanges();
+    public interface IUnitOfWork
+    {
+        /// <summary>
+        /// Saves the changes asynchronously.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">Context has not been initialized.</exception>
+        Task<int> SaveChangesAsync();
+
+        /// <summary>
+        /// Determines whether this instance has any changes.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// Context has not been initialized.
+        /// or
+        /// ChangeTracker has not been initialized.
+        /// </exception>
+        bool HasChanges();
+    }
 }

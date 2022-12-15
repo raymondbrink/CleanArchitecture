@@ -1,22 +1,23 @@
-﻿namespace Example.Application.Company.Queries.CompanyExists;
-
-using Domain.Entities;
-
-using Models;
-
-using NetActive.CleanArchitecture.Application.Interfaces;
-
-internal class CompanyExistsQuery : ICompanyExistsQuery
+﻿namespace Example.Application.Company.Queries.CompanyExists
 {
-    private readonly IEntityQueryService<Company, CompanyExistsModel, Guid> _query;
+    using Domain.Entities;
 
-    public CompanyExistsQuery(IEntityQueryService<Company, CompanyExistsModel, Guid> query)
-    {
-        _query = query;
-    }
+    using Models;
 
-    public Task<bool> ExecuteAsync(string name)
+    using NetActive.CleanArchitecture.Application.Interfaces;
+
+    internal class CompanyExistsQuery : ICompanyExistsQuery
     {
-        return _query.ExistsAsync(c => c.Name.Equals(name));
+        private readonly IEntityQueryService<Company, CompanyExistsModel, Guid> _query;
+
+        public CompanyExistsQuery(IEntityQueryService<Company, CompanyExistsModel, Guid> query)
+        {
+            _query = query;
+        }
+
+        public Task<bool> ExecuteAsync(string name)
+        {
+            return _query.ExistsAsync(c => c.Name.Equals(name));
+        }
     }
 }

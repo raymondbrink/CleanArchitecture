@@ -1,22 +1,23 @@
-﻿namespace Example.Application.StoreProduct.Queries.GetStoreProductList;
-
-using Domain.Entities;
-
-using Models;
-
-using NetActive.CleanArchitecture.Application.Interfaces;
-
-internal class GetStoreProductListQuery : IGetStoreProductListQuery
+﻿namespace Example.Application.StoreProduct.Queries.GetStoreProductList
 {
-    private readonly IEntityQueryService<StoreProduct, StoreProductListModel> _query;
+    using Domain.Entities;
 
-    public GetStoreProductListQuery(IEntityQueryService<StoreProduct, StoreProductListModel> query)
-    {
-        _query = query;
-    }
+    using Models;
 
-    public Task<List<StoreProductListModel>> ExecuteAsync(StoreProductQueryParameters? parameters = null)
+    using NetActive.CleanArchitecture.Application.Interfaces;
+
+    internal class GetStoreProductListQuery : IGetStoreProductListQuery
     {
-        return _query.GetItemsAsync(parameters);
+        private readonly IEntityQueryService<StoreProduct, StoreProductListModel> _query;
+
+        public GetStoreProductListQuery(IEntityQueryService<StoreProduct, StoreProductListModel> query)
+        {
+            _query = query;
+        }
+
+        public Task<List<StoreProductListModel>> ExecuteAsync(StoreProductQueryParameters? parameters = null)
+        {
+            return _query.GetItemsAsync(parameters);
+        }
     }
 }

@@ -1,32 +1,33 @@
-﻿namespace NetActive.CleanArchitecture.Application.Mapping;
-
-using System;
-
-using AutoMapper;
-
-/// <summary>
-/// Base for a lazy loading mapper adding a generic AutoMapper profile.
-/// </summary>
-/// <typeparam name="TProfile"></typeparam>
-public abstract class BaseMapper<TProfile> where TProfile : Profile, new()
+﻿namespace NetActive.CleanArchitecture.Application.Mapping
 {
-    private static readonly Lazy<IMapper> LazyInstance = new(createMapper);
+    using System;
+
+    using AutoMapper;
 
     /// <summary>
-    /// Get the mapper instance. If not initialized yet, it's initialized first.
+    /// Base for a lazy loading mapper adding a generic AutoMapper profile.
     /// </summary>
-    public static IMapper Instance => LazyInstance.Value;
-
-    private static IMapper createMapper()
+    /// <typeparam name="TProfile"></typeparam>
+    public abstract class BaseMapper<TProfile> where TProfile : Profile, new()
     {
-        var config = new MapperConfiguration(cfg =>
+        private static readonly Lazy<IMapper> LazyInstance = new(createMapper);
+
+        /// <summary>
+        /// Get the mapper instance. If not initialized yet, it's initialized first.
+        /// </summary>
+        public static IMapper Instance => LazyInstance.Value;
+
+        private static IMapper createMapper()
         {
-            cfg.AddProfile<TProfile>();
-        });
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<TProfile>();
+            });
 
-        config.AssertConfigurationIsValid();
-        config.CompileMappings();
+            config.AssertConfigurationIsValid();
+            config.CompileMappings();
 
-        return config.CreateMapper();
+            return config.CreateMapper();
+        }
     }
 }

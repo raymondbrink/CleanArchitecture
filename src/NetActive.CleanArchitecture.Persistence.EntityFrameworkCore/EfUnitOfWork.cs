@@ -1,103 +1,104 @@
-﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore;
-
-using System;
-using System.Threading.Tasks;
-
-using Application.Interfaces;
-
-using Microsoft.EntityFrameworkCore;
-
-/// <summary>
-/// Entity Framework Core (6) specific implementation of <see cref="IUnitOfWork"/>.
-/// </summary>
-public class EfUnitOfWork : IUnitOfWork, IDisposable
+﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore
 {
-    /// <summary>
-    /// Constructor used to create a new instance of EfUnitOfWork.
-    /// </summary>
-    /// <param name="context"></param>
-    public EfUnitOfWork(DbContext context)
-    {
-        Context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    using System;
+    using System.Threading.Tasks;
+
+    using Application.Interfaces;
+
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
-    /// Gets a reference to the used <see cref="DbContext"/>.
+    /// Entity Framework Core (6) specific implementation of <see cref="IUnitOfWork"/>.
     /// </summary>
-    public DbContext Context { get; protected set; }
-
-    /// <summary>
-    /// Closes the <see cref="DbContext"/>.
-    /// </summary>
-    protected virtual void CloseContext()
+    public class EfUnitOfWork : IUnitOfWork, IDisposable
     {
-        if (Context == null)
+        /// <summary>
+        /// Constructor used to create a new instance of EfUnitOfWork.
+        /// </summary>
+        /// <param name="context"></param>
+        public EfUnitOfWork(DbContext context)
         {
-            return;
+            Context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        Context.Dispose();
-        Context = null;
-    }
+        /// <summary>
+        /// Gets a reference to the used <see cref="DbContext"/>.
+        /// </summary>
+        public DbContext Context { get; protected set; }
 
-    #region IDisposable Methods
-
-    private bool _disposed;
-
-    /// <summary>
-    /// Closes the <see cref="DbContext"/> and disposes this instance.
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposed)
+        /// <summary>
+        /// Closes the <see cref="DbContext"/>.
+        /// </summary>
+        protected virtual void CloseContext()
         {
-            if (disposing)
+            if (Context == null)
             {
-                CloseContext();
+                return;
             }
+
+            Context.Dispose();
+            Context = null;
         }
 
-        _disposed = true;
-    }
+        #region IDisposable Methods
 
-    /// <inheritdoc />
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+        private bool _disposed;
 
-    #endregion
-
-    #region IUnitOfWork Members
-
-    /// <inheritdoc />
-    public Task<int> SaveChangesAsync()
-    {
-        if (Context == null)
+        /// <summary>
+        /// Closes the <see cref="DbContext"/> and disposes this instance.
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
         {
-            throw new InvalidOperationException("Context has not been initialized.");
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    CloseContext();
+                }
+            }
+
+            _disposed = true;
         }
 
-        return Context.SaveChangesAsync();
-    }
-
-    /// <inheritdoc />
-    public bool HasChanges()
-    {
-        if (Context == null)
+        /// <inheritdoc />
+        public void Dispose()
         {
-            throw new InvalidOperationException("Context has not been initialized.");
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        if (Context.ChangeTracker == null)
+        #endregion
+
+        #region IUnitOfWork Members
+
+        /// <inheritdoc />
+        public Task<int> SaveChangesAsync()
         {
-            throw new InvalidOperationException("ChangeTracker has not been initialized.");
+            if (Context == null)
+            {
+                throw new InvalidOperationException("Context has not been initialized.");
+            }
+
+            return Context.SaveChangesAsync();
         }
 
-        return Context.ChangeTracker.HasChanges();
-    }
+        /// <inheritdoc />
+        public bool HasChanges()
+        {
+            if (Context == null)
+            {
+                throw new InvalidOperationException("Context has not been initialized.");
+            }
 
-    #endregion
+            if (Context.ChangeTracker == null)
+            {
+                throw new InvalidOperationException("ChangeTracker has not been initialized.");
+            }
+
+            return Context.ChangeTracker.HasChanges();
+        }
+
+        #endregion
+    }
 }

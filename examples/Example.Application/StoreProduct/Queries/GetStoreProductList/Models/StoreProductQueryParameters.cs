@@ -1,44 +1,44 @@
-﻿namespace Example.Application.StoreProduct.Queries.GetStoreProductList.Models;
-
-using System.Linq.Expressions;
-
-using Domain.Entities;
-
-using LinqKit;
-
-using Mapping;
-
-using NetActive.CleanArchitecture.Application.Models;
-
-public class StoreProductQueryParameters
-    : BaseQueryParameters<StoreProduct, StoreProductSortBy, StoreProductFilterModel>
+﻿namespace Example.Application.StoreProduct.Queries.GetStoreProductList.Models
 {
-    public StoreProductQueryParameters(Guid storeId)
-    {
-        Filters.StoreId = storeId;
-        AddInclude(nameof(StoreProduct.Product));
-    }
+    using System.Linq.Expressions;
 
-    public override Expression<Func<StoreProduct, bool>> GetFilterExpression()
-    {
-        var predicate = PredicateBuilder.New<StoreProduct>();
+    using Domain.Entities;
 
-        if (Filters.StoreId.HasValue)
+    using LinqKit;
+
+    using Mapping;
+
+    using NetActive.CleanArchitecture.Application.Models;
+
+    public class StoreProductQueryParameters
+        : BaseQueryParameters<StoreProduct, StoreProductSortBy, StoreProductFilterModel>
+    {
+        public StoreProductQueryParameters(Guid storeId)
         {
-            predicate = predicate.And(p => p.StoreId.Equals(Filters.StoreId.Value));
+            Filters.StoreId = storeId;
+            AddInclude(nameof(StoreProduct.Product));
         }
 
-        return predicate;
-    }
+        public override Expression<Func<StoreProduct, bool>> GetFilterExpression()
+        {
+            var predicate = PredicateBuilder.New<StoreProduct>();
 
-    public override Expression<Func<StoreProduct, object>> GetSortingExpression() => getSortExpression(SortBy);
+            if (Filters.StoreId.HasValue)
+            {
+                predicate = predicate.And(p => p.StoreId.Equals(Filters.StoreId.Value));
+            }
 
-    public override Expression<Func<StoreProduct, object>> GetAdditionalSortingExpression() =>
-        getSortExpression(ThenBy);
+            return predicate;
+        }
 
-    private static Expression<Func<StoreProduct, object>> getSortExpression(StoreProductSortBy sortColumn)
-    {
-        return sortColumn switch
+        public override Expression<Func<StoreProduct, object>> GetSortingExpression() => getSortExpression(SortBy);
+
+        public override Expression<Func<StoreProduct, object>> GetAdditionalSortingExpression() =>
+            getSortExpression(ThenBy);
+
+        private static Expression<Func<StoreProduct, object>> getSortExpression(StoreProductSortBy sortColumn)
+        {
+            return sortColumn switch
             {
                 StoreProductSortBy.Id => c => c.Id,
                 StoreProductSortBy.ProductName => c => MappingExpressions.ProductName.Invoke(c),
@@ -47,5 +47,6 @@ public class StoreProductQueryParameters
                 StoreProductSortBy.InStock => c => c.InStock,
                 _ => throw new ArgumentOutOfRangeException(nameof(sortColumn))
             };
+        }
     }
 }

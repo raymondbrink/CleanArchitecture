@@ -1,14 +1,15 @@
-﻿namespace Example.Application.Manufacturer.Commands.AddManufacturer.Models;
-
-public class AddManufacturerCommandModel
+﻿namespace Example.Application.Manufacturer.Commands.AddManufacturer.Models
 {
-    public AddManufacturerCommandModel(string manufacturerName)
+    public class AddManufacturerCommandModel
     {
-        ManufacturerName = manufacturerName;
-        Contact = new ManufacturerContactModel();
+        public AddManufacturerCommandModel(string manufacturerName)
+        {
+            ManufacturerName = manufacturerName;
+            Contact = new ManufacturerContactModel();
+        }
+
+        public string ManufacturerName { get; set; }
+
+        public ManufacturerContactModel Contact { get; set; }
     }
-
-    public string ManufacturerName { get; set; }
-
-    public ManufacturerContactModel Contact { get; set; }
 }

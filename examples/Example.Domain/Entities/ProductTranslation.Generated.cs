@@ -16,26 +16,24 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Example.Domain.Entities
-{
-    public partial class ProductTranslation : Translation {
+namespace Example.Domain.Entities;
 
-        public ProductTranslation()
-        {
-            OnCreated();
-        }
+public partial class ProductTranslation : Translation {
 
-        public virtual int ProductId { get; set; }
-
-        public virtual string Name { get; set; }
-
-        public virtual string Description { get; set; }
-
-        #region Extensibility Method Definitions
-
-        partial void OnCreated();
-
-        #endregion
+    public ProductTranslation()
+    {
+        OnCreated();
     }
 
+    public virtual int ProductId { get; set; }
+
+    public virtual string Name { get; set; }
+
+    public virtual string Description { get; set; }
+
+    #region Extensibility Method Definitions
+
+    partial void OnCreated();
+
+    #endregion
 }

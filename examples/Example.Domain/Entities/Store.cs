@@ -1,5 +1,6 @@
-﻿namespace Example.Domain.Entities;
-
-public partial class Store
+﻿namespace Example.Domain.Entities
 {
+    public partial class Store
+    {
+    }
 }

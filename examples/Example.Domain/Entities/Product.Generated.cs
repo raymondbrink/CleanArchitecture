@@ -16,33 +16,31 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Example.Domain.Entities
-{
-    public partial class Product {
+namespace Example.Domain.Entities;
 
-        public Product()
-        {
-            this.Translations = new List<ProductTranslation>();
-            OnCreated();
-        }
+public partial class Product {
 
-        public virtual int Id { get; set; }
-
-        public virtual Guid ManufacturerId { get; set; }
-
-        public virtual DateTime AvailableFrom { get; set; }
-
-        public virtual DateTime? AvailableUntil { get; set; }
-
-        public virtual IList<ProductTranslation> Translations { get; set; }
-
-        public virtual Manufacturer Manufacturer { get; set; }
-
-        #region Extensibility Method Definitions
-
-        partial void OnCreated();
-
-        #endregion
+    public Product()
+    {
+        this.Translations = new List<ProductTranslation>();
+        OnCreated();
     }
 
+    public virtual int Id { get; set; }
+
+    public virtual Guid ManufacturerId { get; set; }
+
+    public virtual DateTime AvailableFrom { get; set; }
+
+    public virtual DateTime? AvailableUntil { get; set; }
+
+    public virtual IList<ProductTranslation> Translations { get; set; }
+
+    public virtual Manufacturer Manufacturer { get; set; }
+
+    #region Extensibility Method Definitions
+
+    partial void OnCreated();
+
+    #endregion
 }

@@ -1,15 +1,16 @@
-﻿namespace Example.Application.Company.Queries.GetPageOfCompanies.Mapping;
-
-using AutoMapper;
-
-using Domain.Entities;
-
-using Models;
-
-internal class CompanyListMappingProfile : Profile
+﻿namespace Example.Application.Company.Queries.GetPageOfCompanies.Mapping
 {
-    public CompanyListMappingProfile()
+    using AutoMapper;
+
+    using Domain.Entities;
+
+    using Models;
+
+    internal class CompanyListMappingProfile : Profile
     {
-        CreateMap<Company, CompanyListModel>();
+        public CompanyListMappingProfile()
+        {
+            CreateMap<Company, CompanyListModel>();
+        }
     }
 }

@@ -12,12 +12,12 @@
     public class ManufacturerController : ControllerBase
     {
         private readonly IGetManufacturerListQuery _getPagedQuery;
-        private readonly IAddManufacturerCommand _addQuery;
+        private readonly IAddManufacturerCommand _addCommand;
 
-        public ManufacturerController(IGetManufacturerListQuery getPagedQuery, IAddManufacturerCommand addQuery)
+        public ManufacturerController(IGetManufacturerListQuery getPagedQuery, IAddManufacturerCommand addCommand)
         {
             _getPagedQuery = getPagedQuery;
-            _addQuery = addQuery;
+            _addCommand = addCommand;
         }
 
         [HttpGet(Name = "GetPagedManufacturers")]
@@ -29,7 +29,7 @@
         [HttpPost(Name = "AddManufacturer")]
         public async Task<ActionResult<Guid>> PostAsync(AddManufacturerCommandModel manufacturer)
         {
-            return await _addQuery.ExecuteAsync(manufacturer);
+            return await _addCommand.ExecuteAsync(manufacturer);
         }
     }
 }
