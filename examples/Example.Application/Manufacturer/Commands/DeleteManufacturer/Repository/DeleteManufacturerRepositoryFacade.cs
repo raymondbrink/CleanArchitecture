@@ -2,7 +2,7 @@
 {
     using Domain.Entities;
 
-    using NetActive.CleanArchitecture.Application.Interfaces;
+    using NetActive.CleanArchitecture.Application.Persistence.Interfaces;
 
     internal class DeleteManufacturerRepositoryFacade : IDeleteManufacturerRepositoryFacade
     {

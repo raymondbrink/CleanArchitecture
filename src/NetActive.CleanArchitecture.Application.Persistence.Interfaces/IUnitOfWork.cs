@@ -1,5 +1,6 @@
-﻿namespace NetActive.CleanArchitecture.Application.Interfaces
+﻿namespace NetActive.CleanArchitecture.Application.Persistence.Interfaces
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -10,15 +11,15 @@
         /// <summary>
         /// Saves the changes asynchronously.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">Context has not been initialized.</exception>
-        Task<int> SaveChangesAsync();
+        /// <returns>Number of affected records.</returns>
+        /// <exception cref="InvalidOperationException">Context has not been initialized.</exception>
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Determines whether this instance has any changes.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">
+        /// <exception cref="InvalidOperationException">
         /// Context has not been initialized.
         /// or
         /// ChangeTracker has not been initialized.

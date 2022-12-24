@@ -1,18 +1,13 @@
 ﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore
 {
-    using Application.Interfaces;
-
     using Domain.Interfaces;
-
     using Interfaces;
-
+    using LinqKit;
     using Microsoft.EntityFrameworkCore;
-
     using System;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
-
-    using LinqKit;
 
     /// <inheritdoc cref="IRepository{TEntity}" />
     public class EfRepository<TDbContext, TEntity> : EfRepository<TDbContext, TEntity, long>
@@ -46,9 +41,9 @@
 
         /// <inheritdoc />
         /// <inheritdoc />
-        public override Task<TEntity> GetAsync(TKey entityId, string[] includes = null)
+        public override Task<TEntity> GetAsync(TKey entityId, string[] includes = null, CancellationToken cancellationToken = default)
         {
-            return All(includes).SingleOrDefaultAsync(c => c.Id.Equals(entityId));
+            return All(includes).SingleOrDefaultAsync(c => c.Id.Equals(entityId), cancellationToken);
         }
 
         /// <inheritdoc />

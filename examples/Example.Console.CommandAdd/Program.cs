@@ -1,7 +1,7 @@
 ﻿using Autofac;
-
 using Example.Application.Manufacturer.Commands.AddManufacturer;
 using Example.Application.Manufacturer.Commands.AddManufacturer.Models;
+using MediatR;
 
 // Build single-instance DI container.
 var builder = new ContainerBuilder();
@@ -21,9 +21,10 @@ using (var scope = container.BeginLifetimeScope())
                 }
         };
 
-    // Resolve and execute add manufacturer command.
-    var newManufacturerId = await scope.Resolve<IAddManufacturerCommand>().ExecuteAsync(manufacturerToAdd);
+    // Execute add manufacturer command.
+    var command = new AddManufacturerCommand(manufacturerToAdd);
+    var result = await scope.Resolve<ISender>().Send(command);
 
-    Console.WriteLine($"Added: {newManufacturerId}: {manufacturerToAdd.ManufacturerName}");
+    Console.WriteLine($"Added: {result}: {manufacturerToAdd.ManufacturerName}");
     Console.WriteLine();
 }

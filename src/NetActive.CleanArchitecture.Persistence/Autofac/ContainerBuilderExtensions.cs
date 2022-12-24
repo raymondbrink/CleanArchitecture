@@ -1,6 +1,6 @@
 ﻿namespace NetActive.CleanArchitecture.Persistence.Autofac
 {
-    using Application.Interfaces;
+    using Application.Persistence.Interfaces;
 
     using global::Autofac;
     using global::Autofac.Builder;

@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Application.EntityFrameworkCore\NetActive.CleanArchitecture.Application.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Application.MediatR\NetActive.CleanArchitecture.Application.MediatR.csproj" />
+    <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
     <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Autofac\NetActive.CleanArchitecture.Autofac.csproj" />
     <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Example.Domain\Example.Domain.csproj" />

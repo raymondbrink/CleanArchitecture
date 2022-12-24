@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\NetActive.CleanArchitecture.Application.Persistence.Interfaces\NetActive.CleanArchitecture.Application.Persistence.Interfaces.csproj" />
 		<ProjectReference Include="..\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
 	</ItemGroup>
 

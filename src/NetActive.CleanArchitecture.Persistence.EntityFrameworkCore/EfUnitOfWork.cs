@@ -1,9 +1,10 @@
 ﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
-    using Application.Interfaces;
+    using Application.Persistence.Interfaces;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -73,14 +74,14 @@
         #region IUnitOfWork Members
 
         /// <inheritdoc />
-        public Task<int> SaveChangesAsync()
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             if (Context == null)
             {
                 throw new InvalidOperationException("Context has not been initialized.");
             }
 
-            return Context.SaveChangesAsync();
+            return Context.SaveChangesAsync(cancellationToken);
         }
 
         /// <inheritdoc />
