@@ -8,10 +8,13 @@
 
     using Domain.Entities;
 
+    using MediatR;
+    using MediatR.Extensions.Autofac.DependencyInjection;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
-
-    using NetActive.CleanArchitecture.Application.Interfaces;
+    using NetActive.CleanArchitecture.Application.MediatR.Notifications;
+    using NetActive.CleanArchitecture.Application.Persistence.Interfaces;
     using NetActive.CleanArchitecture.Autofac.Extensions;
     using NetActive.CleanArchitecture.Persistence.Autofac;
     using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac;
@@ -49,6 +52,12 @@
             // Build application configuration.
             ApplicationConfiguration = new ConfigurationBuilder().AddJsonFile(appSettingsFilePath).Build();
 
+            // Register notification handlers (all point to the same handler).
+            builder.RegisterService<INotificationHandler<EntityCreatedNotification>, MyNotificationHandler>(singleInstance);
+            builder.RegisterService<INotificationHandler<EntityReadNotification>, MyNotificationHandler>(singleInstance);
+            builder.RegisterService<INotificationHandler<EntityUpdatedNotification>, MyNotificationHandler>(singleInstance);
+            builder.RegisterService<INotificationHandler<EntityDeletedNotification>, MyNotificationHandler>(singleInstance);
+
             registerApplicationDependencies(builder, singleInstance);
             registerPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(builder, singleInstance);
             registerInfrastructureDependencies(builder, singleInstance);
@@ -66,6 +75,9 @@
                 // Register the ApplicationConfiguration with Autofac.
                 builder.Register(_ => ApplicationConfiguration).As<IConfiguration>();
             }
+
+            // Register MediatR from application layer.
+            builder.RegisterMediatR(Application.AssemblyReference.Assembly);
 
             // Register other application layer modules we need.
             builder.RegisterModule<Application.Company.Autofac.Module>(singleInstance);

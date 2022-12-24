@@ -1,6 +1,6 @@
 ﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac
 {
-    using Application.Interfaces;
+    using Application.Persistence.Interfaces;
 
     using Domain.Interfaces;
 
@@ -11,7 +11,7 @@
     using Interfaces;
 
     using Microsoft.EntityFrameworkCore;
-
+    
     using Persistence.Autofac;
 
     /// <summary>

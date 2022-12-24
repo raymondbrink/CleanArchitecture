@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -43,7 +44,7 @@
         /// <returns>
         /// Model.
         /// </returns>
-        Task<TModel> GetAsync(TKey entityId, string[] includes = null);
+        Task<TModel> GetAsync(TKey entityId, string[] includes = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the single model for the entity that meets the given filter function.
@@ -51,7 +52,7 @@
         /// <param name="where">Filtering based on a filter function.</param>
         /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
         /// <returns>Model.</returns>
-        Task<TModel> GetAsync(Expression<Func<TEntity, bool>> where, string[] includes = null);
+        Task<TModel> GetAsync(Expression<Func<TEntity, bool>> where, string[] includes = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the model for the entity with the specified identifier. Throws an EntityNotFoundException, if the entity wasn't found.
@@ -61,7 +62,7 @@
         /// <returns>
         /// Model.
         /// </returns>
-        Task<TModel> ReadAsync(TKey entityId, string[] includes = null);
+        Task<TModel> ReadAsync(TKey entityId, string[] includes = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the single model for the entity that meets the given filter function. Throws an EntityNotFoundException, if the entity wasn't found.
@@ -69,21 +70,21 @@
         /// <param name="where">Filtering based on a filter function.</param>
         /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
         /// <returns>Model.</returns>
-        Task<TModel> ReadAsync(Expression<Func<TEntity, bool>> where, string[] includes = null);
+        Task<TModel> ReadAsync(Expression<Func<TEntity, bool>> where, string[] includes = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets a boolean value indicating whether an entity with the given Id exists.
         /// </summary>
         /// <param name="id">Id of the entity to find.</param>
         /// <returns>Boolean.</returns>
-        Task<bool> ExistsAsync(TKey id);
+        Task<bool> ExistsAsync(TKey id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets a boolean value indicating whether at least one entity exists, that complies to the (optional) given filter.
         /// </summary>
         /// <param name="where">Filtering based on a filter function.</param>
         /// <returns>Boolean.</returns>
-        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where);
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets one page of results for the given query, sorted by entity Id ascending.
@@ -94,7 +95,7 @@
         /// <returns>Paged query result.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(string[] includes = null, uint pageIndex = 0U,
-            uint pageSize = Constants.DefaultPageSize);
+            uint pageSize = Constants.DefaultPageSize, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets one page of results for the given query, sorted by entity Id ascending.
@@ -108,7 +109,8 @@
         Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(Expression<Func<TEntity, bool>> where,
             string[] includes = null,
             uint pageIndex = 0U,
-            uint pageSize = Constants.DefaultPageSize);
+            uint pageSize = Constants.DefaultPageSize, 
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets one page of results for the given query.
@@ -128,7 +130,8 @@
             bool thenDescending = false,
             string[] includes = null,
             uint pageIndex = 0U,
-            uint pageSize = Constants.DefaultPageSize);
+            uint pageSize = Constants.DefaultPageSize, 
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets one page of results for the given query.
@@ -136,7 +139,8 @@
         /// <param name="parameters">Filtering, sorting and paging parameters to apply.</param>
         /// <returns>Paged query result.</returns>
         Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync<TSortModel, TFilterModel>(
-            BasePagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new();
+            BasePagedQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters,
+            CancellationToken cancellationToken = default) where TFilterModel : new();
 
         /// <summary>
         /// Gets one page of results for the given query.
@@ -159,7 +163,8 @@
             bool thenDescending = false,
             string[] includes = null,
             uint pageIndex = 0U,
-            uint pageSize = Constants.DefaultPageSize);
+            uint pageSize = Constants.DefaultPageSize,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets results for the given query, sorted by entity Id ascending.
@@ -168,7 +173,10 @@
         /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
         /// <returns>List of items.</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        Task<List<TModel>> GetItemsAsync(Expression<Func<TEntity, bool>> where = null, string[] includes = null);
+        Task<List<TModel>> GetItemsAsync(
+            Expression<Func<TEntity, bool>> where = null, 
+            string[] includes = null,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets results for the given query.
@@ -184,7 +192,8 @@
             bool orderDescending = false,
             Expression<Func<TEntity, object>> thenBy = null,
             bool thenDescending = false,
-            string[] includes = null);
+            string[] includes = null,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets results for the given query.
@@ -192,7 +201,9 @@
         /// <param name="parameters">Filtering and sorting parameters to apply.</param>
         /// <returns>List of items.</returns>
         Task<List<TModel>> GetItemsAsync<TSortModel, TFilterModel>(
-            BaseQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters) where TFilterModel : new();
+            BaseQueryParameters<TEntity, TKey, TSortModel, TFilterModel> parameters,
+            CancellationToken cancellationToken = default) 
+            where TFilterModel : new();
 
         /// <summary>
         /// Gets results for the given query.
@@ -210,6 +221,7 @@
             bool orderDescending = false,
             Expression<Func<TEntity, object>> thenBy = null,
             bool thenDescending = false,
-            string[] includes = null);
+            string[] includes = null,
+            CancellationToken cancellationToken = default);
     }
 }

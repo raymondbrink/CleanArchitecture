@@ -3,7 +3,7 @@
     using System;
 
     using Application.Exceptions;
-    using Application.Interfaces;
+    using Application.Persistence.Interfaces;
 
     using Domain.Interfaces;
 

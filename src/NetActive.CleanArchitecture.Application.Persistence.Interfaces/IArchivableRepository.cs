@@ -1,4 +1,4 @@
-﻿namespace NetActive.CleanArchitecture.Application.Interfaces
+﻿namespace NetActive.CleanArchitecture.Application.Persistence.Interfaces
 {
     using Domain.Interfaces;
 

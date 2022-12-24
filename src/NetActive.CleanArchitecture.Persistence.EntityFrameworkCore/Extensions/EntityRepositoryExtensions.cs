@@ -2,9 +2,10 @@
 {
     using System;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
 
-    using Application.Interfaces;
+    using Application.Persistence.Interfaces;
 
     using Domain.Interfaces;
 
@@ -21,11 +22,14 @@
         /// <typeparam name="TEntity">Type of entity.</typeparam>
         /// <param name="repository">Entity repository.</param>
         /// <param name="entityId">Entity Id to match.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Boolean value indicating whether an entity with the given Id exists or not.</returns>
-        public static Task<bool> ExistsAsync<TEntity>(this IRepository<TEntity> repository, long entityId)
+        public static Task<bool> ExistsAsync<TEntity>(this IRepository<TEntity> repository,
+            long entityId,
+            CancellationToken cancellationToken = default)
             where TEntity : class, IEntity
         {
-            return repository.ExistsAsync(e => e.Id.Equals(entityId));
+            return repository.ExistsAsync(e => e.Id.Equals(entityId), cancellationToken);
         }
 
         /// <summary>
@@ -35,12 +39,15 @@
         /// <typeparam name="TKey">Type of entity key.</typeparam>
         /// <param name="repository">Entity repository.</param>
         /// <param name="entityId">Entity Id to match.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Boolean value indicating whether an entity with the given Id exists or not.</returns>
-        public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository, TKey entityId)
+        public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository, 
+            TKey entityId,
+            CancellationToken cancellationToken = default)
             where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
-            return repository.ExistsAsync(e => e.Id.Equals(entityId));
+            return repository.ExistsAsync(e => e.Id.Equals(entityId), cancellationToken);
         }
 
         /// <summary>
@@ -50,13 +57,15 @@
         /// <typeparam name="TKey">Type of entity key.</typeparam>
         /// <param name="repository">Entity repository.</param>
         /// <param name="predicate">Predicate to match.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Boolean value indicating whether an entity that complies with the given predicate exists or not.</returns>
         public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository,
-            Expression<Func<TEntity, bool>> predicate)
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
             where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
-            return repository.All().AnyAsync(predicate);
+            return repository.All().AnyAsync(predicate, cancellationToken);
         }
     }
 }

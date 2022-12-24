@@ -18,6 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
 		<ProjectReference Include="..\Example.Application\Example.Application.csproj" />
 		<ProjectReference Include="..\Example.Shared\Example.Shared.csproj" />
 	</ItemGroup>

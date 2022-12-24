@@ -3,7 +3,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Application.Interfaces;
+    using Application.Persistence.Interfaces;
 
     using Domain.Interfaces;
 
@@ -36,7 +36,7 @@
         protected TDbContext? Context { get; set; }
 
         /// <inheritdoc />
-        public abstract Task<TEntity> GetAsync(TKey entityId, string[]? includes = null);
+        public abstract Task<TEntity> GetAsync(TKey entityId, string[]? includes = null, CancellationToken cancellationToken = default);
 
         /// <inheritdoc />
         public abstract TEntity Create();
