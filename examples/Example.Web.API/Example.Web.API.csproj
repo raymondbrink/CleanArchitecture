@@ -13,8 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\examples\Example.Shared\Example.Shared.csproj" />
-    <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Application.MediatR\NetActive.CleanArchitecture.Application.MediatR.csproj" />
-    <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
   </ItemGroup>
 
 </Project>
