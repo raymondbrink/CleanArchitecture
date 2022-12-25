@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>NetActive.CleanArchitecture.Persistence</PackageId>
+	<Description>Handles generic data access and persistence</Description>
+    <Authors>R. Brink</Authors>
+    <Company>Net@ctive</Company>
+	<Copyright>Copyright Net@ctive 2022</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetActive.CleanArchitecture.Application.Persistence.Interfaces\NetActive.CleanArchitecture.Application.Persistence.Interfaces.csproj" />
+    <ProjectReference Include="..\NetActive.CleanArchitecture.Application\NetActive.CleanArchitecture.Application.csproj" />
+  </ItemGroup>
+
+</Project>

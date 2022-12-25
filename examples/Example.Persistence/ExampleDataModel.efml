@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore context-namespace="Example.Persistence" schema="dbo" namespace="Example.Domain.Entities" p1:name="ExampleDbContext" p1:Guid="99c51873-2198-43ab-b25c-86f634d3151d" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="$ComplexTypes">
+    <component class="Person" p1:Guid="a7877043-7087-46b1-b6b1-a35dc85aaee8">
+      <property name="FamilyName" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="88eb0b8e-c0c6-42a3-b120-2ccf05214b00">
+        <column name="" />
+      </property>
+      <property name="GivenName" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="47d2951e-4dbb-4ed0-b188-1ddbede3f4d9">
+        <column name="" />
+      </property>
+    </component>
+  </class>
+  <class name="Customer" entity-set="Customers" schema="dbo" p1:Guid="d05ea114-d39a-4f91-8f68-8f408bd29e11">
+    <id name="Id" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="353f7b13-dc07-4000-8b62-f5064d627bde">
+      <column name="" />
+    </id>
+    <component name="Name" class="Person" p1:ValidateRequired="false" p1:Guid="95b5e976-afe5-47cc-b674-5c10ed09c5cf">
+      <property name="FamilyName">
+        <column name="" length="50" />
+      </property>
+      <property name="GivenName">
+        <column name="" length="50" />
+      </property>
+    </component>
+    <property name="StoreId" type="Guid" p1:ValidateRequired="true" p1:Guid="97c61b8f-80a5-4d37-b9ad-01ea1f5c9b39">
+      <column name="" not-null="False" />
+    </property>
+    <property name="ArchivedAtUtc" type="DateTime" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="7c0f788f-ba94-4094-8758-9a213e3ad5fe">
+      <column name="" />
+    </property>
+    <property name="ArchivedBy" type="String" p1:nullable="True" p1:ValidateMaxLength="100" p1:ValidateRequired="false" p1:Guid="ffd7d24d-70a8-4ea9-a92b-81044451a676">
+      <column name="" length="100" />
+    </property>
+  </class>
+  <class name="Company" entity-set="Companies" p1:Guid="e666735c-af4f-4b3f-b035-122b8155e9bb" p1:ShapeColor="-2039584">
+    <id name="Id" type="Guid" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="1c89b7ba-56de-47a4-95f9-e62edb07c096">
+      <column name="" />
+    </id>
+    <property name="Name" type="String" p1:ValidateMaxLength="100" p1:ValidateRequired="true" p1:Guid="37e2b38d-bb69-47ed-b7dc-85c199bee605">
+      <column name="" length="100" />
+    </property>
+    <property name="CreatedAtUtc" type="DateTime" p1:ValidateRequired="true" p1:Guid="c5d7f402-3b2d-48f8-a73e-a3c318134339">
+      <column name="" />
+    </property>
+    <joined-subclass name="Store" entity-set="Stores" p1:InheritanceGuid="524cb30a-90e5-43c2-bcf4-815cf0fd3e77" p1:Guid="6e331694-a957-48cc-b01f-cd3b7517e444">
+      <key>
+        <column name="" />
+      </key>
+    </joined-subclass>
+    <joined-subclass name="Manufacturer" entity-set="Manufacturers" schema="dbo" p1:InheritanceGuid="a3e0ba8a-7967-44c6-8f7b-c03c0a946392" p1:Guid="75ce6c74-be19-454b-90b8-e69e64c35d21">
+      <key>
+        <column name="" />
+      </key>
+      <component name="Contact" class="Person" p1:ValidateRequired="false" p1:Guid="2050c2fc-9cdd-4445-b4d9-a6acc62f3234">
+        <property name="FamilyName">
+          <column name="" length="50" />
+        </property>
+        <property name="GivenName">
+          <column name="" length="50" />
+        </property>
+      </component>
+    </joined-subclass>
+  </class>
+  <class name="Product" entity-set="Products" schema="dbo" p1:Guid="89cf6762-c79b-4bda-bf7a-f97f1b08fde0">
+    <id name="Id" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="2f432ff4-530d-463c-8f0b-4688c364bbd5">
+      <column name="" />
+    </id>
+    <property name="ManufacturerId" type="Guid" p1:ValidateRequired="true" p1:Guid="d91b1b67-a195-422d-a063-860b1bfdeae2">
+      <column name="" not-null="False" />
+    </property>
+    <property name="AvailableFrom" type="DateTime" p1:ValidateRequired="true" p1:Guid="7bd5e3d4-f59f-4c6b-8328-48f4d4e5c134">
+      <column name="" />
+    </property>
+    <property name="AvailableUntil" type="DateTime" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="db0b406d-9062-44f8-8b67-76dc7735409c">
+      <column name="" />
+    </property>
+  </class>
+  <class name="Translation" entity-set="Translations" schema="dbo" p1:Guid="c4788cd7-4bf2-4e85-90e9-091987d0999a">
+    <id name="Id" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="0b2ac245-748b-4db9-90f8-688a92d7a53f">
+      <column name="" />
+    </id>
+    <property name="Culture" type="String" p1:ValidateMaxLength="5" p1:ValidateRequired="true" p1:Guid="0ca0cc02-65ee-41d1-a53a-c34d416edc08">
+      <column name="" length="5" />
+    </property>
+    <joined-subclass name="ProductTranslation" entity-set="ProductTranslations" schema="dbo" p1:InheritanceGuid="6c3a2450-bb32-4a67-81e0-1998343239be" p1:Guid="bcdc68db-440f-42b7-b326-f18631b7593c">
+      <key>
+        <column name="" />
+      </key>
+      <property name="ProductId" type="Int32" p1:ValidateRequired="true" p1:Guid="34de099f-8545-4115-8e07-e8e14a9e311e">
+        <column name="" not-null="False" />
+      </property>
+      <property name="Name" type="String" p1:ValidateMaxLength="100" p1:ValidateRequired="true" p1:Guid="22ccc75e-d8ab-4cc0-b52a-6930b8fce963">
+        <column name="" length="100" />
+      </property>
+      <property name="Description" type="String" p1:nullable="True" p1:ValidateMaxLength="250" p1:ValidateRequired="false" p1:Guid="a53f2f0d-9639-4e9e-83a2-c9a40518587c">
+        <column name="" length="100" />
+      </property>
+    </joined-subclass>
+  </class>
+  <class name="Employee" entity-set="Employees" schema="dbo" p1:Guid="5654bc42-5546-4db0-8293-661221ee8887">
+    <id name="Id" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="0874977d-278f-4542-bd1e-ecea4b080a4b">
+      <column name="" />
+    </id>
+    <component name="Name" class="Person" p1:ValidateRequired="false" p1:Guid="14dc3017-4251-4022-9781-29dc3fb2b675">
+      <property name="FamilyName">
+        <column name="" length="50" />
+      </property>
+      <property name="GivenName">
+        <column name="" length="50" />
+      </property>
+    </component>
+    <property name="CompanyId" type="Guid" p1:ValidateRequired="true" p1:Guid="d6659948-d274-46dc-8c3f-96095efd6f7d">
+      <column name="" not-null="False" />
+    </property>
+  </class>
+  <class name="StoreProduct" entity-set="StoreProducts" schema="dbo" p1:Guid="21ee13d3-e438-46c5-9450-810205e84bc4">
+    <id name="Id" type="Int64" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="4113a224-7aa6-4d84-965b-16225fc59a2e">
+      <column name="" />
+    </id>
+    <property name="StoreId" type="Guid" p1:ValidateRequired="true" p1:Guid="f315b0e9-7e76-4f87-8af3-795f1efd2732">
+      <column name="" not-null="False" />
+    </property>
+    <property name="ProductId" type="Int32" p1:ValidateRequired="true" p1:Guid="102994d0-d8cd-48c4-b377-67a89422369c">
+      <column name="" not-null="False" />
+    </property>
+    <property name="InStock" type="Int32" p1:ValidateRequired="true" p1:Guid="3e5b625d-d8a7-4ed0-832a-77efd4731cf1">
+      <column name="" />
+    </property>
+  </class>
+  <associations>
+    <association name="Product_ProductTranslation" cardinality="OneToMany" p1:Guid="c973a65d-aa4d-4364-be43-6d8c764fbcd1">
+      <end1 multiplicity="One" name="Product" class="ProductTranslation" relation-class="Product" generate="False" constrained="True" lazy="False" p1:Guid="c2b0b049-a392-465c-8d2f-14bf0a7f2005">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="Translations" class="Product" relation-class="ProductTranslation" lazy="False" p1:Guid="b86e437e-c463-4f71-95fd-c94c03dd35d7">
+        <property name="ProductId" />
+      </end2>
+    </association>
+    <association name="Store_Customer" cardinality="OneToMany" p1:Guid="bfeb9986-cc56-44ed-bee8-7a94c94460f7">
+      <end1 multiplicity="One" name="Store" class="Customer" relation-class="Store" constrained="True" lazy="False" p1:Guid="51692456-edc2-437a-b664-9362f7df26e1">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="Customers" class="Store" relation-class="Customer" lazy="False" p1:Guid="a53a8604-3ef9-48ee-a759-4cf540643061">
+        <property name="StoreId" />
+      </end2>
+    </association>
+    <association name="Manufacturer_Product" cardinality="OneToMany" p1:Guid="5043c57a-ec96-4b78-837a-1b74b576859b">
+      <end1 multiplicity="One" name="Manufacturer" class="Product" relation-class="Manufacturer" constrained="True" lazy="False" p1:Guid="eb5bccdf-ff15-4062-947c-af005dad6469">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="Products" class="Manufacturer" relation-class="Product" lazy="False" p1:Guid="2db3a86d-d1a4-4f80-9c91-d42d02d64c7d">
+        <property name="ManufacturerId" />
+      </end2>
+    </association>
+    <association name="Company_Employee" cardinality="OneToMany" p1:Guid="0ba402a9-d1db-4ebd-b848-86a118965d72">
+      <end1 multiplicity="One" name="Company" class="Employee" relation-class="Company" constrained="True" lazy="False" p1:Guid="67cc9252-afae-4bd2-a88d-72142a813e36">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="Employees" class="Company" relation-class="Employee" lazy="False" p1:Guid="3ab1354d-5da7-4b1e-bfdc-6c32ae7522fb">
+        <property name="CompanyId" />
+      </end2>
+    </association>
+    <association name="Store_Assortment" cardinality="OneToMany" p1:Guid="b1e82fba-728d-4253-acce-56d58525c0a7">
+      <end1 multiplicity="One" name="Store" class="StoreProduct" relation-class="Store" generate="False" constrained="True" lazy="False" p1:Guid="139e8540-d13a-4251-9993-3413faec6f19">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="ProductRange" class="Store" relation-class="StoreProduct" lazy="False" p1:Guid="0ba16ac8-23ad-4495-832d-cfa62d5feb25">
+        <property name="StoreId" />
+      </end2>
+    </association>
+    <association name="Product_Assortment" cardinality="OneToMany" p1:Guid="3a3c160d-ecb2-4cca-9a31-342cf63c3686">
+      <end1 multiplicity="One" name="Product" class="StoreProduct" relation-class="Product" constrained="True" lazy="False" p1:Guid="eb5dc7be-0784-4062-a48a-5886131f2ff2">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="Assortments" class="Product" relation-class="StoreProduct" generate="False" lazy="False" p1:Guid="3926f5f2-ce4d-4f95-a3b5-068161d8cafb">
+        <property name="ProductId" />
+      </end2>
+    </association>
+  </associations>
+</efcore>

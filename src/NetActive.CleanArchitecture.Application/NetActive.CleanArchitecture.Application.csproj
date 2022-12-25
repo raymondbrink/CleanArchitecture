@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6</TargetFramework>
+	<PackageId>NetActive.CleanArchitecture.Application</PackageId>
+	<Description>Handles command and query construction and execution</Description>
+	<Authors>R. Brink</Authors>
+	<Company>Net@ctive</Company>
+	<Copyright>Copyright Net@ctive 2022</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

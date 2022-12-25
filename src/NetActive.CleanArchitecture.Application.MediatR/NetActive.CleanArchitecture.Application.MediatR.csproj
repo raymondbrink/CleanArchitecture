@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<PackageId>NetActive.CleanArchitecture.Application.MediatR</PackageId>
+		<Description>Adds support for event sourcing to the Application layer using MediatR.</Description>
+		<Authors>R. Brink</Authors>
+		<Company>Net@ctive</Company>
+		<Copyright>Copyright Net@ctive 2022</Copyright>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="11.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\NetActive.CleanArchitecture.Application.Persistence.Interfaces\NetActive.CleanArchitecture.Application.Persistence.Interfaces.csproj" />
+	</ItemGroup>
+	
+</Project>
