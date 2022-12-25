@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NetActive.CleanArchitecture.Domain.FluentValidation\NetActive.CleanArchitecture.Domain.FluentValidation.csproj" />
+    <PackageReference Include="NetActive.CleanArchitecture.Domain.FluentValidation" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>

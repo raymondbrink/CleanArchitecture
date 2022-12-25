@@ -1,4 +1,4 @@
-﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Extensions
+﻿namespace NetActive.CleanArchitecture.Application.EntityFrameworkCore.Extensions
 {
     using System;
     using System.Linq.Expressions;

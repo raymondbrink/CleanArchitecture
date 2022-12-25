@@ -7,14 +7,14 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using Application.Extensions;
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
 
     using Domain.Interfaces;
 
     using Exceptions;
-
-    using Extensions;
 
     using Interfaces;
 
