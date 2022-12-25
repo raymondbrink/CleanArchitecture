@@ -1,47 +1,54 @@
 # Example.Console.QueryList
 
 This example demonstrates how to retrieve a list of entities from the database. 
-It's as simple as resolving the right query from the DI container and calling the `ExecuteAsync()` method.
+It's as simple as creating an instance of the `GetManufacturerListQuery` and sending it to MediatR.
 
-Let's have a look at the implementation:
+Let's have a look at the implementation of the `GetManufacturerListQueryHandler`:
 
 ```csharp
-internal class GetManufacturerListQuery : IGetManufacturerListQuery
+internal sealed class GetManufacturerListQueryHandler : BaseQueryHandler<GetManufacturerListQuery, ManufacturerListResponse>
 {
     private readonly IEntityQueryService<Manufacturer, ManufacturerListModel, Guid> _query;
 
-    public GetManufacturerListQuery(IEntityQueryService<Manufacturer, ManufacturerListModel, Guid> query)
+    public GetManufacturerListQueryHandler(IEntityQueryService<Manufacturer, ManufacturerListModel, Guid> query, IPublisher publisher)
+        : base(publisher)
     {
         _query = query;
     }
 
-    public Task<List<ManufacturerListModel>> ExecuteAsync()
+    public override async Task<ManufacturerListResponse> Handle(GetManufacturerListQuery request, CancellationToken cancellationToken)
     {
-        return _query.GetItemsAsync();
+        var result = new ManufacturerListResponse(await _query.GetItemsAsync(cancellationToken: cancellationToken));
+
+        await PublishNotificationAsync("Requested a list of all manufacturers", cancellationToken);
+
+        return result;
     }
 }
 ```
+
 As you can see, there's not much to it. 
 That's because the `IEntityQueryService` that gets injected into the constructor of our query, does all the heavy lifting for us.
 We just have to call the `GetItemsAsync()` method on that interface and return the result.
+For demonstration purposes we publish a notification using MediatR, that can be used for logging for instance.
 To find out where this "magical" generic `IEntityQueryService` comes from we should look at the Manufacturer module.
 
 ## Module
-To make this work we need two registrations in our DI container.
-These are the relevant manufacturer Module registrations for this query:
+To make this work we need only one registration in our DI container as MediatR registers the command and its respective handler for us.
+
+This is the relevant Manufacturer Module registration for this query:
 
 ```csharp
 // IGetManufacturerListQuery
-builder.RegisterService<IGetManufacturerListQuery, GetManufacturerListQuery>(RegisterSingleInstance);
 builder.RegisterService<IEntityQueryService<Manufacturer, ManufacturerListModel, Guid>, EntityQueryService<Manufacturer, ManufacturerListModel, Guid>>(RegisterSingleInstance)
     .WithParameter(Constants.ServiceParameters.Mapper, ManufacturerMapper.Instance);
 ```
 
-The registration for `IGetManufacturerListQuery` is pretty straight forward.
-Finally there's a registration for the `EntityQueryService<Manufacturer, ManufacturerListModel, Guid>`, which is an implementation of the generic `IEntityQueryService<Manufacturer, ManufacturerListModel, Guid>` interface.
+There's a registration for the `EntityQueryService<Manufacturer, ManufacturerListModel, Guid>`, which is an implementation of the generic `IEntityQueryService<Manufacturer, ManufacturerListModel, Guid>` interface.
 
 What are those types we pass to this generic service?
-Well, `Manufacturer` is easy, that's the entity we want to query. `ManufacturerListModel` is the model we want to map the entity to. 
+Well, `Manufacturer` is easy, that's the entity we want to query. 
+`ManufacturerListModel` is the model we want to map the entity to. 
 It describes only those details of the manufacturer that we need in our application. 
 The query makes sure it only retrieves those entity details from the database and returns a list of those.
 
