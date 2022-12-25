@@ -31,7 +31,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Example.Web.API.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Example.Web.API.xml"), true);
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Example.Application.xml"));
 });
 

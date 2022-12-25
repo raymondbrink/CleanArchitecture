@@ -9,6 +9,9 @@
     
     using Microsoft.AspNetCore.Mvc;
 
+    /// <summary>
+    /// This controller uses MediatR.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ManufacturerController : ControllerBase
