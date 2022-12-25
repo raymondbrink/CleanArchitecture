@@ -20,6 +20,11 @@
             _sender = sender;
         }
 
+        /// <summary>
+        /// Gets a list of all manufacturers.
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>List of manufacturers.</returns>
         [HttpGet(Name = "GetManufacturers")]
         public async Task<ActionResult<List<ManufacturerListModel>>> GetAsync(CancellationToken cancellationToken)
         {
@@ -29,8 +34,15 @@
             return result?.Manufacturers.Any() == true ? Ok(result.Manufacturers) : NotFound();
         }
 
+        /// <summary>
+        /// Deletes the given manufacturer.
+        /// </summary>
+        /// <param name="manufacturerId">Id of the manufacturer to delete.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <response code="204">No Content</response>
         [HttpDelete(Name = "DeleteManufacturer")]
-        public async Task<ActionResult<Guid>> DeleteAsync(Guid manufacturerId, CancellationToken cancellationToken)
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> DeleteAsync(Guid manufacturerId, CancellationToken cancellationToken)
         {
             var command = new DeleteManufacturerCommand(manufacturerId);
             await _sender.Send(command, cancellationToken);
@@ -38,6 +50,12 @@
             return NoContent();
         }
 
+        /// <summary>
+        /// Adds the given manufacturer to the database.
+        /// </summary>
+        /// <param name="manufacturer">Manufacturer to add.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>Manufacturer.</returns>
         [HttpPost(Name = "AddManufacturer")]
         public async Task<ActionResult<Guid>> PostAsync(AddManufacturerCommandModel manufacturer, CancellationToken cancellationToken)
         {

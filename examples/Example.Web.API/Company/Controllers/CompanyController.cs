@@ -8,6 +8,9 @@
 
     using NetActive.CleanArchitecture.Application.Models;
 
+    /// <summary>
+    /// This controller showcases the usage of Queries directly.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class CompanyController : ControllerBase
@@ -21,6 +24,11 @@
             _getPagedQuery = getPagedQuery;
         }
 
+        /// <summary>
+        /// Gets the given company.
+        /// </summary>
+        /// <param name="id">Id of the company to return.</param>
+        /// <returns>Company.</returns>
         [HttpGet("{id}", Name = "GetCompany")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
@@ -28,6 +36,11 @@
             return company == null ? NotFound(id) : Ok(company);
         }
 
+        /// <summary>
+        /// Gets a paged list of companies matching the given parameters.
+        /// </summary>
+        /// <param name="parameters">Parameters for companies to match.</param>
+        /// <returns>List of companies.</returns>
         [HttpGet(Name = "GetPagedCompanies")]
         public async Task<PagedQueryResultModel<CompanyListModel>> GetAsync(
             [FromQuery] CompanyQueryParams parameters)
