@@ -71,12 +71,13 @@ Under the hood these libraries try to apply the following principles and pattern
 If you're a programmer and you haven't heared of these yet, please check out [Uncle Bob Martin](http://cleancoder.com/products) and [Martin Fowler](https://martinfowler.com/).
 You might learn a thing or two ;-)
 
-Also check out these libraries as they are priceless and essential for these libraries to shine:
+Also check out these projects as they are priceless and essential for these libraries to shine:
 
 - [Autofac](https://github.com/autofac/Autofac)
 - [AutoMapper](https://github.com/AutoMapper/AutoMapper)
 - [FluentValidation](https://github.com/FluentValidation/FluentValidation)
 - [LINQKit](https://github.com/scottksmith95/LINQKit)
+- [MediatR](https://github.com/jbogard/MediatR)
 
 Happy coding!
 
