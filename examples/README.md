@@ -41,11 +41,26 @@ This example showcases a Query to retrieve a list of entities from the database.
 It goes into detail on the components in play and how they all ty together.  
 More info: [Example.Console.QueryList](Example.Console.QueryList)
 
-### 4. Example.Console.QueryPaged
+### 4. Example.Console.QueryMultilingual
+
+This example goes into working with multi lingual data. 
+How do you store such data efficiently and how do you query it maintaining fast performance?  
+TODO: Document this project
+<!--More info: [Example.Console.QueryMultilingual](Example.Console.QueryMultilingual)-->
+
+### 5. Example.Console.QueryPaged
 
 This example showcases a Query to retrieve a **paged** list of entities from the database. 
 It goes into detail on the components in play, how to manipulate the query parameters and how it all ties together.  
 More info: [Example.Console.QueryPaged](Example.Console.QueryPaged)
+
+### 6. Example.Web.API
+
+This example showcases Commands and a Queries with and without the use of MediatR.
+The `ComponyController` directly executes queries.
+The `ManufacturerController` uses MediatR to send commands and a query to the respecive handlers.  
+TODO: Document this project
+<!--More info: [Example.Web.API](Example.Web.API)-->
 
 Happy coding!
 
