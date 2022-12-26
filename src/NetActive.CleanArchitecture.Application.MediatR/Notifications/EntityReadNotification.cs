@@ -1,12 +1,10 @@
 ﻿namespace NetActive.CleanArchitecture.Application.MediatR.Notifications
 {
-    using global::MediatR;
-
     /// <summary>
     /// Notification to be sent when at least one entity is read.
     /// Subscribe with MediatR to receive this notification.
     /// </summary>
-    public class EntityReadNotification : INotification
+    public class EntityReadNotification : BaseEntityNotification
     {
         public EntityReadNotification(string notification)
         {
@@ -18,7 +16,7 @@
         /// <inheritdoc/>
         public override string ToString()
         {
-            return Notification;
+            return $"{OccurredAtUTC:s}: {Notification}";
         }
     }
 }
