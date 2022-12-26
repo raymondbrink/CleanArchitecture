@@ -11,7 +11,7 @@
 
     /// <inheritdoc cref="IRepository{TEntity}" />
     public class EfRepository<TDbContext, TEntity> : EfRepository<TDbContext, TEntity, long>
-        where TEntity : class, IEntity
+        where TEntity : class, IEntity, IAggregateRoot
         where TDbContext : DbContext, IDbContext
     {
         /// <inheritdoc />
@@ -23,7 +23,7 @@
     /// <inheritdoc cref="IRepository{TEntity, TKey}" />
     public class EfRepository<TDbContext, TEntity, TKey>
         : BaseRepository<TDbContext, TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
+        where TEntity : class, IEntity<TKey>, IAggregateRoot
         where TKey : struct
         where TDbContext : DbContext, IDbContext
     {

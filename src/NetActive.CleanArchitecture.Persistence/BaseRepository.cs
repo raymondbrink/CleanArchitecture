@@ -15,7 +15,8 @@
     /// <typeparam name="TDbContext">Type of IDbContext.</typeparam>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     public abstract class BaseRepository<TDbContext, TEntity> : BaseRepository<TDbContext, TEntity, long>
-        where TEntity : class, IEntity where TDbContext : IDbContext
+        where TEntity : class, IEntity, IAggregateRoot 
+        where TDbContext : IDbContext
     {
     }
 
@@ -26,7 +27,7 @@
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     public abstract class BaseRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
+        where TEntity : class, IEntity<TKey>, IAggregateRoot
         where TDbContext : IDbContext
         where TKey : struct
     {
