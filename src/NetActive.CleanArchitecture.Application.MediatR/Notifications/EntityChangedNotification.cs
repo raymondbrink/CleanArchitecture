@@ -1,13 +1,12 @@
 ﻿namespace NetActive.CleanArchitecture.Application.MediatR.Notifications
 {
-    using global::MediatR;
     using MediatR.Enums;
 
     /// <summary>
     /// Notification to be sent when an entity is changed (created, updated or deleted).
     /// Subscribe with MediatR to receive this notification.
     /// </summary>
-    public class EntityChangedNotification : INotification
+    public class EntityChangedNotification : BaseEntityNotification
     {
         public EntityChangedNotification(object id, EntityChangeType changeType)
         {
@@ -28,7 +27,7 @@
         /// <inheritdoc/>
         public override string ToString()
         {
-            return $"Entity with id '{Id}' was {ChangeType}";
+            return $"{OccurredAtUTC:s}: Entity with id '{Id}' was {ChangeType}";
         }
     }
 }
