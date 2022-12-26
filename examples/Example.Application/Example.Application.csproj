@@ -12,9 +12,9 @@
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="LinqKit.Core" Version="1.2.3" />
     <PackageReference Include="MediatR" Version="11.1.0" />
-    <PackageReference Include="NetActive.CleanArchitecture.Application.EntityFrameworkCore" Version="6.0.2" />
-    <PackageReference Include="NetActive.CleanArchitecture.Application.MediatR" Version="6.0.2" />
-    <PackageReference Include="NetActive.CleanArchitecture.Autofac" Version="6.0.2" />
+    <PackageReference Include="NetActive.CleanArchitecture.Application.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="NetActive.CleanArchitecture.Application.MediatR" Version="6.0.3" />
+    <PackageReference Include="NetActive.CleanArchitecture.Autofac" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>

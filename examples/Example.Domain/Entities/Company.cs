@@ -4,7 +4,7 @@
 
     using NetActive.CleanArchitecture.Domain.Interfaces;
 
-    public partial class Company : IEntity<Guid>
+    public partial class Company : IEntity<Guid>, IAggregateRoot
     {
     }
 }

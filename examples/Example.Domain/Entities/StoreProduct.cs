@@ -2,7 +2,7 @@
 {
     using NetActive.CleanArchitecture.Domain.Interfaces;
 
-    public partial class StoreProduct : IEntity
+    public partial class StoreProduct : IEntity, IAggregateRoot
     {
     }
 }
