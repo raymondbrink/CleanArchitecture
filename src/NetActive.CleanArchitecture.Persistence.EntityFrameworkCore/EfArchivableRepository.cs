@@ -13,7 +13,7 @@
 
     /// <inheritdoc />
     public class EfArchivableRepository<TDbContext, TEntity> : EfArchivableRepository<TDbContext, TEntity, long>
-        where TEntity : class, IEntity, IArchivableEntity
+        where TEntity : class, IEntity, IArchivableEntity, IAggregateRoot
         where TDbContext : DbContext, IDbContext
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@
     /// <inheritdoc cref="IArchivableRepository{TEntity, TKey}" />
     public class EfArchivableRepository<TDbContext, TEntity, TKey>
         : EfRepository<TDbContext, TEntity, TKey>, IArchivableRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>, IArchivableEntity
+        where TEntity : class, IEntity<TKey>, IArchivableEntity, IAggregateRoot
         where TKey : struct
         where TDbContext : DbContext, IDbContext
     {

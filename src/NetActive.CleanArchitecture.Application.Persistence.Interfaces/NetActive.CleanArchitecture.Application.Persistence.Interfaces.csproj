@@ -1,13 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<PackageId>NetActive.CleanArchitecture.Application.Persistence.Interfaces</PackageId>
+		<Description>Contains persistence interfaces shared with the application layer</Description>
+		<Authors>R. Brink</Authors>
+		<Company>Net@ctive</Company>
+		<Copyright>Copyright Net@ctive 2022</Copyright>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
+	</ItemGroup>
 
 </Project>

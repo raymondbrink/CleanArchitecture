@@ -31,7 +31,7 @@
     /// <typeparam name="TModel">Type of model returned.</typeparam>
     public class EntityQueryService<TEntity, TModel>
         : EntityQueryService<TEntity, TModel, long>, IEntityQueryService<TEntity, TModel>
-        where TEntity : class, IEntity<long>
+        where TEntity : class, IEntity<long>, IAggregateRoot
         where TModel : class, IModel<long>
     {
         public EntityQueryService(IRepository<TEntity, long> repo, IMapper mapper)
@@ -48,7 +48,7 @@
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     public class EntityQueryService<TEntity, TModel, TKey>
         : IEntityQueryService<TEntity, TModel, TKey>
-        where TEntity : class, IEntity<TKey>
+        where TEntity : class, IEntity<TKey>, IAggregateRoot
         where TModel : class, IModel<TKey>
         where TKey : struct
     {
