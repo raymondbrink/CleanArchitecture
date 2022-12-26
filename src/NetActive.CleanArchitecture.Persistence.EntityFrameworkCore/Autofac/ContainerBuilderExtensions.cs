@@ -118,7 +118,7 @@
             IRegistrationBuilder<EfRepository<TDbContext, TEntity, long>, ConcreteReflectionActivatorData,
                 SingleRegistrationStyle> RegisterEfRepository<TDbContext, TEntity>(this ContainerBuilder builder,
                 bool registerSingleInstance)
-            where TEntity : class, IEntity
+            where TEntity : class, IEntity, IAggregateRoot
             where TDbContext : DbContext, IDbContext
         {
             return builder.RegisterEfRepository<TDbContext, TEntity, long>(registerSingleInstance);
@@ -136,7 +136,7 @@
             IRegistrationBuilder<EfRepository<TDbContext, TEntity, TKey>, ConcreteReflectionActivatorData,
                 SingleRegistrationStyle>
             RegisterEfRepository<TDbContext, TEntity, TKey>(this ContainerBuilder builder, bool registerSingleInstance)
-            where TEntity : class, IEntity<TKey>
+            where TEntity : class, IEntity<TKey>, IAggregateRoot
             where TKey : struct
             where TDbContext : DbContext, IDbContext
         {
@@ -161,7 +161,7 @@
             IRegistrationBuilder<EfArchivableRepository<TDbContext, TEntity, TKey>, ConcreteReflectionActivatorData,
                 SingleRegistrationStyle>
             RegisterArchivableEfRepository<TDbContext, TEntity, TKey>(this ContainerBuilder builder, bool registerSingleInstance)
-            where TEntity : class, IEntity<TKey>, IArchivableEntity
+            where TEntity : class, IEntity<TKey>, IArchivableEntity, IAggregateRoot
             where TKey : struct
             where TDbContext : DbContext, IDbContext
         {

@@ -2,7 +2,7 @@
 {
     using NetActive.CleanArchitecture.Domain.Interfaces;
 
-    public partial class Customer : IEntity<int>, IArchivableEntity
+    public partial class Customer : IEntity<int>, IArchivableEntity, IAggregateRoot
     {
     }
 }

@@ -11,7 +11,7 @@
     /// </summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     public interface IRepository<TEntity> : IRepository<TEntity, long>
-        where TEntity : IEntity
+        where TEntity : IEntity, IAggregateRoot
     {
     }
 
@@ -21,7 +21,7 @@
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TKey">Type of entity key (default: long).</typeparam>
     public interface IRepository<TEntity, in TKey>
-        where TEntity : IEntity<TKey>
+        where TEntity : IEntity<TKey>, IAggregateRoot
         where TKey : struct
     {
         /// <summary>

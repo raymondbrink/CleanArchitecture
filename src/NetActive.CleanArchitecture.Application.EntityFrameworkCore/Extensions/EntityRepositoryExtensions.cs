@@ -27,7 +27,7 @@
         public static Task<bool> ExistsAsync<TEntity>(this IRepository<TEntity> repository,
             long entityId,
             CancellationToken cancellationToken = default)
-            where TEntity : class, IEntity
+            where TEntity : class, IEntity, IAggregateRoot
         {
             return repository.ExistsAsync(e => e.Id.Equals(entityId), cancellationToken);
         }
@@ -44,7 +44,7 @@
         public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository, 
             TKey entityId,
             CancellationToken cancellationToken = default)
-            where TEntity : class, IEntity<TKey>
+            where TEntity : class, IEntity<TKey>, IAggregateRoot
             where TKey : struct
         {
             return repository.ExistsAsync(e => e.Id.Equals(entityId), cancellationToken);
@@ -62,7 +62,7 @@
         public static Task<bool> ExistsAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository,
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken cancellationToken = default)
-            where TEntity : class, IEntity<TKey>
+            where TEntity : class, IEntity<TKey>, IAggregateRoot
             where TKey : struct
         {
             return repository.All().AnyAsync(predicate, cancellationToken);
