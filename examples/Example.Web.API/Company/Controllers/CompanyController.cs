@@ -25,7 +25,7 @@
         }
 
         /// <summary>
-        /// Gets the given company.
+        /// Gets the specified company.
         /// </summary>
         /// <param name="id">Id of the company to return.</param>
         /// <returns>Company.</returns>

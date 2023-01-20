@@ -1,6 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-
+using Example.Minimal.API.Company;
 using Example.Shared;
 using System.Text.Json.Serialization;
 
@@ -17,22 +17,18 @@ builder.Host.ConfigureContainer<ContainerBuilder>(
     });
 
 // Enable enum conversion in Swagger docs.
-builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
 {
-    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
+    // BUG: This currently doesn't do anything:
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 // Add services to the container.
-builder.Services.AddControllers();
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Example.Web.API.xml"), true);
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Example.Application.xml"));
-});
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -45,8 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
+// Add company API endpoints.
+app.MapGroup("/api/Company").MapCompanyEndpoints();
 
 app.Run();
