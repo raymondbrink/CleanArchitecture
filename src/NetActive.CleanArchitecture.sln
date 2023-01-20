@@ -78,6 +78,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetActive.CleanArchitecture
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetActive.CleanArchitecture.Application.Persistence.Interfaces", "NetActive.CleanArchitecture.Application.Persistence.Interfaces\NetActive.CleanArchitecture.Application.Persistence.Interfaces.csproj", "{33367ACB-C18D-4FED-A2E5-DE60596B456B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Minimal.API", "..\examples\Example.Minimal.API\Example.Minimal.API.csproj", "{3305D746-6AD5-401E-A391-57D8DB1D9410}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -164,6 +166,10 @@ Global
 		{33367ACB-C18D-4FED-A2E5-DE60596B456B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33367ACB-C18D-4FED-A2E5-DE60596B456B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33367ACB-C18D-4FED-A2E5-DE60596B456B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3305D746-6AD5-401E-A391-57D8DB1D9410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3305D746-6AD5-401E-A391-57D8DB1D9410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3305D746-6AD5-401E-A391-57D8DB1D9410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3305D746-6AD5-401E-A391-57D8DB1D9410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +202,7 @@ Global
 		{D0C19308-A5A5-4123-84E0-C5505D439087} = {0E17773C-BBCA-43FA-970F-B5754A8DBF8A}
 		{4715D3D7-3AF0-408A-9F59-36C2D438432A} = {A487A2F7-3123-4A83-BF33-ECE9DBB3B4C7}
 		{33367ACB-C18D-4FED-A2E5-DE60596B456B} = {A487A2F7-3123-4A83-BF33-ECE9DBB3B4C7}
+		{3305D746-6AD5-401E-A391-57D8DB1D9410} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C1C43B8-0C54-412D-98FB-CED189B4D48D}

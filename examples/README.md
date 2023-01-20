@@ -57,10 +57,16 @@ More info: [Example.Console.QueryPaged](Example.Console.QueryPaged)
 ### 6. Example.Web.API
 
 This example showcases Commands and a Queries with and without the use of MediatR.
-The `ComponyController` directly executes queries.
+The `CompanyController` directly executes queries.
 The `ManufacturerController` uses MediatR to send commands and a query to the respecive handlers.  
 TODO: Document this project
 <!--More info: [Example.Web.API](Example.Web.API)-->
+
+### 7. Example.Minimal.API
+
+This example showcases the usage of Minimal APIs.
+TODO: Document this project
+<!--More info: [Example.Minimal.API](Example.Minimal.API)-->
 
 Happy coding!
 

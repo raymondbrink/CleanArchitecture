@@ -1,6 +1,6 @@
 @ECHO OFF
 SET outputFolder=..\.packed
-SET version=6.0.3
+SET version=6.0.4
 SET nugetSource=D:\NuGet
 
 ECHO.
