@@ -9,7 +9,7 @@
     using NetActive.CleanArchitecture.Application.Models;
 
     public class CompanyQueryParams
-        : BasePagedQueryParameters<Company, Guid, CompanySortBy, CompanyFilterModel>
+        : BasePagedQueryParameters<Company, Guid, CompanySortBy?, CompanyFilterModel>
     {
         public override Expression<Func<Company, bool>> GetFilterExpression()
         {
@@ -28,10 +28,11 @@
 
         public override Expression<Func<Company, object>> GetAdditionalSortingExpression() => getSortExpression(ThenBy);
 
-        private static Expression<Func<Company, object>> getSortExpression(CompanySortBy sortColumn)
+        private static Expression<Func<Company, object>> getSortExpression(CompanySortBy? sortColumn)
         {
             return sortColumn switch
             {
+                null => c => c.Id,
                 CompanySortBy.Id => c => c.Id,
                 CompanySortBy.CreatedAtUtc => c => c.CreatedAtUtc,
                 CompanySortBy.Name => c => c.Name,
