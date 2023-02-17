@@ -73,6 +73,7 @@ Also check out these projects as they are priceless and essential for these libr
 
 - [Autofac](https://github.com/autofac/Autofac)
 - [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+- [Entity Framework Core](https://github.com/dotnet/efcore)
 - [FluentValidation](https://github.com/FluentValidation/FluentValidation)
 - [LINQKit](https://github.com/scottksmith95/LINQKit)
 - [MediatR](https://github.com/jbogard/MediatR)
