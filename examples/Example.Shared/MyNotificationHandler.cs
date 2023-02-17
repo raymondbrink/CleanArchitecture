@@ -8,6 +8,8 @@
 
     /// <summary>
     /// The notification handler is registered in AutofacConfig.cs to handle all commands (CUD) and queries (R) on Manufacturer.
+    /// The events that originate from commands can for instance be used to keep a separate view optimized store in sync,
+    /// which in turn can be used from the query side for more performant data retrieval.
     /// </summary>
     public class MyNotificationHandler : 
         INotificationHandler<EntityReadNotification>, 

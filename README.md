@@ -51,8 +51,6 @@ using (var scope = container.BeginLifetimeScope())
 }
 ```
 
-Currently this repo lacks unit tests, but I consider them to be very stable and practicle in every day use.
-
 Under the hood these libraries try to apply the following principles and patterns:
 
 - [Clean Code](http://cleancoder.com/files/cleanCodeCourse.md)
