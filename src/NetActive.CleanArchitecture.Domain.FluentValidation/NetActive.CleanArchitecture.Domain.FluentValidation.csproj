@@ -8,11 +8,15 @@
 		<Description>Adds FluentValidation to the domain</Description>
 		<Authors>R. Brink</Authors>
 		<Company>Net@ctive</Company>
-		<Copyright>Copyright Net@ctive 2022</Copyright>
+		<Copyright>Copyright Net@ctive 2023</Copyright>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="10.3.6" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
 	</ItemGroup>
 
 	<ItemGroup>

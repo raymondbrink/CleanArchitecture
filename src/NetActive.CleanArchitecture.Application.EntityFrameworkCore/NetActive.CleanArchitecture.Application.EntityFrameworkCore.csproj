@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -8,11 +8,15 @@
 		<Description>Handles command and query construction and execution for Entity Framework Core</Description>
 		<Authors>R. Brink</Authors>
 		<Company>Net@ctive</Company>
-		<Copyright>Copyright Net@ctive 2022</Copyright>
+		<Copyright>Copyright Net@ctive 2023</Copyright>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.12" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
 	</ItemGroup>
 
 	<ItemGroup>

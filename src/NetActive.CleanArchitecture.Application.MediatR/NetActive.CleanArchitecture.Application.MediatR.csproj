@@ -6,13 +6,17 @@
 		<Description>Adds support for event sourcing to the Application layer using MediatR.</Description>
 		<Authors>R. Brink</Authors>
 		<Company>Net@ctive</Company>
-		<Copyright>Copyright Net@ctive 2022</Copyright>
+		<Copyright>Copyright Net@ctive 2023</Copyright>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="11.1.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,7 +1,7 @@
 @ECHO OFF
 SET outputFolder=..\.packed
 SET version=6.0.5
-SET nugetSource=D:\NuGet
+SET nugetSource=https://api.nuget.org/v3/index.json
 
 ECHO.
 ECHO Packing all projects for version %version%...
@@ -22,7 +22,12 @@ ECHO All packages created, pushing to %nugetSource%...
 ECHO.
 
 dotnet nuget push %outputFolder%\*.nupkg --source %nugetSource%
-del %outputFolder%\*.nupkg
+
+ECHO.
+ECHO Cleaning up...
+ECHO.
+
+del %outputFolder%\*.*
 
 ECHO.
 ECHO Done.
