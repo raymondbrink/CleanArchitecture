@@ -1,7 +1,7 @@
 # NetActive.CleanArchitecture
 NetActive.CleanArchitecture is a set of libraries supporting Clean Architecture development in .NET (6+). 
 
-The NuGet packages can be found here: 
+The NuGet packages can be found on [NuGet](https://www.nuget.org/packages?q=netactive.cleanarchitecture).
 
 Inspired by the video series [Clean Architecture: Patterns, Practices and Principles](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/table-of-contents) on PluralSight by [Matthew Renze](https://github.com/matthewrenze), 
 I started creating these libraries around the idea of Clean Architecture a few years ago.
