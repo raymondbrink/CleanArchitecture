@@ -2,13 +2,11 @@
 {
     using Example.Application.Company.Queries.GetPageOfCompanies;
     using Example.Application.Company.Queries.GetPageOfCompanies.Models;
-    using Example.Persistence;
 
     public class PagedCompanyRequestParams
         : CompanyQueryParams
     {
         public PagedCompanyRequestParams(
-            ExampleDbContext dbContext,
             IGetPageOfCompaniesQuery query,
             uint pageIndex,
             uint? pageSize,
@@ -18,11 +16,10 @@
             bool? thenDescending,
             string? nameContains)
         {
-            // Injected parameters.
-            DbContext = dbContext;
+            // Get query we need to execute, injected by DI.
             Query = query;
 
-            // Mapped parameters.
+            // Map query parameters.
             PageIndex = pageIndex;
             PageSize = pageSize;
             SortBy = sortBy;
@@ -32,11 +29,9 @@
             Filters.NameContains = nameContains;
         }
 
-        public ExampleDbContext DbContext { get; }
-
         public IGetPageOfCompaniesQuery Query { get; }
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword: We want 
         public bool? SortDescending { get; }
 
         public bool? ThenDescending { get; }

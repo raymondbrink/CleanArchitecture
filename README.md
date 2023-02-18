@@ -51,8 +51,6 @@ using (var scope = container.BeginLifetimeScope())
 }
 ```
 
-Currently this repo lacks unit tests, but I consider them to be very stable and practicle in every day use.
-
 Under the hood these libraries try to apply the following principles and patterns:
 
 - [Clean Code](http://cleancoder.com/files/cleanCodeCourse.md)
@@ -75,6 +73,7 @@ Also check out these projects as they are priceless and essential for these libr
 
 - [Autofac](https://github.com/autofac/Autofac)
 - [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+- [Entity Framework Core](https://github.com/dotnet/efcore)
 - [FluentValidation](https://github.com/FluentValidation/FluentValidation)
 - [LINQKit](https://github.com/scottksmith95/LINQKit)
 - [MediatR](https://github.com/jbogard/MediatR)
