@@ -20,7 +20,7 @@ If you'd like an example to be added for a specific scenario not listed here, pl
 
 This project is just for our convinience. To not repreat ourselves in every example application project, we've combined all DI container configuration in one separate project.
 Basically each example project mentioned below uses the same Dependency Injection container from this project, configured with the same registered components.
-This is where the DI "magic" happens. It ties all the layers together by registering the required modules en repositories.
+This is where the DI "magic" happens. It ties all the layers together by registering the required modules and repositories.
 It also holds a reference to the settings file and the connection string used in [\Constants\Settings.cs](Example.Shared/Constants/Settings.cs).
 
 ### 1. Example.Console.CommandAdd
