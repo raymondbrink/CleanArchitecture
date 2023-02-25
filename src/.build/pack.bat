@@ -21,13 +21,13 @@ ECHO.
 ECHO All packages created, pushing to %nugetSource%...
 ECHO.
 
-dotnet nuget push %outputFolder%\*.nupkg --source %nugetSource%
+REM dotnet nuget push %outputFolder%\*.nupkg --source %nugetSource%
 
 ECHO.
 ECHO Cleaning up...
 ECHO.
 
-del %outputFolder%\*.*
+REM del %outputFolder%\*.*
 
 ECHO.
 ECHO Done.
