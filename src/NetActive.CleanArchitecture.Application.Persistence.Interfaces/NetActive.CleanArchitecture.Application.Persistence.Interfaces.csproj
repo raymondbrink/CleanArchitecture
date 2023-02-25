@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -12,6 +12,7 @@
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageTags>persistence;aggregate;architecture;clean-architecture;clean-code;ddd;ddd-architecture;design-patterns;domain-driven-design;dotnet;dotnetcore;dotnet-core;dotnet-cli;dotnet-new;dotnet-template;generator;hexagonal-architecture;layered;onion;solid;solid-principles;tdd;webapi</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
