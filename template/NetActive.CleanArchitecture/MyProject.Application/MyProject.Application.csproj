@@ -15,4 +15,8 @@
     <PackageReference Include="NetActive.CleanArchitecture.Autofac" Version="6.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MyProject.Domain\MyProject.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
