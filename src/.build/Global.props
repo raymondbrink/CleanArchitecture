@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+		<Authors>R. Brink</Authors>
+		<Company>Net@ctive</Company>
+		<Copyright>Copyright Net@ctive 2023</Copyright>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<PackageProjectUrl></PackageProjectUrl>
+        <PackageLicenseUrl></PackageLicenseUrl>
+
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/raymondbrink/CleanArchitecture</RepositoryUrl>
+    </PropertyGroup>
+</Project>
