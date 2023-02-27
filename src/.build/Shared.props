@@ -1,0 +1,9 @@
+<Project>
+    <Import Project="Global.props" />
+
+    <PropertyGroup>
+		<TargetFramework>net6</TargetFramework>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+</Project>
