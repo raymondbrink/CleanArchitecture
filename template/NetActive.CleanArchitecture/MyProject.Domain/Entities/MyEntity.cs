@@ -4,7 +4,12 @@
 
     using NetActive.CleanArchitecture.Domain.Interfaces;
 
-    public partial class MyEntity : IEntity<Guid>, IAggregateRoot
+    public class MyEntity : IEntity<Guid>, IAggregateRoot
     {
-    }
+		public virtual Guid Id { get; set; }
+
+		public virtual string Name { get; set; }
+
+		public virtual DateTime CreatedAtUtc { get; set; }
+	}
 }

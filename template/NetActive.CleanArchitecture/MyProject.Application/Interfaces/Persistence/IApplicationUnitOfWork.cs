@@ -2,7 +2,7 @@
 {
     using NetActive.CleanArchitecture.Application.Persistence.Interfaces;
 
-    public interface IMyUnitOfWork : IUnitOfWork
+    public interface IApplicationUnitOfWork : IUnitOfWork
     {
     }
 }

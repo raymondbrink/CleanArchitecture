@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyProject.Application", "My
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyProject.Domain", "MyProject.Domain\MyProject.Domain.csproj", "{46F70E78-9356-45C1-9D62-6C00E9465FD0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyProject.Persistence", "MyProject.Persistence\MyProject.Persistence.csproj", "{DCF6580D-0733-4955-8802-76B7735E42E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyProject.Console", "MyProject.Console\MyProject.Console.csproj", "{FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{46F70E78-9356-45C1-9D62-6C00E9465FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46F70E78-9356-45C1-9D62-6C00E9465FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46F70E78-9356-45C1-9D62-6C00E9465FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCF6580D-0733-4955-8802-76B7735E42E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF6580D-0733-4955-8802-76B7735E42E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF6580D-0733-4955-8802-76B7735E42E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF6580D-0733-4955-8802-76B7735E42E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
