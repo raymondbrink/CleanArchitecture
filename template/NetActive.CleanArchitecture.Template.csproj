@@ -3,7 +3,6 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>1.0</PackageVersion>
     <PackageId>NetActive.CleanArchitecture.Template</PackageId>
     <Title>NetActive Clean Architecture Template</Title>
     <Description>Template to use when creating an application based on Clean Architecture.</Description>
