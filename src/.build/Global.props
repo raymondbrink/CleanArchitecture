@@ -4,9 +4,7 @@
 		<Company>Net@ctive</Company>
 		<Copyright>Copyright Net@ctive 2023</Copyright>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
+		
 		<PackageProjectUrl></PackageProjectUrl>
         <PackageLicenseUrl></PackageLicenseUrl>
 

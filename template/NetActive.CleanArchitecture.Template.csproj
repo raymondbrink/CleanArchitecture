@@ -7,7 +7,7 @@
     <PackageId>NetActive.CleanArchitecture.Template</PackageId>
     <Title>NetActive Clean Architecture Template</Title>
     <Description>Template to use when creating an application based on Clean Architecture.</Description>
-    <PackageTags>dotnet-new;templates;contoso</PackageTags>
+    <PackageTags>console-cleanarch;templates;netactive</PackageTags>
 
 	<TargetFramework>net6</TargetFramework>
 
