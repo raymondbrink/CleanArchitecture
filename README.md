@@ -3,19 +3,42 @@ NetActive.CleanArchitecture is a set of libraries supporting Clean Architecture 
 
 Source code and [examples](https://github.com/raymondbrink/CleanArchitecture/tree/develop/examples) can be found on [GitHub](https://github.com/raymondbrink/CleanArchitecture). The NuGet packages, including debug symbols, can be found on [NuGet](https://www.nuget.org/packages?q=netactive.cleanarchitecture).
 
-Inspired by the video series [Clean Architecture: Patterns, Practices and Principles](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/table-of-contents) on PluralSight by [Matthew Renze](https://github.com/matthewrenze), 
-I started creating these libraries around the idea of Clean Architecture a few years ago.
+## Quick Getting Started Guide
 
-The open source community has given me so much over the past decade, I decided it was time to give something back.
-Since I find them very practicle and I recently ported them to .NET 6 and Entity Framework Core 6,
-I felt it was the right time to share these Clean Architecture libraries with the rest of the world.
+These libraries assume you have SQL Server Express LocalDB installed. 
+You can verify if you have SQL Server Express LocalDB installed by running this command:
+`SqlLocalDB info`
 
-Focus is on simplifying implementation of and support for these Clean Architecture patterns and practices in new .NET projects. 
-These libraries have already been under active development for a few years and applied in real life production applications many times.
+If you get this response, then you can skip step 0:
+```
+MSSQLLocalDB
+```
 
-Please check them out and feel free to share your thoughts and ideas by contacting me or submitting a pull request.
+0. Download and install [SQL Server Express LocalDB](https://msdn.microsoft.com/en-us/library/hh510202.aspx)
+0. Open a .NET Core command line interface
+0. Install the solution template from NuGet:
+    - `dotnet new install NetActive.CleanArchitecture.Template`
+0. Create and navigate to an empty folder that will hold the Solution (by default the folder name will be used as the primary namespace):
+    - `dotnet new cleanarch` (add `-h` for more options)
+0. Navigate to the subfolder created, who's name ends with `.Console`
+0. Run the console application:
+    - `dotnet run`
 
-Besides the source code you'll also find practicle [examples](https://github.com/raymondbrink/CleanArchitecture/tree/develop/examples) on how to use these libraries in Console applications, Web applications or API's.
+The output should be:
+```
+d87d6081-fdbd-42c7-9e8d-4d297410c6aa    some entity
+d730df59-bd8c-42d1-8133-6699aa47db42    some other entity
+51f2d429-9a53-44b5-9205-f02883ab8bbe    yet another entity
+
+Entity 'some entity' exists: True
+```
+
+You can remove the template by running this command:  
+- `dotnet new uninstall NetActive.CleanArchitecture.Template`
+
+## Example Code
+
+Besides the source code you'll also find many practicle [examples](https://github.com/raymondbrink/CleanArchitecture/tree/develop/examples) on how to use these libraries in Console applications, Web applications or API's.
 Here's a quick example (from the `Example.Console.CommandAdd` example project) of what your application code could look like:
 
 ```csharp
@@ -50,6 +73,22 @@ using (var scope = container.BeginLifetimeScope())
     Console.WriteLine();
 }
 ```
+
+## Why create these libraries?
+
+Inspired by the video series [Clean Architecture: Patterns, Practices and Principles](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/table-of-contents) on PluralSight by [Matthew Renze](https://github.com/matthewrenze), 
+I started creating these libraries around the idea of Clean Architecture a few years ago.
+
+The open source community has given me so much over the past decade, I decided it was time to give something back.
+Since I find them very practicle and I recently ported them to .NET 6 and Entity Framework Core 6,
+I felt it was the right time to share these Clean Architecture libraries with the rest of the world.
+
+Focus is on simplifying implementation of and support for these Clean Architecture patterns and practices in new .NET projects. 
+These libraries have already been under active development for a few years and applied in real life production applications many times.
+
+Please check them out and feel free to share your thoughts and ideas by contacting me or submitting a pull request.
+
+## Background
 
 Under the hood these libraries try to apply the following principles and patterns:
 
