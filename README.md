@@ -5,26 +5,30 @@ Source code and [examples](https://github.com/raymondbrink/CleanArchitecture/tre
 
 ## Quick Getting Started Guide
 
-These libraries assume you have SQL Server Express LocalDB installed. 
+These libraries assume you have SQL Server Express LocalDB installed, but they work with any SQL Server version supported by Entity Framework Core.  
 You can verify if you have SQL Server Express LocalDB installed by running this command:
-`SqlLocalDB info`
+- `SqlLocalDB info`
 
-If you get this response, then you can skip step 0:
+You should get this response:
 ```
 MSSQLLocalDB
 ```
 
-0. Download and install [SQL Server Express LocalDB](https://msdn.microsoft.com/en-us/library/hh510202.aspx)
-0. Open a .NET Core command line interface
-0. Install the solution template from NuGet:
+If you didn't, then first download and install [SQL Server Express LocalDB](https://msdn.microsoft.com/en-us/library/hh510202.aspx).
+Once you have SQL Server Express LocalDB installed, you follow the simple steps below.
+
+You will end-up with a new solution containing a basic console application, but the scaffolded Application, Domain and Persistence projects can also be used in Website or WebApi projects, like all the included example projects do.
+
+1. Open a .NET Core command line interface
+1. Install the solution template from NuGet:
     - `dotnet new install NetActive.CleanArchitecture.Template`
-0. Create and navigate to an empty folder that will hold the Solution (by default the folder name will be used as the primary namespace):
+1. Create and navigate to an empty folder that will hold the Solution (by default the folder name will be used as the primary namespace):
     - `dotnet new cleanarch` (add `-h` for more options)
-0. Navigate to the subfolder created, who's name ends with `.Console`
-0. Run the console application:
+1. Navigate to the subfolder created, who's name ends with `.Console`
+1. Run the console application:
     - `dotnet run`
 
-The output should be:
+It might take a few seconds to create the database. Then the output should be:
 ```
 d87d6081-fdbd-42c7-9e8d-4d297410c6aa    some entity
 d730df59-bd8c-42d1-8133-6699aa47db42    some other entity
@@ -33,7 +37,12 @@ d730df59-bd8c-42d1-8133-6699aa47db42    some other entity
 Entity 'some entity' exists: True
 ```
 
-You can remove the template by running this command:  
+Alternatively you can also run this command from the Package Manager Console:  
+- `PM> Install-Package NetActive.CleanArchitecture.Template`  
+
+Once installed you can choose the template from Visual Studio's `Create a new project` wizard, like any other installed solution or project template.
+
+You can remove the solution template by running this command:  
 - `dotnet new uninstall NetActive.CleanArchitecture.Template`
 
 ## Example Code
