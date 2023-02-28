@@ -19,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<None Include="..\readme.md" Pack="true" PackagePath="\"/>
     <Content Include="**\*" Exclude="**\bin\**;**\obj\**" />
     <Compile Remove="**\*" />
   </ItemGroup>

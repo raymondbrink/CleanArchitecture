@@ -4,6 +4,9 @@
 		<Company>Net@ctive</Company>
 		<Copyright>Copyright Net@ctive 2023</Copyright>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		
 		<PackageProjectUrl></PackageProjectUrl>
         <PackageLicenseUrl></PackageLicenseUrl>
