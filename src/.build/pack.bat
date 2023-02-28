@@ -28,7 +28,7 @@ ECHO.
 ECHO Cleaning up...
 ECHO.
 
-del %outputFolder%\*.*
+del /Q %outputFolder%\*.*
 
 ECHO.
 ECHO Done.
