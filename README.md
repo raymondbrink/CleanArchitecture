@@ -1,7 +1,7 @@
 # NetActive.CleanArchitecture
 NetActive.CleanArchitecture is a set of libraries supporting Clean Architecture development in .NET (6+). 
 
-The NuGet packages can be found here: 
+Source code and [examples](https://github.com/raymondbrink/CleanArchitecture/tree/develop/examples) can be found on [GitHub](https://github.com/raymondbrink/CleanArchitecture). The NuGet packages, including debug symbols, can be found on [NuGet](https://www.nuget.org/packages?q=netactive.cleanarchitecture).
 
 Inspired by the video series [Clean Architecture: Patterns, Practices and Principles](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/table-of-contents) on PluralSight by [Matthew Renze](https://github.com/matthewrenze), 
 I started creating these libraries around the idea of Clean Architecture a few years ago.
@@ -15,7 +15,7 @@ These libraries have already been under active development for a few years and a
 
 Please check them out and feel free to share your thoughts and ideas by contacting me or submitting a pull request.
 
-Besides the source code you'll also find practicle [examples](examples) on how to use these libraries in Console applications, Web applications or API's.
+Besides the source code you'll also find practicle [examples](https://github.com/raymondbrink/CleanArchitecture/tree/develop/examples) on how to use these libraries in Console applications, Web applications or API's.
 Here's a quick example (from the `Example.Console.CommandAdd` example project) of what your application code could look like:
 
 ```csharp

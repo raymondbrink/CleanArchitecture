@@ -1,0 +1,14 @@
+<Project>
+    <Import Project="Global.props" />
+
+    <PropertyGroup>
+		<TargetFramework>net6</TargetFramework>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\readme.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+</Project>

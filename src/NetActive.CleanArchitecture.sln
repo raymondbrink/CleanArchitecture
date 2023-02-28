@@ -71,7 +71,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Web.API", "..\examp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{D0C19308-A5A5-4123-84E0-C5505D439087}"
 	ProjectSection(SolutionItems) = preProject
+		.build\Global.props = .build\Global.props
 		.build\pack.bat = .build\pack.bat
+		.build\Shared.props = .build\Shared.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetActive.CleanArchitecture.Application.MediatR", "NetActive.CleanArchitecture.Application.MediatR\NetActive.CleanArchitecture.Application.MediatR.csproj", "{4715D3D7-3AF0-408A-9F59-36C2D438432A}"

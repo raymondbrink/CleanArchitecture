@@ -1,25 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../.build/Shared.props" />
 
-  <PropertyGroup>
-	  <TargetFramework>net6</TargetFramework>
-	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-	  <DocumentationFile>bin\Debug\net6\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.xml</DocumentationFile>
-	  <PackageId>NetActive.CleanArchitecture.Persistence.EntityFrameworkCore</PackageId>
-	  <Description>Handles data access and persistence for Entity Framework Core</Description>
-	  <Authors>R. Brink</Authors>
-	  <Company>Net@ctive</Company>
-	  <Copyright>Copyright Net@ctive 2022</Copyright>
-  </PropertyGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>bin\Debug\net6\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.xml</DocumentationFile>
+		<PackageId>NetActive.CleanArchitecture.Persistence.EntityFrameworkCore</PackageId>
+		<Description>Handles data access and persistence for Entity Framework Core</Description>
+		<PackageTags>persistence;ef;entity-framework;aggregate;architecture;clean-architecture;clean-code;ddd;ddd-architecture;design-patterns;domain-driven-design;dotnet;dotnetcore;dotnet-core;dotnet-cli;dotnet-new;dotnet-template;generator;hexagonal-architecture;layered;onion;solid;solid-principles;tdd;webapi</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.3.0" />
-    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="6.1.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="6.3.0" />
+		<PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="6.1.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NetActive.CleanArchitecture.Persistence\NetActive.CleanArchitecture.Persistence.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\NetActive.CleanArchitecture.Persistence\NetActive.CleanArchitecture.Persistence.csproj" />
+	</ItemGroup>
 
 </Project>

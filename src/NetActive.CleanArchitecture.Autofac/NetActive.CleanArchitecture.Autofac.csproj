@@ -1,18 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../.build/Shared.props" />
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
 		<PackageId>NetActive.CleanArchitecture.Autofac</PackageId>
 		<Description>Adds AutoFac module support</Description>
-		<Authors>R. Brink</Authors>
-		<Company>Net@ctive</Company>
-		<Copyright>Copyright Net@ctive 2022</Copyright>
+		<PackageTags>autofac;aggregate;architecture;clean-architecture;clean-code;ddd;ddd-architecture;design-patterns;domain-driven-design;dotnet;dotnetcore;dotnet-core;dotnet-cli;dotnet-new;dotnet-template;generator;hexagonal-architecture;layered;onion;solid;solid-principles;tdd;webapi</PackageTags>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Autofac" Version="6.3.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
 	</ItemGroup>
 
 </Project>

@@ -1,15 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../.build/Shared.props" />
+	
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
 		<PackageId>NetActive.CleanArchitecture.Application.Persistence.Interfaces</PackageId>
 		<Description>Contains persistence interfaces shared with the application layer</Description>
-		<Authors>R. Brink</Authors>
-		<Company>Net@ctive</Company>
-		<Copyright>Copyright Net@ctive 2022</Copyright>
+		<PackageTags>persistence;aggregate;architecture;clean-architecture;clean-code;ddd;ddd-architecture;design-patterns;domain-driven-design;dotnet;dotnetcore;dotnet-core;dotnet-cli;dotnet-new;dotnet-template;generator;hexagonal-architecture;layered;onion;solid;solid-principles;tdd;webapi</PackageTags>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
