@@ -1,6 +1,6 @@
 @ECHO OFF
 SET outputFolder=..\.packed
-SET version=6.0.5
+SET version=6.0.7
 SET nugetSource=https://api.nuget.org/v3/index.json
 
 ECHO.
@@ -16,7 +16,7 @@ dotnet pack ..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Do
 dotnet pack ..\NetActive.CleanArchitecture.Domain.FluentValidation\NetActive.CleanArchitecture.Domain.FluentValidation.csproj --output %outputFolder% --version-suffix %version%
 dotnet pack ..\NetActive.CleanArchitecture.Persistence\NetActive.CleanArchitecture.Persistence.csproj --output %outputFolder% --version-suffix %version%
 dotnet pack ..\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.csproj --output %outputFolder% --version-suffix %version%
-dotnet pack ..\..\template\NetActive.CleanArchitecture.Template.csproj --output %outputFolder% --version-suffix %version%
+dotnet pack ..\..\template\NetActive.CleanArchitecture.Template.csproj --output %outputFolder% -p:PackageVersion=%version%
 
 ECHO.
 ECHO All packages created, pushing to %nugetSource%...
@@ -28,7 +28,7 @@ ECHO.
 ECHO Cleaning up...
 ECHO.
 
-del %outputFolder%\*.*
+del /Q %outputFolder%\*.*
 
 ECHO.
 ECHO Done.
