@@ -1,6 +1,7 @@
 ﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore
 {
     using System;
+    using System.Linq;
 
     using Application.Exceptions;
     using Application.Persistence.Interfaces;
@@ -32,6 +33,16 @@
         /// <inheritdoc />
         public EfArchivableRepository(TDbContext context) : base(context)
         {
+        }
+
+        /// <summary>
+        /// Gets a queryable of <see cref="T:TEntity"/>, excluding any archived entities.
+        /// </summary>
+        /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
+        /// <returns>A queryable of Type <see cref="T:TEntity"/>.</returns>
+        public override IQueryable<TEntity> All(string[] includes = null)
+        {
+            return base.All(includes).Where(e => !e.ArchivedAtUtc.HasValue);
         }
 
         /// <inheritdoc />
