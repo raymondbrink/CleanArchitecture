@@ -40,7 +40,6 @@
         }
 
         /// <inheritdoc />
-        /// <inheritdoc />
         public override Task<TEntity> GetAsync(TKey entityId, string[] includes = null, CancellationToken cancellationToken = default)
         {
             return All(includes).SingleOrDefaultAsync(c => c.Id.Equals(entityId), cancellationToken);
