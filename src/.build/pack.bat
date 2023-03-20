@@ -1,6 +1,6 @@
 @ECHO OFF
 SET outputFolder=..\.packed
-SET version=6.0.7
+SET version=6.0.8
 SET nugetSource=https://api.nuget.org/v3/index.json
 
 ECHO.
