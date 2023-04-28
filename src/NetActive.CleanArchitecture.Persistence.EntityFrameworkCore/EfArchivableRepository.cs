@@ -42,7 +42,20 @@
         /// <returns>A queryable of Type <see cref="T:TEntity"/>.</returns>
         public override IQueryable<TEntity> All(string[] includes = null)
         {
-            return base.All(includes).Where(e => !e.ArchivedAtUtc.HasValue);
+            return All(includeArchived: false, includes);
+        }
+
+        /// <summary>
+        /// Gets a queryable of <see cref="T:TEntity"/>, optionally including any archived entities.
+        /// </summary>
+        /// <param name="includeArchived">Boolean value indicating whether to include archived entities.</param>
+        /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
+        /// <returns>A queryable of Type <see cref="T:TEntity"/>.</returns>
+        public IQueryable<TEntity> All(bool includeArchived, string[] includes = null)
+        {
+            return includeArchived 
+                ? base.All(includes) 
+                : base.All(includes).Where(e => !e.ArchivedAtUtc.HasValue);
         }
 
         /// <inheritdoc />
