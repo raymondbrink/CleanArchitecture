@@ -1,6 +1,6 @@
-﻿namespace NetActive.CleanArchitecture.Application.Persistence.Interfaces
+﻿namespace NetActive.CleanArchitecture.Domain.Interfaces
 {
-    using Domain.Interfaces;
+    using System.Linq;
 
     /// <summary>
     /// Interface defining an archivable entity based repository of type <see cref="T:TEntity"/>.

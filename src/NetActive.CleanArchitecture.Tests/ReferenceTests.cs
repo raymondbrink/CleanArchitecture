@@ -267,7 +267,7 @@
             var otherProjects = new[]
             {
                 AutofacNamespace,
-                //DomainNamespace,
+                DomainNamespace,
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
                 ApplicationEntityFrameworkCoreNamespace,

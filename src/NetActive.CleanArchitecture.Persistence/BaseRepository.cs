@@ -3,8 +3,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Application.Persistence.Interfaces;
-
     using Domain.Interfaces;
 
     using Interfaces;

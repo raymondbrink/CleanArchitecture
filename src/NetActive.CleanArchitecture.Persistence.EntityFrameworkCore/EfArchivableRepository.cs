@@ -4,7 +4,6 @@
     using System.Linq;
 
     using Application.Exceptions;
-    using Application.Persistence.Interfaces;
 
     using Domain.Interfaces;
 

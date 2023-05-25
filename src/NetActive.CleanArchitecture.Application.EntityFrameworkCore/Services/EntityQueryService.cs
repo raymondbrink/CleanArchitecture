@@ -22,8 +22,6 @@
 
     using Models;
 
-    using Persistence.Interfaces;
-
     /// <summary>
     /// Service class that can be used to query the given model's entity repository. 
     /// </summary>

@@ -1,10 +1,8 @@
-﻿namespace NetActive.CleanArchitecture.Application.Persistence.Interfaces
+﻿namespace NetActive.CleanArchitecture.Domain.Interfaces
 {
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-
-    using Domain.Interfaces;
 
     /// <summary>
     /// Interface defining an entity based repository of type <see cref="T:TEntity"/>.
@@ -30,7 +28,7 @@
         /// <param name="entityId">Id of the entity to return.</param>
         /// <param name="includes"></param>
         /// <returns>An instance of Type <see cref="T:TEntity"/>.</returns>
-        Task<TEntity> GetAsync(TKey entityId, string[]? includes = null, CancellationToken cancellationToken = default);
+        Task<TEntity> GetAsync(TKey entityId, string[] includes = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Creates a new entity in this repository, returning a new instance of <see cref="T:TEntity"/>.
@@ -43,7 +41,7 @@
         /// </summary>
         /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
         /// <returns>A queryable of Type <see cref="T:TEntity"/>.</returns>
-        IQueryable<TEntity> All(string[]? includes = null);
+        IQueryable<TEntity> All(string[] includes = null);
 
         /// <summary>
         /// Adds the given entity to the repository.
