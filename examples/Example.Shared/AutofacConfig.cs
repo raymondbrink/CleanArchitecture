@@ -50,7 +50,8 @@
             }
 
             // Build application configuration.
-            ApplicationConfiguration = new ConfigurationBuilder().AddJsonFile(appSettingsFilePath).Build();
+            ApplicationConfiguration = new ConfigurationBuilder().AddJsonFile(appSettingsFilePath, false, true).Build();
+            ApplicationConfiguration = new ConfigurationBuilder().AddJsonFile(Constants.Settings.DevelopmentAppSettingsFile, true, true).Build();
 
             // Register notification handlers (all point to the same handler).
             builder.RegisterService<INotificationHandler<EntityCreatedNotification>, MyNotificationHandler>(singleInstance);
