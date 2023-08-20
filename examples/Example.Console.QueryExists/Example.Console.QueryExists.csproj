@@ -18,8 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Example.Application\Example.Application.csproj" />
-    <ProjectReference Include="..\Example.Shared\Example.Shared.csproj" />
+    <ProjectReference Include="..\Example.Persistence\Example.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

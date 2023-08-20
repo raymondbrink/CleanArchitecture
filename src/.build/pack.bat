@@ -1,7 +1,7 @@
 @ECHO OFF
 SET outputFolder=..\.packed
-SET version=6.0.9
-SET nugetSource=https://api.nuget.org/v3/index.json
+SET version=6.1.0-alpha.8
+SET nugetSource=D:\NuGet
 
 ECHO.
 ECHO Packing all projects for version %version%...

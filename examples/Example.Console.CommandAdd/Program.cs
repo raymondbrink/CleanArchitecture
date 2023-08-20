@@ -1,30 +1,45 @@
-﻿using Autofac;
+﻿using Example.Application.Interfaces.Persistence;
+using Example.Application.Manufacturer.Configuration;
 using Example.Application.Manufacturer.Commands.AddManufacturer;
 using Example.Application.Manufacturer.Commands.AddManufacturer.Models;
-using MediatR;
+using Example.Domain.Entities;
+using Example.Persistence;
 
-// Build single-instance DI container.
-var builder = new ContainerBuilder();
-Example.Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
-var container = builder.Build();
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-using (var scope = container.BeginLifetimeScope())
-{
-    // Create manufacturer model.
-    var manufacturerName = $"My Manufacturer ({DateTime.Now:yyyyMMddHHmmsssmmm})";
-    var manufacturerToAdd = new AddManufacturerCommandModel(manufacturerName)
-        {
-            Contact =
+using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration;
+using Microsoft.Extensions.Hosting;
+
+// Build a host.
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices((hostContext, services) =>
+    {
+        // Wire up our clean architecture dependencies.
+        services
+            .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
+                hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
+                options =>
                 {
-                    FamilyName = "Brink",
-                    GivenName = "Raymond" // Optional
-                }
-        };
+                    options.RegisterEfRepository<Manufacturer, Guid>();
+                })
+            .AddApplicationManufacturerDependencies();
+    })
+    .Build();
 
-    // Execute add manufacturer command.
-    var command = new AddManufacturerCommand(manufacturerToAdd);
-    var result = await scope.Resolve<ISender>().Send(command);
+// Create manufacturer model.
+var manufacturerName = $"My Manufacturer ({DateTime.Now:yyyyMMddHHmmsssmmm})";
+var manufacturerToAdd = new AddManufacturerCommandModel(manufacturerName)
+{
+    Contact =
+    {
+        FamilyName = "Brink",
+        GivenName = "Raymond" // Optional
+    }
+};
 
-    Console.WriteLine($"Added: {result}: {manufacturerToAdd.ManufacturerName}");
-    Console.WriteLine();
-}
+// Execute add manufacturer command.
+var result = await host.Services.GetRequiredService<IAddManufacturerCommand>().ExecuteAsync(manufacturerToAdd);
+
+Console.WriteLine($"Added: {result}: {manufacturerToAdd.ManufacturerName}");
+Console.WriteLine();

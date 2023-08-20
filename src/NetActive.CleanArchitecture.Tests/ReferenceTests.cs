@@ -5,8 +5,6 @@
     [TestClass]
     public class ReferenceTests
     {
-        private const string AutofacNamespace = "NetActive.CleanArchitecture.Autofac";
-
         private const string DomainNamespace = "NetActive.CleanArchitecture.Domain";
         private const string DomainFluentValidationNamespace = "NetActive.CleanArchitecture.DomainFluentValidation";
         
@@ -19,36 +17,6 @@
         private const string PersistenceEntityFrameworkCoreNamespace = "NetActive.CleanArchitecture.Persistence.EntityFrameworkCore";
 
         [TestMethod]
-        public void Autofac_Should_Not_HaveDependencyOnOtherProjects()
-        {
-            // Arrange
-            var assembly = typeof(Autofac.AssemblyReference).Assembly;
-
-            var otherProjects = new[]
-            {
-                //AutofacNamespace,
-                DomainNamespace,
-                DomainFluentValidationNamespace,
-                ApplicationNamespace,
-                ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
-                ApplicationPersistanceInterfacesNamespace,
-                PersistenceNamespace,
-                PersistenceEntityFrameworkCoreNamespace
-            };
-
-            // Act
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
-
-            // Assert
-            Assert.IsTrue(testResult.IsSuccessful);
-        }
-
-        [TestMethod]
         public void Domain_Should_Not_HaveDependencyOnOtherProjects()
         {
             // Arrange
@@ -56,7 +24,6 @@
 
             var otherProjects = new[]
             {
-                AutofacNamespace,
                 //DomainNamespace,
                 DomainFluentValidationNamespace,
                 ApplicationNamespace,
@@ -86,7 +53,6 @@
 
             var otherProjects = new[]
             {
-                AutofacNamespace,
                 //DomainNamespace,
                 //DomainFluentValidationNamespace,
                 ApplicationNamespace,
@@ -116,7 +82,6 @@
 
             var otherProjects = new[]
             {
-                AutofacNamespace,
                 //DomainNamespace,
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
@@ -146,7 +111,6 @@
 
             var otherProjects = new[]
             {
-                AutofacNamespace,
                 //DomainNamespace,
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
@@ -176,7 +140,6 @@
 
             var otherProjects = new[]
             {
-                AutofacNamespace,
                 //DomainNamespace,
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
@@ -206,43 +169,12 @@
 
             var otherProjects = new[]
             {
-                AutofacNamespace,
                 //DomainNamespace,
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
                 //ApplicationEntityFrameworkCoreNamespace,
                 ApplicationMediatRNamespace,
                 //ApplicationPersistanceInterfacesNamespace,
-                PersistenceNamespace,
-                PersistenceEntityFrameworkCoreNamespace
-            };
-
-            // Act
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
-
-            // Assert
-            Assert.IsTrue(testResult.IsSuccessful);
-        }
-
-        [TestMethod]
-        public void ApplicationMediatR_Should_Not_HaveDependencyOnOtherProjects()
-        {
-            // Arrange
-            var assembly = typeof(Application.MediatR.AssemblyReference).Assembly;
-
-            var otherProjects = new[]
-            {
-                AutofacNamespace,
-                DomainNamespace,
-                DomainFluentValidationNamespace,
-                //ApplicationNamespace,
-                ApplicationEntityFrameworkCoreNamespace,
-                //ApplicationMediatRNamespace,
-                ApplicationPersistanceInterfacesNamespace,
                 PersistenceNamespace,
                 PersistenceEntityFrameworkCoreNamespace
             };
@@ -266,7 +198,6 @@
 
             var otherProjects = new[]
             {
-                AutofacNamespace,
                 DomainNamespace,
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,

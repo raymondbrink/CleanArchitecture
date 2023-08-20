@@ -1,23 +1,37 @@
-﻿using Autofac;
-
+﻿using Example.Application.Interfaces.Persistence;
+using Example.Application.Manufacturer.Configuration;
 using Example.Application.Manufacturer.Queries.GetManufacturerList;
-using MediatR;
+using Example.Domain.Entities;
+using Example.Persistence;
 
-// Build single-instance DI container.
-var builder = new ContainerBuilder();
-Example.Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
-var container = builder.Build();
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-using (var scope = container.BeginLifetimeScope())
-{
-    // List all manufacturers.
-    var query = new GetManufacturerListQuery();
-    var result = await scope.Resolve<ISender>().Send(query);
+using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration;
 
-    foreach (var manufacturer in result.Manufacturers)
+// Build a host.
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices((hostContext, services) =>
     {
-        Console.WriteLine($"{manufacturer.Id}: {manufacturer.Name}");
-    }
+        // Wire up our clean architecture dependencies.
+        services
+            .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
+                hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
+                options =>
+                {
+                    options.RegisterEfRepository<Manufacturer, Guid>();
+                })
+            .AddApplicationManufacturerDependencies();
+    })
+    .Build();
 
-    Console.WriteLine();
+// List all manufacturers.
+var result = await host.Services.GetRequiredService<IGetManufacturerListQuery>().ExecuteAsync();
+
+foreach (var manufacturer in result)
+{
+    Console.WriteLine($"{manufacturer.Id}: {manufacturer.Name}");
 }
+
+Console.WriteLine();
