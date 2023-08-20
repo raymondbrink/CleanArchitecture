@@ -1,14 +1,5 @@
 ﻿using Example.Application.Company.Configuration;
 using Example.Application.Company.Queries.CompanyExists;
-using Example.Application.Interfaces.Persistence;
-using Example.Domain.Entities;
-using Example.Persistence;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
-using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration;
 
 // Build a host.
 var host = Host.CreateDefaultBuilder()

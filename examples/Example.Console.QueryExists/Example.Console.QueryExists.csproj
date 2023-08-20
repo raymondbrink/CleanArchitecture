@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\GlobalUsings.cs" Link="GlobalUsings.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

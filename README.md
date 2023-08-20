@@ -48,39 +48,45 @@ You can remove the solution template by running this command:
 ## Example Code
 
 Besides the source code you'll also find many practicle [examples](https://github.com/raymondbrink/CleanArchitecture/tree/develop/examples) on how to use these libraries in Console applications, Web applications or API's.
-Here's a quick example (from the `Example.Console.CommandAdd` example project) of what your application code could look like:
+Here's a quick example (from the `Example.Console.CommandAdd` example project) of what your application code could look like (excluding some global usings):
 
 ```csharp
-using Autofac;
+using Example.Application.Manufacturer.Configuration;
 using Example.Application.Manufacturer.Commands.AddManufacturer;
 using Example.Application.Manufacturer.Commands.AddManufacturer.Models;
-using MediatR;
 
-// Build single-instance DI container.
-var builder = new ContainerBuilder();
-Example.Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
-var container = builder.Build();
-
-using (var scope = container.BeginLifetimeScope())
-{
-    // Create manufacturer model.
-    var manufacturerName = $"My Manufacturer ({DateTime.Now:yyyyMMddHHmmsssmmm})";
-    var manufacturerToAdd = new AddManufacturerCommandModel(manufacturerName)
-        {
-            Contact =
+// Build a host.
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices((hostContext, services) =>
+    {
+        // Wire up our clean architecture dependencies.
+        services
+            .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
+                hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
+                options =>
                 {
-                    FamilyName = "Brink",
-                    GivenName = "Raymond" // Optional
-                }
-        };
+                    options.RegisterEfRepository<Manufacturer, Guid>();
+                })
+            .AddApplicationManufacturerDependencies();
+    })
+    .Build();
 
-    // Execute add manufacturer command.
-    var command = new AddManufacturerCommand(manufacturerToAdd);
-    var result = await scope.Resolve<ISender>().Send(command);
+// Create manufacturer model.
+var manufacturerName = $"My Manufacturer ({DateTime.Now:yyyyMMddHHmmsssmmm})";
+var manufacturerToAdd = new AddManufacturerCommandModel(manufacturerName)
+{
+    Contact =
+    {
+        FamilyName = "Brink",
+        GivenName = "Raymond" // Optional
+    }
+};
 
-    Console.WriteLine($"Added: {result}: {manufacturerToAdd.ManufacturerName}");
-    Console.WriteLine();
-}
+// Execute add manufacturer command.
+var result = await host.Services.GetRequiredService<IAddManufacturerCommand>().ExecuteAsync(manufacturerToAdd);
+
+Console.WriteLine($"Added: {result}: {manufacturerToAdd.ManufacturerName}");
+Console.WriteLine();
 ```
 
 ## Why create these libraries?
@@ -117,14 +123,12 @@ Under the hood these libraries try to apply the following principles and pattern
 If you're a programmer and you haven't heared of these yet, please check out [Uncle Bob Martin](http://cleancoder.com/products) and [Martin Fowler](https://martinfowler.com/).
 You might learn a thing or two ;-)
 
-Also check out these projects as they are priceless and essential for these libraries to shine:
+Check out these projects as they are priceless and essential for these libraries to shine:
 
-- [Autofac](https://github.com/autofac/Autofac)
 - [AutoMapper](https://github.com/AutoMapper/AutoMapper)
 - [Entity Framework Core](https://github.com/dotnet/efcore)
 - [FluentValidation](https://github.com/FluentValidation/FluentValidation)
 - [LINQKit](https://github.com/scottksmith95/LINQKit)
-- [MediatR](https://github.com/jbogard/MediatR)
 
 Happy coding!
 
