@@ -78,6 +78,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Minimal.API", "..\e
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetActive.CleanArchitecture.Tests", "NetActive.CleanArchitecture.Tests\NetActive.CleanArchitecture.Tests.csproj", "{C6CCEB40-192F-4A08-892F-299F3ED88D93}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetActive.CleanArchitecture.Template", "..\template\NetActive.CleanArchitecture.Template.csproj", "{61E77C10-0933-4552-9FCC-542AECD1A00F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,10 @@ Global
 		{C6CCEB40-192F-4A08-892F-299F3ED88D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6CCEB40-192F-4A08-892F-299F3ED88D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6CCEB40-192F-4A08-892F-299F3ED88D93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E77C10-0933-4552-9FCC-542AECD1A00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E77C10-0933-4552-9FCC-542AECD1A00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E77C10-0933-4552-9FCC-542AECD1A00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E77C10-0933-4552-9FCC-542AECD1A00F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -191,6 +197,7 @@ Global
 		{33367ACB-C18D-4FED-A2E5-DE60596B456B} = {A487A2F7-3123-4A83-BF33-ECE9DBB3B4C7}
 		{3305D746-6AD5-401E-A391-57D8DB1D9410} = {94DB2164-8A73-4E8F-8AB3-2F71AD7964A0}
 		{C6CCEB40-192F-4A08-892F-299F3ED88D93} = {A487A2F7-3123-4A83-BF33-ECE9DBB3B4C7}
+		{61E77C10-0933-4552-9FCC-542AECD1A00F} = {A487A2F7-3123-4A83-BF33-ECE9DBB3B4C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C1C43B8-0C54-412D-98FB-CED189B4D48D}
