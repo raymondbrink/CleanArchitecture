@@ -5,7 +5,7 @@
     
     using NetActive.CleanArchitecture.Application.Interfaces;
 
-    public class GetManufacturerListQuery 
+    internal class GetManufacturerListQuery 
         : IGetManufacturerListQuery
     {
         private readonly IEntityQueryService<Manufacturer, ManufacturerListModel, Guid> _query;

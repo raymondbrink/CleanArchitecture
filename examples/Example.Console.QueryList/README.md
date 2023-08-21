@@ -1,28 +1,27 @@
 # Example.Console.QueryList
 
 This example demonstrates how to retrieve a list of entities from the database. 
-It's as simple as creating an instance of the `GetManufacturerListQuery` and sending it to MediatR.
+It's as simple as resolving the `IGetManufacturerListQuery` query from the DI container and calling the ExecuteAsync(...) method.
 
 Let's have a look at the implementation of the `GetManufacturerListQueryHandler`:
 
 ```csharp
-internal sealed class GetManufacturerListQueryHandler : BaseQueryHandler<GetManufacturerListQuery, ManufacturerListResponse>
+internal class GetManufacturerListQuery 
+    : IGetManufacturerListQuery
 {
     private readonly IEntityQueryService<Manufacturer, ManufacturerListModel, Guid> _query;
 
-    public GetManufacturerListQueryHandler(IEntityQueryService<Manufacturer, ManufacturerListModel, Guid> query, IPublisher publisher)
-        : base(publisher)
+    public GetManufacturerListQuery(IEntityQueryService<Manufacturer, ManufacturerListModel, Guid> query)
     {
         _query = query;
     }
 
-    public override async Task<ManufacturerListResponse> Handle(GetManufacturerListQuery request, CancellationToken cancellationToken)
+    /// <summary>
+    /// Returns a list of all manufacturers.
+    /// </summary>
+    public Task<List<ManufacturerListModel>> ExecuteAsync(CancellationToken? cancellationToken = null)
     {
-        var result = new ManufacturerListResponse(await _query.GetItemsAsync(cancellationToken: cancellationToken));
-
-        await PublishNotificationAsync("Requested a list of all manufacturers", cancellationToken);
-
-        return result;
+        return _query.GetItemsAsync(cancellationToken: cancellationToken ?? CancellationToken.None);
     }
 }
 ```
@@ -30,21 +29,32 @@ internal sealed class GetManufacturerListQueryHandler : BaseQueryHandler<GetManu
 As you can see, there's not much to it. 
 That's because the `IEntityQueryService` that gets injected into the constructor of our query, does all the heavy lifting for us.
 We just have to call the `GetItemsAsync()` method on that interface and return the result.
-For demonstration purposes we publish a notification using MediatR, that can be used for logging for instance.
-To find out where this "magical" generic `IEntityQueryService` comes from we should look at the Manufacturer module.
-
-## Module
-To make this work we need only one registration in our DI container as MediatR registers the command and its respective handler for us.
-
-This is the relevant Manufacturer Module registration for this query:
 
 ```csharp
-// IGetManufacturerListQuery
-builder.RegisterService<IEntityQueryService<Manufacturer, ManufacturerListModel, Guid>, EntityQueryService<Manufacturer, ManufacturerListModel, Guid>>(RegisterSingleInstance)
-    .WithParameter(Constants.ServiceParameters.Mapper, ManufacturerMapper.Instance);
+// List all manufacturers.
+var result = await host.Services.GetRequiredService<IGetManufacturerListQuery>().ExecuteAsync();
+
+foreach (var manufacturer in result)
+{
+    Console.WriteLine($"{manufacturer.Id}: {manufacturer.Name}");
+}
 ```
 
-There's a registration for the `EntityQueryService<Manufacturer, ManufacturerListModel, Guid>`, which is an implementation of the generic `IEntityQueryService<Manufacturer, ManufacturerListModel, Guid>` interface.
+## Dependencies
+To make this work we need two registrations in our DI container. 
+These are the relevant manufacturer DI registrations for this query:
+
+```csharp
+// GetManufacturerListQuery dependencies.
+services.AddService<IGetManufacturerListQuery, GetManufacturerListQuery>(lifetime);
+services.AddEntityQueryService<Manufacturer, ManufacturerListModel, Guid>(ManufacturerMapper.Instance, lifetime);
+```
+
+Both registrations are pretty straight forward. 
+A custom extension method `.AddService<TIService, TService>(ServiceLifeTime)` on IServiceCollection is available to register regular interface based services, like the `IGetManufacturerListQuery` in this case.
+
+Another custom extension method can be used to register the `IEntityQueryService` for the `Manufacturer` entity.
+This extension method registers an instance of the generic `EntityQueryService<TEnity, TModel, TKey>` for you, which can be used to query the `Manufacturer` DbSet in your queries using obvious and easy to use methods, mapping the results to `ManufacturerListModel` models using Automapper.
 
 What are those types we pass to this generic service?
 Well, `Manufacturer` is easy, that's the entity we want to query. 
@@ -63,13 +73,14 @@ using System;
 
 using NetActive.CleanArchitecture.Domain.Interfaces;
 
-public partial class Company : IEntity<Guid>
+public partial class Company 
+    : IEntity<Guid>, IAggregateRoot
 {
 }
 ```
 
 Using Entity Developer this was made easy for us, because besides the entity class itself it also generates an empty partial class that we can use to extend the entity.
-We just have to derive from `IEntity<Guid>` by which we specify the identifier of `Company` (and therefor also from its derived entity `Manufacturer`) is of type `Guid`. 
+We just have to derive from `IEntity<Guid>` (and `IAggregateRoot`) by which we specify the identifier of `Company` (and therefor also from its derived entity `Manufacturer`) is of type `Guid`. 
 If we wanted to use the default type `long`, we could have inherited from `IEntity` here (withouf specifying `TKey`).
 
 Besides the types, the `EntityQueryService` also requires a mapper instance as input, which it will use to transform each entity (`Manufacturer`) to the specified model (`ManufacturerListModel`).

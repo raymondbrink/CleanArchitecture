@@ -1,12 +1,13 @@
 # Example.Console.QueryOne
 
 This example demonstrates how to retrieve a boolean value indicating whether a specific entity exists in the database. 
-It's as simple as resolving the right query from the DI container and calling the `ExecuteAsync(...)` method.
+It's as simple as resolving the `ICompanyExistsQuery` query from the DI container and calling the `ExecuteAsync(...)` method.
 
 Let's have a look at the implementation of the query:
 
 ```csharp
-internal class CompanyExistsQuery : ICompanyExistsQuery
+internal class CompanyExistsQuery 
+    : ICompanyExistsQuery
 {
     private readonly IEntityQueryService<Company, CompanyExistsModel, Guid> _query;
 
