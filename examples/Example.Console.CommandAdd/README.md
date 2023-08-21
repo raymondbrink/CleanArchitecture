@@ -112,8 +112,8 @@ namespace Example.Application.Manufacturer.Commands.AddManufacturer.Repository;
 
 using Domain.Entities;
 
-using NetActive.CleanArchitecture.Application.Interfaces;
-using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac;
+using NetActive.CleanArchitecture.Application.EntityFrameworkCore.Extensions;
+using NetActive.CleanArchitecture.Domain.Interfaces;
 
 internal class AddManufacturerRepositoryFacade : IAddManufacturerRepositoryFacade
 {
