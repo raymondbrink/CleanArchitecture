@@ -10,7 +10,6 @@
         
         private const string ApplicationNamespace = "NetActive.CleanArchitecture.Application";
         private const string ApplicationEntityFrameworkCoreNamespace = "NetActive.CleanArchitecture.Application.EntityFrameworkCore";
-        private const string ApplicationMediatRNamespace = "NetActive.CleanArchitecture.Application.MediatR";
         private const string ApplicationPersistanceInterfacesNamespace = "NetActive.CleanArchitecture.Persistance.Interfaces";
 
         private const string PersistenceNamespace = "NetActive.CleanArchitecture.Persistence";
@@ -28,7 +27,6 @@
                 DomainFluentValidationNamespace,
                 ApplicationNamespace,
                 ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
                 ApplicationPersistanceInterfacesNamespace,
                 PersistenceNamespace,
                 PersistenceEntityFrameworkCoreNamespace
@@ -57,7 +55,6 @@
                 //DomainFluentValidationNamespace,
                 ApplicationNamespace,
                 ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
                 ApplicationPersistanceInterfacesNamespace,
                 PersistenceNamespace,
                 PersistenceEntityFrameworkCoreNamespace
@@ -86,7 +83,6 @@
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
                 ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
                 //ApplicationPersistanceInterfacesNamespace,
                 //PersistenceNamespace,
                 PersistenceEntityFrameworkCoreNamespace
@@ -115,7 +111,6 @@
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
                 ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
                 ApplicationPersistanceInterfacesNamespace,
                 //PersistenceNamespace,
                 //PersistenceEntityFrameworkCoreNamespace
@@ -144,7 +139,6 @@
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
                 ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
                 ApplicationPersistanceInterfacesNamespace,
                 PersistenceNamespace,
                 PersistenceEntityFrameworkCoreNamespace
@@ -173,7 +167,6 @@
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
                 //ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
                 //ApplicationPersistanceInterfacesNamespace,
                 PersistenceNamespace,
                 PersistenceEntityFrameworkCoreNamespace
@@ -202,7 +195,6 @@
                 DomainFluentValidationNamespace,
                 //ApplicationNamespace,
                 ApplicationEntityFrameworkCoreNamespace,
-                ApplicationMediatRNamespace,
                 //ApplicationPersistanceInterfacesNamespace,
                 PersistenceNamespace,
                 PersistenceEntityFrameworkCoreNamespace
