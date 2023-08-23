@@ -1,0 +1,24 @@
+{
+  "symbolInfo": {
+    "featureName": {
+      "longName": "feature-name",
+      "shortName": "fn"
+    },
+    "keyType": {
+      "longName": "key-type",
+      "shortName": "kt"
+    },
+    "commandType": {
+      "longName": "command-type",
+      "shortName": "ct"
+    },
+    "queryType": {
+      "longName": "query-type",
+      "shortName": "qt"
+    },
+    "useCaseType": {
+      "longName": "usecase-type",
+      "shortName": "ut"
+    }
+  }
+}
