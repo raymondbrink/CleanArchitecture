@@ -52,16 +52,14 @@ pageOfCompanies = await query.ExecuteAsync(parameters);
 ```
 
 
-## Module
+## Dependencies
 To make this work we need two registrations in our DI container.
 These are the relevant company Module registrations for this query:
 
 ```csharp
 // IGetPageOfCompaniesQuery
-builder.RegisterService<IGetPageOfCompaniesQuery, GetPageOfCompaniesQuery>(RegisterSingleInstance);
-builder.RegisterService<IEntityQueryService<Company, CompanyListModel, Guid>,
-        EntityQueryService<Company, CompanyListModel, Guid>>(RegisterSingleInstance)
-    .WithParameter(Constants.ServiceParameters.Mapper, CompanyMapper.Instance);
+services.AddService<IGetPageOfCompaniesQuery, GetPageOfCompaniesQuery>(lifetime);
+services.AddEntityQueryService<Company, CompanyListModel, Guid>(CompanyListMapper.Instance, lifetime);
 ```
 
 The registration for `IGetPageOfCompaniesQuery` is pretty straight forward.
@@ -83,7 +81,8 @@ using System;
 
 using NetActive.CleanArchitecture.Domain.Interfaces;
 
-public partial class Company : IEntity<Guid>
+public partial class Company 
+    : IEntity<Guid>, IAggregateRoot
 {
 }
 ```

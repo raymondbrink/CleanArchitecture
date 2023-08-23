@@ -1,20 +1,14 @@
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
+using Example.Application.Company.Configuration;
+using Example.Application.Interfaces.Persistence;
+using Example.Domain.Entities;
 using Example.Minimal.API.Company;
-using Example.Shared;
+using Example.Persistence;
+
+using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration;
+
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Use Autofac as DI framework.
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-
-// Register components in DI container.
-builder.Host.ConfigureContainer<ContainerBuilder>(
-    containerBuilder =>
-    {
-        AutofacConfig.RegisterComponents(containerBuilder);
-    });
 
 // Enable enum conversion in Swagger docs.
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
@@ -27,8 +21,19 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen();
+
+// Wire up our clean architecture dependencies.
+builder.Services
+    .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
+        builder.Configuration.GetConnectionString("ExampleDbConnection1"),
+        options =>
+        {
+            options.RegisterEfRepository<Company, Guid>();
+        })
+    .AddApplicationCompanyDependencies();
 
 var app = builder.Build();
 

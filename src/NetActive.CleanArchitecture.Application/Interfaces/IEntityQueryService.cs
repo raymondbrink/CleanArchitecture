@@ -15,8 +15,8 @@
     /// <summary>
     /// Base service interface that can be used to query the given model's entity repository.
     /// </summary>
-    /// <typeparam name="TModel">Type of model to output.</typeparam>
     /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+    /// <typeparam name="TModel">Type of model to output.</typeparam>
     public interface IEntityQueryService<TEntity, TModel> : IEntityQueryService<TEntity, TModel, long>
         where TEntity : class, IEntity<long>
         where TModel : class, IModel<long>
@@ -26,14 +26,17 @@
     /// <summary>
     /// Base service interface that can be used to query the given model's entity repository. 
     /// </summary>
-    /// <typeparam name="TModel">Type of model to output.</typeparam>
     /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+    /// <typeparam name="TModel">Type of model to output.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     public interface IEntityQueryService<TEntity, TModel, TKey>
         where TEntity : class, IEntity<TKey>
         where TModel : class, IModel<TKey>
         where TKey : struct
     {
+        /// <summary>
+        /// Gets the <see cref="IMapper"/> instance.
+        /// </summary>
         protected internal IMapper Mapper { get; }
 
         /// <summary>

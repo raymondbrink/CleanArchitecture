@@ -1,0 +1,264 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "R. Brink",
+  "classifications": [
+    "Clean Architecture"
+  ],
+  "identity": "NetActive.CleanArchitecture.UseCase.CSharp",
+  "name": "NetActive Clean Architecture Use Case",
+  "description": "Create a new use case (query or command)",
+  "groupIdentity": "NetActive.CleanArchitecture.UseCase",
+  "shortName": "cleanarch-usecase",
+  "sourceName": "UseCaseName",
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultNamespace": {
+      "type": "bind",
+      "binding": "msbuild:RootNamespace",
+      "replaces": "NetActive.CleanArchitecture.UseCase",
+      "defaultValue": "NetActive.CleanArchitecture.UseCase"
+    },
+    "featureName": {
+      "datatype": "string",
+      "description": "Name of the feature, typically the name of the targeted entity.",
+      "fileRename": "FeatureName",
+      "replaces": "FeatureName",
+      "type": "parameter",
+      "isRequired": true
+    },
+    "useCaseType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "isRequired": true,
+      "choices": [
+        {
+          "choice": "command",
+          "description": "Create a new command"
+        },
+        {
+          "choice": "query",
+          "description": "Create a new query"
+        }
+      ],
+      "description": "The type of use case to create"
+    },
+    "commandType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "isEnabled": "useCaseType == command",
+      "isRequired": true,
+      "choices": [
+        {
+          "choice": "add",
+          "description": "Create an 'Add' command"
+        },
+        {
+          "choice": "update",
+          "description": "Create an 'Update' command"
+        },
+        {
+          "choice": "delete",
+          "description": "Create a 'Delete' command"
+        },
+        {
+          "choice": "archive",
+          "description": "Create an 'Archive' command"
+        }
+      ],
+      "description": "The type of command for the use case"
+    },
+    "queryType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "isEnabled": "useCaseType == query",
+      "isRequired": true,
+      "choices": [
+        {
+          "choice": "get",
+          "description": "Create a 'Get' query"
+        },
+        {
+          "choice": "exists",
+          "description": "Create an 'Exists' query"
+        },
+        {
+          "choice": "listofitems",
+          "description": "Create a 'List' query"
+        },
+        {
+          "choice": "pageofitems",
+          "description": "Create a 'Paged List' query"
+        }
+      ],
+      "description": "The type of query for the use case"
+    },
+    "keyType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "replaces": "KeyType",
+      "isRequired": true,
+      "choices": [
+        {
+          "choice": "int",
+          "description": "Entity uses a key type of int"
+        },
+        {
+          "choice": "long",
+          "description": "Entity uses a key type of long"
+        },
+        {
+          "choice": "Guid",
+          "description": "Entity uses a key type of Guid"
+        }
+      ],
+      "defaultValue": "long",
+      "description": "The type of key of the entity"
+    },
+    "createCommandAdd": {
+      "type": "computed",
+      "value": "(useCaseType == \"command\" && commandType == \"add\")"
+    },
+    "createCommandUpdate": {
+      "type": "computed",
+      "value": "(useCaseType == \"command\" && commandType == \"update\")"
+    },
+    "createCommandDelete": {
+      "type": "computed",
+      "value": "(useCaseType == \"command\" && commandType == \"delete\")"
+    },
+    "createCommandArchive": {
+      "type": "computed",
+      "value": "(useCaseType == \"command\" && commandType == \"archive\")"
+    },
+    "createQueryGet": {
+      "type": "computed",
+      "value": "(useCaseType == \"query\" && queryType == \"get\")"
+    },
+    "createQueryExists": {
+      "type": "computed",
+      "value": "(useCaseType == \"query\" && queryType == \"exists\")"
+    },
+    "createQueryListOfItems": {
+      "type": "computed",
+      "value": "(useCaseType == \"query\" && queryType == \"listofitems\")"
+    },
+    "createQueryPageOfItems": {
+      "type": "computed",
+      "value": "(useCaseType == \"query\" && queryType == \"pageofitems\")"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(createCommandAdd)",
+          "include": [ "FeatureName/Commands/UseCaseName-Add/*" ],
+          "exclude": [
+            "FeatureName/Queries/**/*",
+            "FeatureName/Commands/UseCaseName-Update/**/*",
+            "FeatureName/Commands/UseCaseName-Delete/**/*",
+            "FeatureName/Commands/UseCaseName-Archive/**/*"
+          ],
+          "rename": {
+            "FeatureName/Commands/UseCaseName-Add": "FeatureName/Commands/UseCaseName"
+          }
+        },
+        {
+          "condition": "(createCommandUpdate)",
+          "include": [ "FeatureName/Commands/UseCaseName-Update/*" ],
+          "exclude": [
+            "FeatureName/Queries/**/*",
+            "FeatureName/Commands/UseCaseName-Add/**/*",
+            "FeatureName/Commands/UseCaseName-Delete/**/*",
+            "FeatureName/Commands/UseCaseName-Archive/**/*"
+          ],
+          "rename": {
+            "FeatureName/Commands/UseCaseName-Update": "FeatureName/Commands/UseCaseName"
+          }
+        },
+        {
+          "condition": "(createCommandDelete)",
+          "include": [ "FeatureName/Commands/UseCaseName-Delete/*" ],
+          "exclude": [
+            "FeatureName/Queries/**/*",
+            "FeatureName/Commands/UseCaseName-Add/**/*",
+            "FeatureName/Commands/UseCaseName-Update/**/*",
+            "FeatureName/Commands/UseCaseName-Archive/**/*"
+          ],
+          "rename": {
+            "FeatureName/Commands/UseCaseName-Delete": "FeatureName/Commands/UseCaseName"
+          }
+        },
+        {
+          "condition": "(createCommandArchive)",
+          "include": [ "FeatureName/Commands/UseCaseName-Archive/*" ],
+          "exclude": [
+            "FeatureName/Queries/**/*",
+            "FeatureName/Commands/UseCaseName-Add/**/*",
+            "FeatureName/Commands/UseCaseName-Update/**/*",
+            "FeatureName/Commands/UseCaseName-Delete/**/*"
+          ],
+          "rename": {
+            "FeatureName/Commands/UseCaseName-Archive": "FeatureName/Commands/UseCaseName"
+          }
+        },
+        {
+          "condition": "(createQueryGet)",
+          "include": [ "FeatureName/Queries/UseCaseName-Get/*" ],
+          "exclude": [
+            "FeatureName/Commands/**/*",
+            "FeatureName/Queries/UseCaseName-Exists/**/*",
+            "FeatureName/Queries/UseCaseName-ListOfItems/**/*",
+            "FeatureName/Queries/UseCaseName-PageOfItems/**/*"
+          ],
+          "rename": {
+            "FeatureName/Queries/UseCaseName-Get": "FeatureName/Queries/UseCaseName"
+          }
+        },
+        {
+          "condition": "(createQueryExists)",
+          "include": [ "FeatureName/Queries/UseCaseName-Exists/*" ],
+          "exclude": [
+            "FeatureName/Commands/**/*",
+            "FeatureName/Queries/UseCaseName-Get/**/*",
+            "FeatureName/Queries/UseCaseName-ListOfItems/**/*",
+            "FeatureName/Queries/UseCaseName-PageOfItems/**/*"
+          ],
+          "rename": {
+            "FeatureName/Queries/UseCaseName-Exists": "FeatureName/Queries/UseCaseName"
+          }
+        },
+        {
+          "condition": "(createQueryListOfItems)",
+          "include": [ "FeatureName/Queries/UseCaseName-ListOfItems/*" ],
+          "exclude": [
+            "FeatureName/Commands/**/*",
+            "FeatureName/Queries/UseCaseName-Exists/**/*",
+            "FeatureName/Queries/UseCaseName-Get/**/*",
+            "FeatureName/Queries/UseCaseName-PageOfItems/**/*"
+          ],
+          "rename": {
+            "FeatureName/Queries/UseCaseName-ListOfItems": "FeatureName/Queries/UseCaseName"
+          }
+        },
+        {
+          "condition": "(createQueryPageOfItems)",
+          "include": [ "FeatureName/Queries/UseCaseName-PageOfItems/*" ],
+          "exclude": [
+            "FeatureName/Commands/**/*",
+            "FeatureName/Queries/UseCaseName-Exists/**/*",
+            "FeatureName/Queries/UseCaseName-Get/**/*",
+            "FeatureName/Queries/UseCaseName-ListOfItems/**/*"
+          ],
+          "rename": {
+            "FeatureName/Queries/UseCaseName-PageOfItems": "FeatureName/Queries/UseCaseName"
+          }
+        }
+      ]
+    }
+  ],
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  }
+}

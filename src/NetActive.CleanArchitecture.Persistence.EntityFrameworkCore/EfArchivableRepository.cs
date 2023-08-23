@@ -4,7 +4,6 @@
     using System.Linq;
 
     using Application.Exceptions;
-    using Application.Persistence.Interfaces;
 
     using Domain.Interfaces;
 
@@ -13,12 +12,14 @@
     using Microsoft.EntityFrameworkCore;
 
     /// <inheritdoc />
-    public class EfArchivableRepository<TDbContext, TEntity> : EfArchivableRepository<TDbContext, TEntity, long>
+    public class EfArchivableRepository<TDbContext, TEntity> 
+        : EfArchivableRepository<TDbContext, TEntity, long>
         where TEntity : class, IEntity, IArchivableEntity, IAggregateRoot
         where TDbContext : DbContext, IDbContext
     {
         /// <inheritdoc />
-        public EfArchivableRepository(TDbContext context) : base(context)
+        public EfArchivableRepository(TDbContext context) 
+            : base(context)
         {
         }
     }
@@ -35,22 +36,13 @@
         {
         }
 
-        /// <summary>
-        /// Gets a queryable of <see cref="T:TEntity"/>, excluding any archived entities.
-        /// </summary>
-        /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
-        /// <returns>A queryable of Type <see cref="T:TEntity"/>.</returns>
+        /// <inheritdoc />
         public override IQueryable<TEntity> All(string[] includes = null)
         {
             return All(includeArchived: false, includes);
         }
 
-        /// <summary>
-        /// Gets a queryable of <see cref="T:TEntity"/>, optionally including any archived entities.
-        /// </summary>
-        /// <param name="includeArchived">Boolean value indicating whether to include archived entities.</param>
-        /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
-        /// <returns>A queryable of Type <see cref="T:TEntity"/>.</returns>
+        /// <inheritdoc />
         public IQueryable<TEntity> All(bool includeArchived, string[] includes = null)
         {
             return includeArchived 

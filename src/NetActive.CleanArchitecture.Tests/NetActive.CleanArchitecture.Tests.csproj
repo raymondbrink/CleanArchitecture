@@ -18,8 +18,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\NetActive.CleanArchitecture.Application.EntityFrameworkCore\NetActive.CleanArchitecture.Application.EntityFrameworkCore.csproj" />
-	  <ProjectReference Include="..\NetActive.CleanArchitecture.Application.MediatR\NetActive.CleanArchitecture.Application.MediatR.csproj" />
-	  <ProjectReference Include="..\NetActive.CleanArchitecture.Autofac\NetActive.CleanArchitecture.Autofac.csproj" />
 	  <ProjectReference Include="..\NetActive.CleanArchitecture.Domain.FluentValidation\NetActive.CleanArchitecture.Domain.FluentValidation.csproj" />
 	  <ProjectReference Include="..\NetActive.CleanArchitecture.Domain\NetActive.CleanArchitecture.Domain.csproj" />
 	  <ProjectReference Include="..\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.csproj" />

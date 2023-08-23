@@ -1,7 +1,7 @@
-﻿namespace Example.Application.Manufacturer.Queries.GetManufacturerList.Models
+﻿namespace Example.Application.Manufacturer.Queries.GetManufacturerList.Models;
+
+public class ManufacturerListModel 
+    : CompanyListModel
 {
-    public class ManufacturerListModel : CompanyListModel
-    {
-        public PersonModel? Contact { get; set; }
-    }
+    public PersonModel? Contact { get; set; }
 }

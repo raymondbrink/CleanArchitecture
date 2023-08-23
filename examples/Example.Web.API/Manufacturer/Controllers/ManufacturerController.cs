@@ -5,22 +5,28 @@
     using Application.Manufacturer.Commands.DeleteManufacturer;
     using Application.Manufacturer.Queries.GetManufacturerList;
     using Application.Manufacturer.Queries.GetManufacturerList.Models;
-    using MediatR;
     
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
-    /// This controller uses MediatR.
+    /// This controller showcases the usage of Commands.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ManufacturerController : ControllerBase
     {
-        private readonly ISender _sender;
+        private readonly IGetManufacturerListQuery _listQuery;
+        private readonly IAddManufacturerCommand _addCommand;
+        private readonly IDeleteManufacturerCommand _deleteCommand;
 
-        public ManufacturerController(ISender sender)
+        public ManufacturerController(
+            IGetManufacturerListQuery listQuery, 
+            IAddManufacturerCommand addCommand, 
+            IDeleteManufacturerCommand deleteCommand)
         {
-            _sender = sender;
+            _listQuery = listQuery;
+            _addCommand = addCommand;
+            _deleteCommand = deleteCommand;
         }
 
         /// <summary>
@@ -31,10 +37,9 @@
         [HttpGet(Name = "GetManufacturers")]
         public async Task<ActionResult<List<ManufacturerListModel>>> GetAsync(CancellationToken cancellationToken)
         {
-            var query = new GetManufacturerListQuery();
-            var result = await _sender.Send(query, cancellationToken);
+            var result = await _listQuery.ExecuteAsync(cancellationToken);
 
-            return result?.Manufacturers.Any() == true ? Ok(result.Manufacturers) : NotFound();
+            return result?.Any() == true ? Ok(result) : NotFound();
         }
 
         /// <summary>
@@ -47,8 +52,7 @@
         [ProducesResponseType(204)]
         public async Task<IActionResult> DeleteAsync(Guid manufacturerId, CancellationToken cancellationToken)
         {
-            var command = new DeleteManufacturerCommand(manufacturerId);
-            await _sender.Send(command, cancellationToken);
+            await _deleteCommand.ExecuteAsync(manufacturerId, cancellationToken);
 
             return NoContent();
         }
@@ -62,8 +66,7 @@
         [HttpPost(Name = "AddManufacturer")]
         public async Task<ActionResult<Guid>> PostAsync(AddManufacturerCommandModel manufacturer, CancellationToken cancellationToken)
         {
-            var command = new AddManufacturerCommand(manufacturer);
-            var result = await _sender.Send(command, cancellationToken);
+            var result = await _addCommand.ExecuteAsync(manufacturer, cancellationToken);
 
             return Ok(result);
         }

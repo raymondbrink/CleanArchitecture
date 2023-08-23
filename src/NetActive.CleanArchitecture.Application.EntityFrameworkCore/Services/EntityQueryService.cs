@@ -22,29 +22,27 @@
 
     using Models;
 
-    using Persistence.Interfaces;
-
     /// <summary>
-    /// Service class that can be used to query the given model's entity repository. 
+    /// Base service interface that can be used to query the given model's entity repository.
     /// </summary>
-    /// <typeparam name="TEntity">Type of entity.</typeparam>
-    /// <typeparam name="TModel">Type of model returned.</typeparam>
+    /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+    /// <typeparam name="TModel">Type of model to output.</typeparam>
     public class EntityQueryService<TEntity, TModel>
         : EntityQueryService<TEntity, TModel, long>, IEntityQueryService<TEntity, TModel>
-        where TEntity : class, IEntity<long>, IAggregateRoot
-        where TModel : class, IModel<long>
+        where TEntity : class, IEntity, IAggregateRoot
+        where TModel : class, IModel
     {
-        public EntityQueryService(IRepository<TEntity, long> repo, IMapper mapper)
+        public EntityQueryService(IRepository<TEntity> repo, IMapper mapper)
             : base(repo, mapper)
         {
         }
     }
 
     /// <summary>
-    /// Service class that can be used to query the given model's entity repository. 
+    /// Base service interface that can be used to query the given model's entity repository. 
     /// </summary>
-    /// <typeparam name="TEntity">Type of entity.</typeparam>
-    /// <typeparam name="TModel">Type of model returned.</typeparam>
+    /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+    /// <typeparam name="TModel">Type of model to output.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     public class EntityQueryService<TEntity, TModel, TKey>
         : IEntityQueryService<TEntity, TModel, TKey>
@@ -67,6 +65,7 @@
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <inheritdoc />
         IMapper IEntityQueryService<TEntity, TModel, TKey>.Mapper => _mapper;
 
         /// <inheritdoc />
@@ -116,6 +115,7 @@
             return getQuery(where).AnyAsync(cancellationToken);
         }
 
+        /// <inheritdoc />
         public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
             string[]? includes = null,
             uint pageIndex = 0,

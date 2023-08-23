@@ -3,13 +3,13 @@
     using Application.Company.Queries.GetCompany;
     using Application.Company.Queries.GetPageOfCompanies;
     using Application.Company.Queries.GetPageOfCompanies.Models;
-
+    
     using Microsoft.AspNetCore.Mvc;
 
     using NetActive.CleanArchitecture.Application.Models;
 
     /// <summary>
-    /// This controller showcases the usage of Queries directly.
+    /// This controller showcases the usage of Queries.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
