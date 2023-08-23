@@ -1,42 +1,58 @@
-﻿using Autofac;
-
+﻿using Example.Application.Company.Configuration;
 using Example.Application.Company.Queries.GetPageOfCompanies;
 using Example.Application.Company.Queries.GetPageOfCompanies.Models;
+using Example.Application.Interfaces.Persistence;
+using Example.Domain.Entities;
+using Example.Persistence;
 
-// Build single-instance DI container.
-var builder = new ContainerBuilder();
-Example.Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
-var container = builder.Build();
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-using (var scope = container.BeginLifetimeScope())
-{
-    var query = scope.Resolve<IGetPageOfCompaniesQuery>();
+using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration;
 
-    // Get first page of (max 3) companies, sorted by their name.
-    var parameters = new CompanyQueryParams { PageSize = 3, SortBy = CompanySortBy.Name };
-    var pageOfCompanies = await query.ExecuteAsync(parameters);
-                
-    Console.WriteLine($"Found {pageOfCompanies.ItemCount} matching companies in total.");
-
-    while (pageOfCompanies.PageIndex < pageOfCompanies.PageCount)
+// Build a host.
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices((hostContext, services) =>
     {
-        Console.WriteLine(
-            $"Listing {pageOfCompanies.PageOfItems.Count} companies on page {pageOfCompanies.PageNumber} of {pageOfCompanies.PageCount}:");
-        foreach (var company in pageOfCompanies.PageOfItems)
-        {
-            Console.WriteLine($"{company.Id}: {company.Name}");
-        }
+        // Wire up our clean architecture dependencies.
+        services
+            .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
+                hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
+                options =>
+                {
+                    options.RegisterEfRepository<Company, Guid>();
+                })
+            .AddApplicationCompanyDependencies();
+    })
+    .Build();
 
-        if (!pageOfCompanies.HasNextPage())
-        {
-            // No need to re-query for next page.
-            break;
-        }
+var query = host.Services.GetRequiredService<IGetPageOfCompaniesQuery>();
 
-        // Re-query for next page of (max 3) companies.
-        parameters.PageIndex++;
-        pageOfCompanies = await query.ExecuteAsync(parameters);
+// Get first page of (max 3) companies, sorted by their name.
+var parameters = new CompanyQueryParams { PageSize = 3, SortBy = CompanySortBy.Name };
+var pageOfCompanies = await query.ExecuteAsync(parameters);
+                
+Console.WriteLine($"Found {pageOfCompanies.ItemCount} matching companies in total.");
+
+while (pageOfCompanies.PageIndex < pageOfCompanies.PageCount)
+{
+    Console.WriteLine(
+        $"Listing {pageOfCompanies.PageOfItems.Count} companies on page {pageOfCompanies.PageNumber} of {pageOfCompanies.PageCount}:");
+    foreach (var company in pageOfCompanies.PageOfItems)
+    {
+        Console.WriteLine($"{company.Id}: {company.Name}");
     }
 
-    Console.WriteLine();
+    if (!pageOfCompanies.HasNextPage())
+    {
+        // No need to re-query for next page.
+        break;
+    }
+
+    // Re-query for next page of (max 3) companies.
+    parameters.PageIndex++;
+    pageOfCompanies = await query.ExecuteAsync(parameters);
 }
+
+Console.WriteLine();

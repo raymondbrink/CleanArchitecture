@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\examples\Example.Shared\Example.Shared.csproj" />
+    <ProjectReference Include="..\Example.Application\Example.Application.csproj" />
+    <ProjectReference Include="..\Example.Persistence\Example.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,25 @@
-﻿using Autofac;
-
+﻿using Example.Application.Company.Configuration;
 using Example.Application.Company.Queries.CompanyExists;
 
-// Build single-instance DI container.
-var builder = new ContainerBuilder();
-Example.Shared.AutofacConfig.RegisterComponents(builder, singleInstance: true);
-var container = builder.Build();
+// Build a host.
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices((hostContext, services) =>
+    {
+        // Wire up our clean architecture dependencies.
+        services
+            .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
+                hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
+                options =>
+                {
+                    options.RegisterEfRepository<Company, Guid>();
+                })
+            .AddApplicationCompanyDependencies();
+    })
+    .Build();
 
-using (var scope = container.BeginLifetimeScope())
-{
-    // Determine if a company with a specific name exists.
-    var companyToFind = "some company";
-    var companyWithNameExists = await scope.Resolve<ICompanyExistsQuery>().ExecuteAsync(companyToFind);
-    Console.WriteLine($"Company '{companyToFind}' exists: {companyWithNameExists}");
+// Determine if a company with a specific name exists.
+var companyToFind = "some company";
+var companyWithNameExists = await host.Services.GetRequiredService<ICompanyExistsQuery>().ExecuteAsync(companyToFind);
 
-    Console.WriteLine();
-}
+Console.WriteLine($"Company '{companyToFind}' exists: {companyWithNameExists}");
+Console.WriteLine();

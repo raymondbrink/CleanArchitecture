@@ -2,8 +2,8 @@
 {
     using Domain.Entities;
 
-    using NetActive.CleanArchitecture.Application.Persistence.Interfaces;
     using NetActive.CleanArchitecture.Application.EntityFrameworkCore.Extensions;
+    using NetActive.CleanArchitecture.Domain.Interfaces;
 
     internal class AddManufacturerRepositoryFacade : IAddManufacturerRepositoryFacade
     {

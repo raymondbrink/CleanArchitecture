@@ -1,27 +1,28 @@
 # Example.Console.CommandAdd
 
 This example demonstrates how to add a new entity to the database. 
-It's as simple as creating an instance of the `AddManufacturerCommand` and sending it to MediatR. 
-For this we get the `ISender` interface (we could have used `IMediator` too) from the DI container, which is part of MediatR, and pass the manufacturer instance to the `Send()` method:
+It's as simple as have DI create an instance of the `AddManufacturerCommand` and then executing it. 
+For this we get the `IAddManufacturerCommand` interface from the DI container and pass the manufacturer instance to the `ExecuteAsync()` method:
 
 ```csharp
 // Execute add manufacturer command.
-var command = new AddManufacturerCommand(manufacturerToAdd);
-var result = await scope.Resolve<ISender>().Send(command);
+var result = await host.Services
+    .GetRequiredService<IAddManufacturerCommand>()
+    .ExecuteAsync(manufacturerToAdd);
 ```
 
-Let's have a look at the implementation of the `AddManufacturerCommandHandler` we registered with MediatR to handle this command:
+Let's have a look at the implementation of the `AddManufacturerCommand` we registered with DI to handle this command:
 
 ```csharp
-public override async Task<Guid> Handle(AddManufacturerCommand request, CancellationToken cancellationToken)
+public async Task<Guid> ExecuteAsync(AddManufacturerCommandModel model, CancellationToken? cancellationToken = null)
 {
-    if (await _repositories.ManufacturerExistsAsync(request.model.ManufacturerName))
+    if (await _repositories.ManufacturerExistsAsync(model.ManufacturerName))
     {
-        throw new InvalidOperationException($"Manufacturer with name '{request.model.ManufacturerName}' already exists.");
+        throw new InvalidOperationException($"Manufacturer with name '{model.ManufacturerName}' already exists.");
     }
 
     // Create manufacturer instance.
-    var manufacturer = _factory.Create(request.model.ManufacturerName, request.model.Contact?.FamilyName, request.model.Contact?.GivenName);
+    var manufacturer = _factory.Create(model.ManufacturerName, model.Contact?.FamilyName, model.Contact?.GivenName);
 
     // Assert manufacturer is valid.
     await _validator.AssertIsValidAsync(manufacturer);
@@ -29,11 +30,8 @@ public override async Task<Guid> Handle(AddManufacturerCommand request, Cancella
     // Add manufacturer to repo.
     _repositories.AddManufacturer(manufacturer);
 
-    // Commit changes.
-    await SaveChangesAsync(cancellationToken);
-
-    // Send notification.
-    await PublishNotificationAsync(manufacturer.Id, cancellationToken);
+    // Commit changes.            
+    await _unitOfWork.SaveChangesAsync(cancellationToken ?? CancellationToken.None);
 
     return manufacturer.Id;
 }
@@ -114,8 +112,8 @@ namespace Example.Application.Manufacturer.Commands.AddManufacturer.Repository;
 
 using Domain.Entities;
 
-using NetActive.CleanArchitecture.Application.Interfaces;
-using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Autofac;
+using NetActive.CleanArchitecture.Application.EntityFrameworkCore.Extensions;
+using NetActive.CleanArchitecture.Domain.Interfaces;
 
 internal class AddManufacturerRepositoryFacade : IAddManufacturerRepositoryFacade
 {
@@ -139,58 +137,37 @@ We only need two interactions with the repo here:
 
 Both are fairly simple, as these exact methods are provided by the `IRepository<TEntity, TKey>` interface.
 
-## Notification
-The base class `BaseCreateCommandHandler` used by the `AddManufacturerCommandHandler` provides a method `PublishNotificationAsync` which can be used to send notifications using MediatR. 
-The only thing we have to pass is the ID of the entity that was added. The (overridable) method puts out a standaard `EntityCreatedNotification`, which boils down to an `INotification`. 
-This notification can be listened for by a subscriber elsewhere in your code. 
-
-Check out the example `MyNotificationHandler` from the Example.Shared project:
-```csharp
-public class MyNotificationHandler : 
-    INotificationHandler<EntityReadNotification>, 
-    INotificationHandler<EntityChangedNotification>
-{
-    public Task Handle(EntityReadNotification notification, CancellationToken cancellationToken)
-    {
-        Debug.WriteLine("Received read notification: {0}", notification);
-
-        return Task.CompletedTask;
-    }
-
-    public Task Handle(EntityChangedNotification notification, CancellationToken cancellationToken)
-    {
-        Debug.WriteLine("Received change notification: {0}", notification);
-            
-        return Task.CompletedTask;
-    }
-}
-```
-
-If you run an example that adds, changes or deletes a manufacturer, a message will be output to the Debug console by this method.
-Here it's just added for demonstration purposes, but such a notification handler can also use this hook for logging or in a more complex **event sourcing** solution, to apply data changes to a separate read-only database, for instance.
-
-## Module
+## Dependencies
 To ty all this together we need some registrations in our DI container. 
-Registration of the command and respective handler are taken care of by MediatR, which is registered by the `AutofacConfig` class in the Example.Shared project, which is used in all examples projects:
+Registration of the command is taken care of in Program.cs:
 
 ```csharp
-// Register MediatR from application layer.
-builder.RegisterMediatR(Application.AssemblyReference.Assembly);
+// Build a host.
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices((hostContext, services) =>
+    {
+        // Wire up our clean architecture dependencies.
+        services
+            .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
+                hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
+                options =>
+                {
+                    options.RegisterEfRepository<Manufacturer, Guid>();
+                })
+            .AddApplicationManufacturerDependencies();
+    })
+    .Build();
 ```
 
-Then there are some addition dependencies for the `AddManufacturerCommandHandler`.
-These are registered using an Autofac Module in the same AutofacConfig class:
+Besides the regular persistence layer dependencies, we also need to register the application layer dependencies.
+This is done using an extension method on the `IServiceCollection` interface`, that we created specifically for this purpose: `AddApplicationManufacturerDependencies`
+These are the relevant registrations from this extension method:
 ```csharp
-// Register other application layer modules we need.
-builder.RegisterModule<Application.Manufacturer.Autofac.Module>(singleInstance);
-```
-
-These are the relevant registrations from the Manufacturer Autofac Module:
-```csharp
-// IAddManufacturerCommand
-builder.RegisterService<IAddManufacturerRepositoryFacade, AddManufacturerRepositoryFacade>(RegisterSingleInstance);
-builder.RegisterService<IManufacturerFactory, ManufacturerFactory>(RegisterSingleInstance);
-builder.RegisterService<IEntityValidator<Manufacturer>, ManufacturerValidator>(RegisterSingleInstance);
+// AddManufacturerCommand dependencies.
+services.AddService<IAddManufacturerCommand, AddManufacturerCommand>(lifetime);
+services.AddService<IAddManufacturerRepositoryFacade, AddManufacturerRepositoryFacade>(lifetime);
+services.AddService<IManufacturerFactory, ManufacturerFactory>(lifetime);
+services.AddService<IEntityValidator<Manufacturer>, ManufacturerValidator>(lifetime);
 ```
 
 The registrations for `IAddManufacturerRepositoryFacade` and `IManufacturerFactory` are pretty straight forward.
