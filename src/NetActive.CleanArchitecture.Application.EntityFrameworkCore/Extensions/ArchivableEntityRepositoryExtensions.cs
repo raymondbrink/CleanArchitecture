@@ -18,24 +18,6 @@
         /// Returns a boolean value indicating whether an entity with the given Id exists or not.
         /// </summary>
         /// <typeparam name="TEntity">Type of entity.</typeparam>
-        /// <param name="repository">Entity repository.</param>
-        /// <param name="entityId">Entity Id to match.</param>
-        /// <param name="includeArchived">Boolean value indicating whether archived entities should be included.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>Boolean value indicating whether an entity with the given Id exists or not.</returns>
-        public static Task<bool> ExistsAsync<TEntity>(this IArchivableRepository<TEntity> repository,
-            long entityId,
-            bool includeArchived = false,
-            CancellationToken cancellationToken = default)
-            where TEntity : class, IEntity, IArchivableEntity, IAggregateRoot
-        {
-            return repository.ExistsAsync(e => e.Id.Equals(entityId), includeArchived, cancellationToken);
-        }
-
-        /// <summary>
-        /// Returns a boolean value indicating whether an entity with the given Id exists or not.
-        /// </summary>
-        /// <typeparam name="TEntity">Type of entity.</typeparam>
         /// <typeparam name="TKey">Type of entity key.</typeparam>
         /// <param name="repository">Entity repository.</param>
         /// <param name="entityId">Entity Id to match.</param>

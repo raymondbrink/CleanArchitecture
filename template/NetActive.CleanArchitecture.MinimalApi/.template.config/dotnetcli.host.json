@@ -1,0 +1,12 @@
+{
+  "symbolInfo": {
+    "featureName": {
+      "longName": "feature-name",
+      "shortName": "fn"
+    },
+    "keyType": {
+      "longName": "key-type",
+      "shortName": "kt"
+    }
+  }
+}

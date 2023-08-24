@@ -4,7 +4,7 @@
 
     using NetActive.CleanArchitecture.Domain.Interfaces;
 
-    public class MyEntity : IEntity<Guid>, IAggregateRoot
+    public class FeatureName : IEntity<Guid>, IAggregateRoot
     {
 		public virtual Guid Id { get; set; }
 

@@ -23,22 +23,6 @@
     using Models;
 
     /// <summary>
-    /// Base service interface that can be used to query the given model's entity repository.
-    /// </summary>
-    /// <typeparam name="TEntity">Type of entity to query.</typeparam>
-    /// <typeparam name="TModel">Type of model to output.</typeparam>
-    public class EntityQueryService<TEntity, TModel>
-        : EntityQueryService<TEntity, TModel, long>, IEntityQueryService<TEntity, TModel>
-        where TEntity : class, IEntity, IAggregateRoot
-        where TModel : class, IModel
-    {
-        public EntityQueryService(IRepository<TEntity> repo, IMapper mapper)
-            : base(repo, mapper)
-        {
-        }
-    }
-
-    /// <summary>
     /// Base service interface that can be used to query the given model's entity repository. 
     /// </summary>
     /// <typeparam name="TEntity">Type of entity to query.</typeparam>

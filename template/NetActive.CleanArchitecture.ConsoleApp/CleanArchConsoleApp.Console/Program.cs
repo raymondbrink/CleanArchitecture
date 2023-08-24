@@ -5,9 +5,9 @@ using Microsoft.Extensions.Hosting;
 using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration;
 
 using CleanArchConsoleApp.Application.Interfaces.Persistence;
-using CleanArchConsoleApp.Application.MyEntity.Configuration;
-using CleanArchConsoleApp.Application.MyEntity.Queries.GetPageOfMyEntities;
-using CleanArchConsoleApp.Application.MyEntity.Queries.MyEntityExists;
+using CleanArchConsoleApp.Application.FeatureName.Configuration;
+using CleanArchConsoleApp.Application.FeatureName.Queries.GetPageOfMyEntities;
+using CleanArchConsoleApp.Application.FeatureName.Queries.FeatureNameExists;
 using CleanArchConsoleApp.Domain.Entities;
 using CleanArchConsoleApp.Persistence;
 
@@ -21,9 +21,9 @@ var host = Host.CreateDefaultBuilder()
                 "Server=(localdb)\\MSSQLLocalDB;Database=CleanArchConsoleApp;Integrated Security=true;MultipleActiveResultSets=true;",
                 options =>
                 {
-                    options.RegisterEfRepository<MyEntity, Guid>();
+                    options.RegisterEfRepository<FeatureName, Guid>();
                 })
-            .AddApplicationMyEntityDependencies();
+            .AddApplicationFeatureNameDependencies();
     })
     .Build();   
 
@@ -36,8 +36,8 @@ foreach (var item in myEntities.PageOfItems)
 Console.WriteLine();
 
 // Determine if an entity with a specific name exists.
-var myEntityToFind = "some entity";
-var myEntityWithNameExists = await host.Services.GetRequiredService<IMyEntityExistsQuery>().ExecuteAsync(myEntityToFind);
-Console.WriteLine($"Entity '{myEntityToFind}' exists: {myEntityWithNameExists}");
+var FeatureNameToFind = "some entity";
+var FeatureNameWithNameExists = await host.Services.GetRequiredService<IFeatureNameExistsQuery>().ExecuteAsync(FeatureNameToFind);
+Console.WriteLine($"Entity '{FeatureNameToFind}' exists: {FeatureNameWithNameExists}");
 
 Console.WriteLine();

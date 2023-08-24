@@ -71,29 +71,6 @@
         }
 
         /// <summary>
-        /// Adds the specified <see cref="EfRepository{TDbContext, TEntity}"/> to the <see cref="IServiceCollection"/>.
-        /// </summary>
-        /// <typeparam name="TDbContext">Type of DbContext to inject.</typeparam>
-        /// <typeparam name="TEntity">Type of entity.</typeparam>
-        /// <param name="services"></param>
-        /// <param name="lifetime">The ServiceLifetime of the repository (default: Scoped).</param>
-        /// <returns><see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddEfRepository<TDbContext, TEntity>(
-            this IServiceCollection services,
-            ServiceLifetime lifetime = ServiceLifetime.Scoped)
-            where TDbContext : DbContext, IDbContext
-            where TEntity : class, IEntity, IAggregateRoot
-        {
-            services.Add(
-                new ServiceDescriptor(
-                    typeof(IRepository<TEntity>),
-                    typeof(EfRepository<TDbContext, TEntity>),
-                    lifetime));
-
-            return services;
-        }
-
-        /// <summary>
         /// Adds the specified <see cref="EfRepository{TDbContext, TEntity, TKey}"/> to the <see cref="IServiceCollection"/>.
         /// </summary>
         /// <typeparam name="TDbContext">Type of DbContext to inject.</typeparam>
@@ -134,15 +111,10 @@
             ServiceLifetime lifetime = ServiceLifetime.Scoped)
             where TDbContext : DbContext, IDbContext
         {
-            var serviceDescriptor = typeof(long) == TKey
-                ? new ServiceDescriptor(
-                    typeof(IRepository<>).MakeGenericType(TEntity),
-                    typeof(EfArchivableRepository<,>).MakeGenericType(typeof(TDbContext), TEntity),
-                    lifetime)
-                : new ServiceDescriptor(
-                    typeof(IRepository<,>).MakeGenericType(TEntity, TKey),
-                    typeof(EfArchivableRepository<,,>).MakeGenericType(typeof(TDbContext), TEntity, TKey),
-                    lifetime);
+            var serviceDescriptor = new ServiceDescriptor(
+                typeof(IRepository<,>).MakeGenericType(TEntity, TKey),
+                typeof(EfArchivableRepository<,,>).MakeGenericType(typeof(TDbContext), TEntity, TKey),
+                lifetime);
 
             services.Add(serviceDescriptor);
 
@@ -171,15 +143,10 @@
             ServiceLifetime lifetime = ServiceLifetime.Scoped)
             where TDbContext : DbContext, IDbContext
         {
-            var serviceDescriptor = typeof(long) == TKey
-                ? new ServiceDescriptor(
-                    typeof(IRepository<>).MakeGenericType(TEntity),
-                    typeof(EfRepository<,>).MakeGenericType(typeof(TDbContext), TEntity),
-                    lifetime)
-                : new ServiceDescriptor(
-                    typeof(IRepository<,>).MakeGenericType(TEntity, TKey),
-                    typeof(EfRepository<,,>).MakeGenericType(typeof(TDbContext), TEntity, TKey),
-                    lifetime);
+            var serviceDescriptor = new ServiceDescriptor(
+                typeof(IRepository<,>).MakeGenericType(TEntity, TKey),
+                typeof(EfRepository<,,>).MakeGenericType(typeof(TDbContext), TEntity, TKey),
+                lifetime);
 
             services.Add(serviceDescriptor);
 

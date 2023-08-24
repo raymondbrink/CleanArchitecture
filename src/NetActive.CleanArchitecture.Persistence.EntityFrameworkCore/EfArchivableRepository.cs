@@ -11,19 +11,6 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    /// <inheritdoc />
-    public class EfArchivableRepository<TDbContext, TEntity> 
-        : EfArchivableRepository<TDbContext, TEntity, long>
-        where TEntity : class, IEntity, IArchivableEntity, IAggregateRoot
-        where TDbContext : DbContext, IDbContext
-    {
-        /// <inheritdoc />
-        public EfArchivableRepository(TDbContext context) 
-            : base(context)
-        {
-        }
-    }
-
     /// <inheritdoc cref="IArchivableRepository{TEntity, TKey}" />
     public class EfArchivableRepository<TDbContext, TEntity, TKey>
         : EfRepository<TDbContext, TEntity, TKey>, IArchivableRepository<TEntity, TKey>
