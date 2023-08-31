@@ -45,7 +45,6 @@
           "description": "Entity uses a key type of Guid"
         }
       ],
-      "defaultValue": "long",
       "description": "The type of key of the entity"
     }
   },
