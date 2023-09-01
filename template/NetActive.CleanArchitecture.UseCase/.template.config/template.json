@@ -6,7 +6,7 @@
   ],
   "identity": "NetActive.CleanArchitecture.UseCase.CSharp",
   "name": "NetActive Clean Architecture Use Case",
-  "description": "Create a new use case (query or command)",
+  "description": "Create a new use case (query or command). Should be run from the \".Application\" folder!",
   "groupIdentity": "NetActive.CleanArchitecture.UseCase",
   "shortName": "cleanarch-usecase",
   "sourceName": "UseCaseName",

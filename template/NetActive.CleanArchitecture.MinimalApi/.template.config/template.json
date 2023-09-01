@@ -3,7 +3,8 @@
   "author": "R. Brink",
   "classifications": [
     "Solution",
-    "Api"
+    "Web",
+    "WebAPI"
   ],
   "guids": [
     "6E2CC7D1-0756-4F2E-9D7E-C3DD28263B00",
@@ -13,6 +14,7 @@
   ],
   "identity": "NetActive.CleanArchitecture.MinimalApi.Template",
   "name": "NetActive Clean Architecture Minimal Api",
+  "description": "A project template for creating an ASP.NET Core application with two example minimal API endpoints for a RESTful HTTP service. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
   "postActions": [
     {
       "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",

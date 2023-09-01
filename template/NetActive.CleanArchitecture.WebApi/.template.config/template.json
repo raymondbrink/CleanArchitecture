@@ -3,18 +3,18 @@
   "author": "R. Brink",
   "classifications": [
     "Solution",
-    "Common",
-    "Console"
+    "Web",
+    "WebAPI"
   ],
   "guids": [
     "6E2CC7D1-0756-4F2E-9D7E-C3DD28263B00",
     "46F70E78-9356-45C1-9D62-6C00E9465FD0",
     "DCF6580D-0733-4955-8802-76B7735E42E5",
-    "FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54"
+    "F698B3CD-D789-4384-A4CF-0DE8F0253CFD"
   ],
-  "identity": "NetActive.CleanArchitecture.ConsoleApp.Template",
-  "name": "NetActive Clean Architecture Console App",
-  "description": "A project template for creating a command-line application that run on .NET on Windows, Linux and macOS. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
+  "identity": "NetActive.CleanArchitecture.WebApi.Template",
+  "name": "NetActive Clean Architecture Web Api",
+  "description": "A project template for creating an ASP.NET Core application with an example Controller for a RESTful HTTP service. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
   "postActions": [
     {
       "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
@@ -31,11 +31,11 @@
   "preferNameDirectory": true,
   "primaryOutputs": [
     {
-      "path": "CleanArchConsoleApp.sln"
+      "path": "CleanArchWebApi.sln"
     }
   ],
-  "shortName": "cleanarch-console",
-  "sourceName": "CleanArchConsoleApp",
+  "shortName": "cleanarch-webapi",
+  "sourceName": "CleanArchWebApi",
   "symbols": {
     "featureName": {
       "datatype": "string",
