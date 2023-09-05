@@ -21,7 +21,7 @@ var host = Host.CreateDefaultBuilder()
                 hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
                 options =>
                 {
-                    options.RegisterEfRepository<StoreProduct>();
+                    options.RegisterEfRepository<StoreProduct, long>();
                 })
             .AddApplicationStoreProductDependencies();
     })

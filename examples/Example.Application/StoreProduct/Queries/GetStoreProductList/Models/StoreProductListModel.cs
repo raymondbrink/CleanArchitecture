@@ -2,7 +2,7 @@
 {
     using NetActive.CleanArchitecture.Application.Interfaces;
 
-    public class StoreProductListModel : IModel
+    public class StoreProductListModel : IModel<long>
     {
         public long Id { get; set; }
 

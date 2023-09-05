@@ -18,7 +18,7 @@
             // IGetStoreProductListQuery
             services
                 .AddService<IGetStoreProductListQuery, GetStoreProductListQuery>(lifetime)
-                .AddEntityQueryService<StoreProduct, StoreProductListModel>(StoreProductMapper.Instance, lifetime);
+                .AddEntityQueryService<StoreProduct, StoreProductListModel, long>(StoreProductMapper.Instance, lifetime);
 
             return services;
         }

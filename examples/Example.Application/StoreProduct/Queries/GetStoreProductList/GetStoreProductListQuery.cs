@@ -8,9 +8,9 @@
 
     internal class GetStoreProductListQuery : IGetStoreProductListQuery
     {
-        private readonly IEntityQueryService<StoreProduct, StoreProductListModel> _query;
+        private readonly IEntityQueryService<StoreProduct, StoreProductListModel, long> _query;
 
-        public GetStoreProductListQuery(IEntityQueryService<StoreProduct, StoreProductListModel> query)
+        public GetStoreProductListQuery(IEntityQueryService<StoreProduct, StoreProductListModel, long> query)
         {
             _query = query;
         }
