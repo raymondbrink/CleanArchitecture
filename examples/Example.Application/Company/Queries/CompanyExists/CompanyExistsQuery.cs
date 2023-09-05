@@ -2,15 +2,13 @@
 {
     using Domain.Entities;
 
-    using Models;
-
     using NetActive.CleanArchitecture.Application.Interfaces;
 
     internal class CompanyExistsQuery : ICompanyExistsQuery
     {
-        private readonly IEntityQueryService<Company, CompanyExistsModel, Guid> _query;
+        private readonly IEntityExistsService<Company, Guid> _query;
 
-        public CompanyExistsQuery(IEntityQueryService<Company, CompanyExistsModel, Guid> query)
+        public CompanyExistsQuery(IEntityExistsService<Company, Guid> query)
         {
             _query = query;
         }

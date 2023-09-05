@@ -88,18 +88,6 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> ExistsAsync(TKey id, CancellationToken cancellationToken = default) 
-            => ExistsAsync(e => e.Id.Equals(id), cancellationToken);
-
-        /// <inheritdoc />
-        public Task<bool> ExistsAsync(
-            Expression<Func<TEntity, bool>>? where = null, 
-            CancellationToken cancellationToken = default)
-        {
-            return getQuery(where).AnyAsync(cancellationToken);
-        }
-
-        /// <inheritdoc />
         public Task<PagedQueryResultModel<TModel>> GetPageOfItemsAsync(
             string[]? includes = null,
             uint pageIndex = 0,

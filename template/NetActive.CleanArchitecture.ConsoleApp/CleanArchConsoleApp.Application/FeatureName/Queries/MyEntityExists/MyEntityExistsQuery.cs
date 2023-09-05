@@ -8,9 +8,9 @@
 
     internal class FeatureNameExistsQuery : IFeatureNameExistsQuery
     {
-        private readonly IEntityQueryService<FeatureName, FeatureNameExistsModel, Guid> _query;
+        private readonly IEntityExistsService<FeatureName, Guid> _query;
 
-        public FeatureNameExistsQuery(IEntityQueryService<FeatureName, FeatureNameExistsModel, Guid> query)
+        public FeatureNameExistsQuery(IEntityExistsService<FeatureName, Guid> query)
         {
             _query = query;
         }

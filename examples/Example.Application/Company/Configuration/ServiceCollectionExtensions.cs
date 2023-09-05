@@ -3,7 +3,6 @@
     using Domain.Entities;
 
     using Queries.CompanyExists;
-    using Queries.CompanyExists.Models;
     using Queries.GetCompany;
     using Queries.GetCompany.Mapping;
     using Queries.GetCompany.Models;
@@ -30,7 +29,7 @@
 
             // ICompanyExistsQuery
             services.AddService<ICompanyExistsQuery, CompanyExistsQuery>(lifetime);
-            services.AddEntityQueryService<Company, CompanyExistsModel, Guid>(CompanyListMapper.Instance, lifetime);
+            services.AddEntityExistsService<Company, Guid>(lifetime);
 
             return services;
         }

@@ -3,7 +3,6 @@
     using Domain.Entities;
 
     using Queries.FeatureNameExists;
-    using Queries.FeatureNameExists.Models;
     using Queries.GetFeatureName;
     using Queries.GetFeatureName.Mapping;
     using Queries.GetFeatureName.Models;
@@ -30,7 +29,7 @@
 
             // IFeatureNameExistsQuery
             services.AddService<IFeatureNameExistsQuery, FeatureNameExistsQuery>(lifetime);
-            services.AddEntityQueryService<FeatureName, FeatureNameExistsModel, Guid>(FeatureNameListMapper.Instance, lifetime);
+            services.AddEntityExistsService<FeatureName, Guid>(lifetime);
 
             return services;
         }

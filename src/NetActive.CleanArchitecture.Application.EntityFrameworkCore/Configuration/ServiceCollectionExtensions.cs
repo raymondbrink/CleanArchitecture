@@ -39,5 +39,30 @@
 
             return services;
         }
+
+        /// <summary>
+        /// Adds the <see cref="EntityExistsService{TEntity, TKey}"/> to the <see cref="IServiceCollection"/>.
+        /// </summary>
+        /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+        /// <typeparam name="TKey">Type of the entity key (id).</typeparam>
+        /// <param name="services"></param>
+        /// <param name="lifetime">The ServiceLifetime of the service.</param>
+        /// <returns><see cref="IServiceCollection"/></returns>
+        public static IServiceCollection AddEntityExistsService<TEntity, TKey>(
+            this IServiceCollection services,
+            ServiceLifetime lifetime = ServiceLifetime.Scoped)
+            where TEntity : class, IEntity<TKey>, IAggregateRoot
+            where TKey : struct
+        {
+            services.Add(
+                new ServiceDescriptor(
+                    typeof(IEntityExistsService<TEntity, TKey>),
+                    serviceProvider =>
+                        new EntityExistsService<TEntity, TKey>(
+                            serviceProvider.GetRequiredService<IRepository<TEntity, TKey>>()),
+                    lifetime));
+
+            return services;
+        }
     }
 }
