@@ -11,34 +11,6 @@
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds the <see cref="EntityQueryService{TEntity, TModel}"/> to the <see cref="IServiceCollection"/>.
-        /// </summary>
-        /// <typeparam name="TEntity">Type of entity to query.</typeparam>
-        /// <typeparam name="TModel">Type of model to map the entity to and return.</typeparam>
-        /// <param name="services"></param>
-        /// <param name="mapperInstance">Automapper instance to use for mapping between entity and model</param>
-        /// <param name="lifetime">The ServiceLifetime of the service (default: Scoped).</param>
-        /// <returns><see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddEntityQueryService<TEntity, TModel>(
-            this IServiceCollection services,
-            IMapper mapperInstance,
-            ServiceLifetime lifetime = ServiceLifetime.Scoped)
-            where TEntity : class, IEntity, IAggregateRoot
-            where TModel : class, IModel
-        {
-            services.Add(
-                new ServiceDescriptor(
-                    typeof(IEntityQueryService<TEntity, TModel>),
-                    serviceProvider =>
-                        new EntityQueryService<TEntity, TModel>(
-                            serviceProvider.GetRequiredService<IRepository<TEntity>>(),
-                            mapperInstance),
-                    lifetime));
-
-            return services;
-        }
-
-        /// <summary>
         /// Adds the <see cref="EntityQueryService{TEntity, TModel, TKey}"/> to the <see cref="IServiceCollection"/>.
         /// </summary>
         /// <typeparam name="TEntity">Type of entity to query.</typeparam>
@@ -63,6 +35,31 @@
                         new EntityQueryService<TEntity, TModel, TKey>(
                             serviceProvider.GetRequiredService<IRepository<TEntity, TKey>>(),
                             mapperInstance),
+                    lifetime));
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="EntityExistsService{TEntity, TKey}"/> to the <see cref="IServiceCollection"/>.
+        /// </summary>
+        /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+        /// <typeparam name="TKey">Type of the entity key (id).</typeparam>
+        /// <param name="services"></param>
+        /// <param name="lifetime">The ServiceLifetime of the service.</param>
+        /// <returns><see cref="IServiceCollection"/></returns>
+        public static IServiceCollection AddEntityExistsService<TEntity, TKey>(
+            this IServiceCollection services,
+            ServiceLifetime lifetime = ServiceLifetime.Scoped)
+            where TEntity : class, IEntity<TKey>, IAggregateRoot
+            where TKey : struct
+        {
+            services.Add(
+                new ServiceDescriptor(
+                    typeof(IEntityExistsService<TEntity, TKey>),
+                    serviceProvider =>
+                        new EntityExistsService<TEntity, TKey>(
+                            serviceProvider.GetRequiredService<IRepository<TEntity, TKey>>()),
                     lifetime));
 
             return services;

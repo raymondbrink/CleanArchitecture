@@ -13,17 +13,6 @@
     using Models;
 
     /// <summary>
-    /// Base service interface that can be used to query the given model's entity repository.
-    /// </summary>
-    /// <typeparam name="TEntity">Type of entity to query.</typeparam>
-    /// <typeparam name="TModel">Type of model to output.</typeparam>
-    public interface IEntityQueryService<TEntity, TModel> : IEntityQueryService<TEntity, TModel, long>
-        where TEntity : class, IEntity<long>
-        where TModel : class, IModel<long>
-    {
-    }
-
-    /// <summary>
     /// Base service interface that can be used to query the given model's entity repository. 
     /// </summary>
     /// <typeparam name="TEntity">Type of entity to query.</typeparam>
@@ -74,20 +63,6 @@
         /// <param name="includes">An array of strings of '.' separated navigation property names to be included.</param>
         /// <returns>Model.</returns>
         Task<TModel> ReadAsync(Expression<Func<TEntity, bool>> where, string[] includes = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Gets a boolean value indicating whether an entity with the given Id exists.
-        /// </summary>
-        /// <param name="id">Id of the entity to find.</param>
-        /// <returns>Boolean.</returns>
-        Task<bool> ExistsAsync(TKey id, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Gets a boolean value indicating whether at least one entity exists, that complies to the (optional) given filter.
-        /// </summary>
-        /// <param name="where">Filtering based on a filter function.</param>
-        /// <returns>Boolean.</returns>
-        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets one page of results for the given query, sorted by entity Id ascending.

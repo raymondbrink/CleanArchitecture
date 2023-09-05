@@ -1,63 +1,95 @@
 {
-    "$schema": "http://json.schemastore.org/template",
-    "author": "R. Brink",
-    "classifications": [
-        "Solution",
-        "Console"
-    ],
-    "guids": [
-        "6E2CC7D1-0756-4F2E-9D7E-C3DD28263B00",
-        "46F70E78-9356-45C1-9D62-6C00E9465FD0",
-        "DCF6580D-0733-4955-8802-76B7735E42E5",
-        "FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54"
-    ],
-    "identity": "NetActive.CleanArchitecture.ConsoleApp.Template",
-    "name": "NetActive Clean Architecture Console App",
-    "postActions": [
+  "$schema": "http://json.schemastore.org/template",
+  "author": "R. Brink",
+  "classifications": [
+    "Solution",
+    "Common",
+    "Console"
+  ],
+  "guids": [
+    "6E2CC7D1-0756-4F2E-9D7E-C3DD28263B00",
+    "46F70E78-9356-45C1-9D62-6C00E9465FD0",
+    "DCF6580D-0733-4955-8802-76B7735E42E5",
+    "FD7C5840-6B6C-4BB9-B87A-D152B8CF0F54"
+  ],
+  "identity": "NetActive.CleanArchitecture.ConsoleApp.Template",
+  "name": "NetActive Clean Architecture Console App",
+  "description": "A solution template for creating a command-line application that run on .NET on Windows, Linux and macOS. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
+  "postActions": [
+    {
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "condition": "(!skipRestore)",
+      "continueOnError": true,
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [
         {
-            "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
-            "condition": "(!skipRestore)",
-            "continueOnError": true,
-            "description": "Restore NuGet packages required by this project.",
-            "manualInstructions": [
-                {
-                    "text": "Run 'dotnet restore'"
-                }
-            ]
+          "text": "Run 'dotnet restore'"
         }
-    ],
-    "preferNameDirectory": true,
-    "primaryOutputs": [
-        {
-            "path": "CleanArchConsoleApp.sln"
-        }
-    ],
-    "shortName": "cleanarch-console",
-    "sourceName": "CleanArchConsoleApp",
-    "symbols": {
-        "unitOfWorkName": {
-            "datatype": "text",
-            "description": "If specified, sets the name of the Unit of Work. You MUST specify the `UnitOfWork` suffix in this name if you want it in the class name generated.",
-            "fileRename": "ApplicationUnitOfWork",
-            "replaces": "ApplicationUnitOfWork",
-            "type": "parameter"
-        },
-        "dbContextName": {
-            "datatype": "text",
-            "description": "If specified, sets the name of the EF DbContext. You MUST specify the `DbContext` suffix in this name if you want it in the class name generated.",
-            "fileRename": "ApplicationDbContext",
-            "replaces": "ApplicationDbContext",
-            "type": "parameter"
-        },
-        "skipRestore": {
-            "datatype": "bool",
-            "defaultValue": "false",
-            "description": "If specified, skips the automatic restore of the project on create.",
-            "type": "parameter"
-        }
-    },
-    "tags": {
-        "language": "C#",
-        "type": "solution"
+      ]
     }
+  ],
+  "preferNameDirectory": true,
+  "primaryOutputs": [
+    {
+      "path": "CleanArchConsoleApp.sln"
+    }
+  ],
+  "shortName": "cleanarch-console",
+  "sourceName": "CleanArchConsoleApp",
+  "symbols": {
+    "featureName": {
+      "datatype": "string",
+      "description": "Name of the feature, typically the name of the targeted entity.",
+      "fileRename": "FeatureName",
+      "replaces": "FeatureName",
+      "type": "parameter",
+      "isRequired": true
+    },
+    "keyType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "replaces": "KeyType",
+      "isRequired": true,
+      "choices": [
+        {
+          "choice": "int",
+          "description": "Entity uses a key type of int"
+        },
+        {
+          "choice": "long",
+          "description": "Entity uses a key type of long"
+        },
+        {
+          "choice": "Guid",
+          "description": "Entity uses a key type of Guid"
+        }
+      ],
+      "defaultValue": "long",
+      "description": "The type of key of the entity"
+    },
+    "unitOfWorkName": {
+      "datatype": "text",
+      "description": "If specified, sets the name of the Unit of Work. You MUST specify the `UnitOfWork` suffix in this name if you want it in the class name generated.",
+      "fileRename": "ApplicationUnitOfWork",
+      "replaces": "ApplicationUnitOfWork",
+      "type": "parameter"
+    },
+    "dbContextName": {
+      "datatype": "text",
+      "description": "If specified, sets the name of the EF DbContext. You MUST specify the `DbContext` suffix in this name if you want it in the class name generated.",
+      "fileRename": "ApplicationDbContext",
+      "replaces": "ApplicationDbContext",
+      "type": "parameter"
+    },
+    "skipRestore": {
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "type": "parameter"
+    }
+  },
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  }
 }

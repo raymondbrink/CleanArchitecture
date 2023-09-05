@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />
-    <PackageReference Include="NetActive.CleanArchitecture.Domain.FluentValidation" Version="6.1.0-alpha.8" />
+    <PackageReference Include="NetActive.CleanArchitecture.Domain.FluentValidation" Version="*" />
   </ItemGroup>
 
   <ItemGroup>

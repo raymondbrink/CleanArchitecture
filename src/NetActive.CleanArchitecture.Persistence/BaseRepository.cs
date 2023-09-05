@@ -8,17 +8,6 @@
     using Interfaces;
 
     /// <summary>
-    /// Abstract base for a repository of entity type <see cref="T:TEntity"/> with key of type <see cref="T:long"/> in context <see cref="T:TDbContext"/>.
-    /// </summary>
-    /// <typeparam name="TDbContext">Type of IDbContext.</typeparam>
-    /// <typeparam name="TEntity">Type of entity.</typeparam>
-    public abstract class BaseRepository<TDbContext, TEntity> : BaseRepository<TDbContext, TEntity, long>
-        where TEntity : class, IEntity, IAggregateRoot 
-        where TDbContext : IDbContext
-    {
-    }
-
-    /// <summary>
     /// Abstract base for a repository of entity type <see cref="T:TEntity"/> with key of type <see cref="T:TKey"/> in context <see cref="T:TDbContext"/>.
     /// </summary>
     /// <typeparam name="TDbContext">Type of IDbContext.</typeparam>

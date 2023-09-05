@@ -6,15 +6,6 @@
     /// Interface defining an archivable entity based repository of type <see cref="T:TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
-    public interface IArchivableRepository<TEntity> : IArchivableRepository<TEntity, long>
-        where TEntity : IEntity, IArchivableEntity, IAggregateRoot
-    {
-    }
-
-    /// <summary>
-    /// Interface defining an archivable entity based repository of type <see cref="T:TEntity"/>.
-    /// </summary>
-    /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TKey">Type of entity key (default: long).</typeparam>
     public interface IArchivableRepository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity : IEntity<TKey>, IArchivableEntity, IAggregateRoot

@@ -23,22 +23,6 @@
     using Models;
 
     /// <summary>
-    /// Base service interface that can be used to query the given model's entity repository.
-    /// </summary>
-    /// <typeparam name="TEntity">Type of entity to query.</typeparam>
-    /// <typeparam name="TModel">Type of model to output.</typeparam>
-    public class EntityQueryService<TEntity, TModel>
-        : EntityQueryService<TEntity, TModel, long>, IEntityQueryService<TEntity, TModel>
-        where TEntity : class, IEntity, IAggregateRoot
-        where TModel : class, IModel
-    {
-        public EntityQueryService(IRepository<TEntity> repo, IMapper mapper)
-            : base(repo, mapper)
-        {
-        }
-    }
-
-    /// <summary>
     /// Base service interface that can be used to query the given model's entity repository. 
     /// </summary>
     /// <typeparam name="TEntity">Type of entity to query.</typeparam>
@@ -101,18 +85,6 @@
         {
             var model = await GetAsync(where, includes, cancellationToken);
             return model ?? throw new EntityNotFoundException(typeof(TEntity));
-        }
-
-        /// <inheritdoc />
-        public Task<bool> ExistsAsync(TKey id, CancellationToken cancellationToken = default) 
-            => ExistsAsync(e => e.Id.Equals(id), cancellationToken);
-
-        /// <inheritdoc />
-        public Task<bool> ExistsAsync(
-            Expression<Func<TEntity, bool>>? where = null, 
-            CancellationToken cancellationToken = default)
-        {
-            return getQuery(where).AnyAsync(cancellationToken);
         }
 
         /// <inheritdoc />

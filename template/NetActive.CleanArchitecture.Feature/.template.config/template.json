@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "R. Brink",
+  "classifications": [
+    "Clean Architecture"
+  ],
+  "identity": "NetActive.CleanArchitecture.Feature.CSharp",
+  "name": "NetActive Clean Architecture Feature",
+  "description": "Create a new feature",
+  "groupIdentity": "NetActive.CleanArchitecture.Feature",
+  "shortName": "cleanarch-feature",
+  "sourceName": "CleanArchFeature",
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultNamespace": {
+      "type": "bind",
+      "binding": "msbuild:RootNamespace",
+      "replaces": "NetActive.CleanArchitecture.Feature",
+      "defaultValue": "NetActive.CleanArchitecture.Feature"
+    },
+    "featureName": {
+      "datatype": "string",
+      "description": "Name of the feature, typically the name of the targeted entity.",
+      "fileRename": "FeatureName",
+      "replaces": "FeatureName",
+      "type": "parameter",
+      "isRequired": true
+    },
+    "keyType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "replaces": "KeyType",
+      "isRequired": true,
+      "choices": [
+        {
+          "choice": "int",
+          "description": "Entity uses a key type of int"
+        },
+        {
+          "choice": "long",
+          "description": "Entity uses a key type of long"
+        },
+        {
+          "choice": "Guid",
+          "description": "Entity uses a key type of Guid"
+        }
+      ],
+      "description": "The type of key of the entity"
+    }
+  },
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  }
+}

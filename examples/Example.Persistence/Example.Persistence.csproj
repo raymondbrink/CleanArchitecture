@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NetActive.CleanArchitecture.Persistence.EntityFrameworkCore" Version="6.1.0-alpha.8" />
+		<PackageReference Include="NetActive.CleanArchitecture.Persistence.EntityFrameworkCore" Version="*" />
 	</ItemGroup>
 
 	<ItemGroup>

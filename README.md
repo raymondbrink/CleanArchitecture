@@ -23,7 +23,7 @@ You will end-up with a new solution containing a basic console application, but 
 1. Install the solution template from NuGet:
     - `dotnet new install NetActive.CleanArchitecture.Template`
 1. Create and navigate to an empty folder that will hold the Solution (by default the folder name will be used as the primary namespace):
-    - `dotnet new cleanarch` (add `-h` for more options)
+    - `dotnet new cleanarch-console` (add `-h` for more options)
 1. Navigate to the subfolder created, who's name ends with `.Console`
 1. Run the console application:
     - `dotnet run`

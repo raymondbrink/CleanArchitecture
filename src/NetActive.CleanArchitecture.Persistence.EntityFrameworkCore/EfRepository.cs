@@ -9,17 +9,6 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    /// <inheritdoc cref="IRepository{TEntity}" />
-    public class EfRepository<TDbContext, TEntity> : EfRepository<TDbContext, TEntity, long>
-        where TEntity : class, IEntity, IAggregateRoot
-        where TDbContext : DbContext, IDbContext
-    {
-        /// <inheritdoc />
-        public EfRepository(TDbContext context) : base(context)
-        {
-        }
-    }
-
     /// <inheritdoc cref="IRepository{TEntity, TKey}" />
     public class EfRepository<TDbContext, TEntity, TKey>
         : BaseRepository<TDbContext, TEntity, TKey>

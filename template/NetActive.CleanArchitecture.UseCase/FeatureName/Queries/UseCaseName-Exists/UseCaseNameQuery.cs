@@ -9,9 +9,9 @@
     internal class UseCaseNameQuery 
         : IUseCaseNameQuery
     {
-        private readonly IEntityQueryService<FeatureName, FeatureNameExistsModel, KeyType> _query;
+        private readonly IEntityExistsService<FeatureName, KeyType> _query;
 
-        public UseCaseNameQuery(IEntityQueryService<FeatureName, FeatureNameExistsModel, KeyType> query)
+        public UseCaseNameQuery(IEntityExistsService<FeatureName, KeyType> query)
         {
             _query = query;
         }

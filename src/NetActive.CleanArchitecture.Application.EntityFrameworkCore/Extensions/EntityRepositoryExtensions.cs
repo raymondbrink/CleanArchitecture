@@ -18,22 +18,6 @@
         /// Returns a boolean value indicating whether an entity with the given Id exists or not.
         /// </summary>
         /// <typeparam name="TEntity">Type of entity.</typeparam>
-        /// <param name="repository">Entity repository.</param>
-        /// <param name="entityId">Entity Id to match.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>Boolean value indicating whether an entity with the given Id exists or not.</returns>
-        public static Task<bool> ExistsAsync<TEntity>(this IRepository<TEntity> repository,
-            long entityId,
-            CancellationToken cancellationToken = default)
-            where TEntity : class, IEntity, IAggregateRoot
-        {
-            return repository.ExistsAsync(e => e.Id.Equals(entityId), cancellationToken);
-        }
-
-        /// <summary>
-        /// Returns a boolean value indicating whether an entity with the given Id exists or not.
-        /// </summary>
-        /// <typeparam name="TEntity">Type of entity.</typeparam>
         /// <typeparam name="TKey">Type of entity key.</typeparam>
         /// <param name="repository">Entity repository.</param>
         /// <param name="entityId">Entity Id to match.</param>

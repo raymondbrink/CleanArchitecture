@@ -13,7 +13,7 @@
 			Database.EnsureCreated();
 		}
 
-		public DbSet<MyEntity> MyEntities { get; set; }
+		public DbSet<FeatureName> MyEntities { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -22,10 +22,10 @@
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
 			// Seed `MyEntities` table with a few records.
-			modelBuilder.Entity<MyEntity>().HasData(
-				new MyEntity { Id = Guid.NewGuid(), Name = "some entity", CreatedAtUtc = DateTime.UtcNow },
-				new MyEntity { Id = Guid.NewGuid(), Name = "some other entity", CreatedAtUtc = DateTime.UtcNow },
-				new MyEntity { Id = Guid.NewGuid(), Name = "yet another entity", CreatedAtUtc = DateTime.UtcNow }
+			modelBuilder.Entity<FeatureName>().HasData(
+				new FeatureName { Id = Guid.NewGuid(), Name = "some entity", CreatedAtUtc = DateTime.UtcNow },
+				new FeatureName { Id = Guid.NewGuid(), Name = "some other entity", CreatedAtUtc = DateTime.UtcNow },
+				new FeatureName { Id = Guid.NewGuid(), Name = "yet another entity", CreatedAtUtc = DateTime.UtcNow }
 				);
 		}
 	}
