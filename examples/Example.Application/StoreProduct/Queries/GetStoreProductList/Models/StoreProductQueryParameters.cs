@@ -11,7 +11,7 @@
     using NetActive.CleanArchitecture.Application.Models;
 
     public class StoreProductQueryParameters
-        : BaseQueryParameters<StoreProduct, StoreProductSortBy, StoreProductFilterModel>
+        : BaseQueryParameters<StoreProduct, long, StoreProductSortBy, StoreProductFilterModel>
     {
         public StoreProductQueryParameters(Guid storeId)
         {

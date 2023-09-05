@@ -8,7 +8,7 @@
     /// Interface defining an entity based repository of type <see cref="T:TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
-    /// <typeparam name="TKey">Type of entity key (default: long).</typeparam>
+    /// <typeparam name="TKey">Type of entity key.</typeparam>
     public interface IRepository<TEntity, in TKey>
         where TEntity : IEntity<TKey>, IAggregateRoot
         where TKey : struct

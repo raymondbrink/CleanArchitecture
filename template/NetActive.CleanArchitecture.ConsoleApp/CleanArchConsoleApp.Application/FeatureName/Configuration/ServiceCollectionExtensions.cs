@@ -21,15 +21,15 @@
         {
             // IGetFeatureNameQuery
             services.AddService<IGetFeatureNameQuery, GetFeatureNameQuery>(lifetime);
-            services.AddEntityQueryService<FeatureName, FeatureNameDetailModel, Guid>(FeatureNameDetailMapper.Instance, lifetime);
+            services.AddEntityQueryService<FeatureName, FeatureNameDetailModel, KeyType>(FeatureNameDetailMapper.Instance, lifetime);
 
             // IGetPageOfMyEntitiesQuery
             services.AddService<IGetPageOfMyEntitiesQuery, GetPageOfMyEntitiesQuery>(lifetime);
-            services.AddEntityQueryService<FeatureName, FeatureNameListModel, Guid>(FeatureNameListMapper.Instance, lifetime);
+            services.AddEntityQueryService<FeatureName, FeatureNameListModel, KeyType>(FeatureNameListMapper.Instance, lifetime);
 
             // IFeatureNameExistsQuery
             services.AddService<IFeatureNameExistsQuery, FeatureNameExistsQuery>(lifetime);
-            services.AddEntityExistsService<FeatureName, Guid>(lifetime);
+            services.AddEntityExistsService<FeatureName, KeyType>(lifetime);
 
             return services;
         }
