@@ -14,7 +14,7 @@
   ],
   "identity": "NetActive.CleanArchitecture.ConsoleApp.Template",
   "name": "NetActive Clean Architecture Console App",
-  "description": "A project template for creating a command-line application that run on .NET on Windows, Linux and macOS. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
+  "description": "A solution template for creating a command-line application that run on .NET on Windows, Linux and macOS. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
   "postActions": [
     {
       "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",

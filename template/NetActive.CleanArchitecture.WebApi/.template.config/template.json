@@ -14,7 +14,7 @@
   ],
   "identity": "NetActive.CleanArchitecture.WebApi.Template",
   "name": "NetActive Clean Architecture Web Api",
-  "description": "A project template for creating an ASP.NET Core application with an example Controller for a RESTful HTTP service. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
+  "description": "A solution template for creating an ASP.NET Core application with an example Controller for a RESTful HTTP service. New use cases can be added using the `cleanarch-usecase` template from the `*.Application` folder.",
   "postActions": [
     {
       "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
