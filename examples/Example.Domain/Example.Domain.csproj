@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />
-    <PackageReference Include="NetActive.CleanArchitecture.Domain.FluentValidation" Version="6.2.0" />
+    <PackageReference Include="NetActive.CleanArchitecture.Domain.FluentValidation" Version="*" />
   </ItemGroup>
 
   <ItemGroup>
