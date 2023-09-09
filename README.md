@@ -1,5 +1,5 @@
 # NetActive.CleanArchitecture
-NetActive.CleanArchitecture is a set of libraries supporting Clean Architecture development in .NET (6+). 
+NetActive.CleanArchitecture is a set of libraries supporting Clean Architecture development in .NET (8+). 
 
 Source code and [examples](https://github.com/raymondbrink/CleanArchitecture/tree/develop/examples) can be found on [GitHub](https://github.com/raymondbrink/CleanArchitecture). The NuGet packages, including debug symbols, can be found on [NuGet](https://www.nuget.org/packages?q=netactive.cleanarchitecture).
 
@@ -96,8 +96,9 @@ Inspired by the video series [Clean Architecture: Patterns, Practices and Princi
 I started creating these libraries around the idea of Clean Architecture a few years ago.
 
 The open source community has given me so much over the past decade, I decided it was time to give something back.
-Since I find them very practicle and I recently ported them to .NET 6 and Entity Framework Core 6,
-I felt it was the right time to share these Clean Architecture libraries with the rest of the world.
+Since I found them very practicle and back then I ported them to .NET 6 and Entity Framework Core 6,
+I felt that was the right time to share these Clean Architecture libraries with the rest of the world.
+There're now fully compatible with .NET 8 and Entity Framework Core 8.
 
 Focus is on simplifying implementation of and support for these Clean Architecture patterns and practices in new .NET projects. 
 These libraries have already been under active development for a few years and applied in real life production applications many times.
