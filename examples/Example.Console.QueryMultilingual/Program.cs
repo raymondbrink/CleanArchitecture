@@ -29,7 +29,7 @@ var host = Host.CreateDefaultBuilder()
     .Build();
 
 // List all products in a store.
-var storeId = new Guid("ab1fb6fb-e9e7-41d9-beb9-06596f397016");
+var storeId = new Guid("1434c3f1-2d56-4b2c-c7c3-08dae39a61ef");
 var parameters = new StoreProductQueryParameters(storeId)
     {
         SortBy = StoreProductSortBy.Status,
