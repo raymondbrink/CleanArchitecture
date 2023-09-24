@@ -7,6 +7,11 @@
 
     using Microsoft.EntityFrameworkCore;
 
+    /// <summary>
+    /// Service that checks whether an entity exists.
+    /// </summary>
+    /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+    /// <typeparam name="TKey">Type of entity key.</typeparam>
     public class EntityExistsService<TEntity, TKey>
         : BaseEntityQueryService<TEntity, TKey>, IEntityExistsService<TEntity, TKey>
         where TEntity : class, IEntity<TKey>, IAggregateRoot

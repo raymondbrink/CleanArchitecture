@@ -6,6 +6,11 @@
 
     using Microsoft.EntityFrameworkCore;
 
+    /// <summary>
+    /// Base class for entity query services.
+    /// </summary>
+    /// <typeparam name="TEntity">Type of entity to query.</typeparam>
+    /// <typeparam name="TKey">Type of entity key.</typeparam>
     public abstract class BaseEntityQueryService<TEntity, TKey>
         where TEntity : class, IEntity<TKey>, IAggregateRoot
         where TKey : struct
