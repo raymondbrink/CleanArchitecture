@@ -19,6 +19,7 @@
     /// <typeparam name="TModel">Type of model to output.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     public interface IEntityQueryService<TEntity, TModel, TKey>
+        : IEntityExistsService<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
         where TModel : class, IModel<TKey>
         where TKey : struct

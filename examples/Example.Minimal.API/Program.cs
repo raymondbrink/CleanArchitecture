@@ -29,9 +29,10 @@ builder.Services
 builder.Services
     .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
         builder.Configuration.GetConnectionString("ExampleDbConnection1"),
+        useLazyLoadingProxies: false, 
         options =>
         {
-            options.RegisterEfRepository<Company, Guid>();
+            options.RegisterRepository<Company, Guid>();
         })
     .AddApplicationCompanyDependencies();
 

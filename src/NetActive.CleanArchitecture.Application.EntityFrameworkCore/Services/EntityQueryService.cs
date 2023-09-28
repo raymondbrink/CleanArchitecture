@@ -23,20 +23,18 @@
     using Models;
 
     /// <summary>
-    /// Base service interface that can be used to query the given model's entity repository. 
+    /// Service that can be used to query the given model's entity repository. 
     /// </summary>
     /// <typeparam name="TEntity">Type of entity to query.</typeparam>
     /// <typeparam name="TModel">Type of model to output.</typeparam>
     /// <typeparam name="TKey">Type of entity key.</typeparam>
     public class EntityQueryService<TEntity, TModel, TKey>
-        : IEntityQueryService<TEntity, TModel, TKey>
+        : EntityExistsService<TEntity, TKey>, IEntityQueryService<TEntity, TModel, TKey>
         where TEntity : class, IEntity<TKey>, IAggregateRoot
         where TModel : class, IModel<TKey>
         where TKey : struct
     {
         private readonly IMapper _mapper;
-
-        private readonly IRepository<TEntity, TKey> _repo;
 
         /// <summary>
         /// Constructor used to instantiate an <see cref="EntityQueryService{TEntity,TModel,TKey}"/>.
@@ -44,8 +42,8 @@
         /// <param name="repo"></param>
         /// <param name="mapper"></param>
         public EntityQueryService(IRepository<TEntity, TKey> repo, IMapper mapper)
+            : base(repo)
         {
-            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -242,18 +240,6 @@
             var ordered = applySorting(query, orderBy, orderDescending, thenBy, thenDescending);
 
             return ordered.ProjectTo<TModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
-        }
-
-        private IQueryable<TEntity> getQuery(Expression<Func<TEntity, bool>>? where, string[]? includes = null)
-        {
-            var query = _repo.All(includes).AsNoTracking();
-
-            if (where != null)
-            {
-                query = query.Where(where);
-            }
-
-            return query;
         }
 
         private static IOrderedQueryable<TEntity> applySorting(IQueryable<TEntity> query,

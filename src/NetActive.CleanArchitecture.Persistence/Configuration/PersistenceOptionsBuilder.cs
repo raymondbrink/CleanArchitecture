@@ -1,4 +1,4 @@
-﻿namespace NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration
+﻿namespace NetActive.CleanArchitecture.Persistence.Configuration
 {
     using Domain.Interfaces;
 
@@ -8,18 +8,18 @@
     /// <summary>
     /// Options for configuring persistence dependencies.
     /// </summary>
-    public class PersistenceOptions
+    public class PersistenceOptionsBuilder
     {
-        internal IDictionary<Type, Type> EntityTypes { get; } = new Dictionary<Type, Type>();
+        public IDictionary<Type, Type> EntityTypes { get; } = new Dictionary<Type, Type>();
 
-        internal IDictionary<Type, Type> ArchivableEntityTypes { get; } = new Dictionary<Type, Type>();
+        public IDictionary<Type, Type> ArchivableEntityTypes { get; } = new Dictionary<Type, Type>();
 
         /// <summary>
-        /// Registers an EF repository for the specified entity type, with the given key type.
+        /// Registers a repository for the specified entity type, with the given key type.
         /// </summary>
         /// <typeparam name="TEntity">Type of entity.</typeparam>
         /// <typeparam name="TKey">Type of key.</typeparam>
-        public void RegisterEfRepository<TEntity, TKey>()
+        public void RegisterRepository<TEntity, TKey>()
             where TEntity : class, IEntity<TKey>, IAggregateRoot
             where TKey : struct
         {
@@ -28,15 +28,15 @@
         }
 
         /// <summary>
-        /// Registers an EF repository for the specified archivable entity type, with the given key type.
+        /// Registers a repository for the specified archivable entity type, with the given key type.
         /// </summary>
-        /// <typeparam name="TArchivableEntity"></typeparam>
-        /// <typeparam name="TKey"></typeparam>
-        public void RegisterArchivableEfRepository<TArchivableEntity, TKey>()
+        /// <typeparam name="TArchivableEntity">Type of the archivable entity.</typeparam>
+        /// <typeparam name="TKey">Type of key.</typeparam>
+        public void RegisterArchivableRepository<TArchivableEntity, TKey>()
             where TArchivableEntity : class, IEntity<TKey>, IArchivableEntity, IAggregateRoot
             where TKey : struct
         {
-            // Add to list of entity types to register repositories for.
+            // Add to list of archivable entity types to register repositories for.
             ArchivableEntityTypes.Add(typeof(TArchivableEntity), typeof(TKey));
         }
     }
