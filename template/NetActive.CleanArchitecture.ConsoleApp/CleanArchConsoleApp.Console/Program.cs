@@ -19,6 +19,7 @@ var host = Host.CreateDefaultBuilder()
         services
             .AddPersistenceDependencies<ApplicationDbContext, IApplicationUnitOfWork, ApplicationUnitOfWork>(
                 "Server=(localdb)\\MSSQLLocalDB;Database=CleanArchConsoleApp;Integrated Security=true;MultipleActiveResultSets=true;",
+                useLazyLoadingProxies: false, 
                 options =>
                 {
                     options.RegisterEfRepository<FeatureName, Guid>();

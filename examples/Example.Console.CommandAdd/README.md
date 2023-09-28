@@ -150,9 +150,10 @@ var host = Host.CreateDefaultBuilder()
         services
             .AddPersistenceDependencies<ExampleDbContext, IExampleUnitOfWork, ExampleUnitOfWork>(
                 hostContext.Configuration.GetConnectionString("ExampleDbConnection1"),
+                useLazyLoadingProxies: false,
                 options =>
                 {
-                    options.RegisterEfRepository<Manufacturer, Guid>();
+                    options.RegisterRepository<Manufacturer, Guid>();
                 })
             .AddApplicationManufacturerDependencies();
     })

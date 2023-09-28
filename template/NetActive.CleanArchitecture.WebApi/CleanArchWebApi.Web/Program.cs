@@ -26,6 +26,7 @@ builder.Services
 builder.Services
     .AddPersistenceDependencies<ApplicationDbContext, IApplicationUnitOfWork, ApplicationUnitOfWork>(
         builder.Configuration.GetConnectionString("ExampleDbConnection1"),
+        useLazyLoadingProxies: false,
         options =>
         {
             options.RegisterEfRepository<FeatureName, KeyType>();
