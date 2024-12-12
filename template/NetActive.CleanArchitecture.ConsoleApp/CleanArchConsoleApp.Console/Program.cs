@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.Configuration;
@@ -22,11 +21,11 @@ var host = Host.CreateDefaultBuilder()
                 useLazyLoadingProxies: false, 
                 options =>
                 {
-                    options.RegisterEfRepository<FeatureName, Guid>();
+                    options.RegisterRepository<FeatureName, KeyType>();
                 })
             .AddApplicationFeatureNameDependencies();
     })
-    .Build();   
+    .Build();
 
 // List all entities.
 var myEntities = await host.Services.GetRequiredService<IGetPageOfMyEntitiesQuery>().ExecuteAsync();

@@ -9,6 +9,6 @@
         /// </summary>
         /// <param name="id">Id of the FeatureName.</param>
         /// <returns>FeatureName or NULL, if it doesn't exist.</returns>
-        Task<Driver?> GetFeatureNameByIdAsync(Guid id);
+        Task<Driver?> GetFeatureNameByIdAsync(KeyType id);
 	}
 }

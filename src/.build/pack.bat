@@ -1,6 +1,6 @@
 @ECHO OFF
 SET outputFolder=..\.packed
-SET version=6.3.0
+SET version=8.0.0
 SET nugetSource=https://api.nuget.org/v3/index.json
 
 ECHO.
@@ -20,13 +20,13 @@ ECHO.
 ECHO All packages created, pushing to %nugetSource%...
 ECHO.
 
-dotnet nuget push %outputFolder%\*.nupkg --source %nugetSource%
+REM dotnet nuget push %outputFolder%\*.nupkg --source %nugetSource%
 
 ECHO.
 ECHO Cleaning up...
 ECHO.
 
-del /Q %outputFolder%\*.*
+REM del /Q %outputFolder%\*.*
 
 ECHO.
 ECHO Done.

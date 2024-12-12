@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetActive.CleanArchitecture.Domain" Version="6.1.0" />
+    <PackageReference Include="NetActive.CleanArchitecture.Domain" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

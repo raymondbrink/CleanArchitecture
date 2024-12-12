@@ -23,7 +23,7 @@
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Guid> ExecuteAsync(AddFeatureNameCommandModel model, CancellationToken? cancellationToken = null)
+        public async Task<KeyType> ExecuteAsync(AddFeatureNameCommandModel model, CancellationToken? cancellationToken = null)
         {
             if (await _repositories.FeatureNameExistsAsync(model.Name))
             {
