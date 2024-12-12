@@ -9,9 +9,9 @@
 
     internal class GetPageOfMyEntitiesQuery : IGetPageOfMyEntitiesQuery
     {
-        private readonly IEntityQueryService<FeatureName, FeatureNameListModel, Guid> _query;
+        private readonly IEntityQueryService<FeatureName, FeatureNameListModel, KeyType> _query;
 
-        public GetPageOfMyEntitiesQuery(IEntityQueryService<FeatureName, FeatureNameListModel, Guid> query)
+        public GetPageOfMyEntitiesQuery(IEntityQueryService<FeatureName, FeatureNameListModel, KeyType> query)
         {
             _query = query;
         }

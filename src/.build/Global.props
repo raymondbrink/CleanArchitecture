@@ -2,7 +2,7 @@
     <PropertyGroup>
 		<Authors>R. Brink</Authors>
 		<Company>Net@ctive</Company>
-		<Copyright>Copyright Net@ctive 2023</Copyright>
+		<Copyright>Copyright Net@ctive 2024</Copyright>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

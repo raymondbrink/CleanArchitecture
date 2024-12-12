@@ -3,17 +3,21 @@
 
 	<PropertyGroup>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile>bin\Debug\net6\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.xml</DocumentationFile>
+		<DocumentationFile>bin\Debug\net8\NetActive.CleanArchitecture.Persistence.EntityFrameworkCore.xml</DocumentationFile>
 		<PackageId>NetActive.CleanArchitecture.Persistence.EntityFrameworkCore</PackageId>
 		<Description>Handles data access and persistence for Entity Framework Core</Description>
 		<PackageTags>persistence;ef;entity-framework;aggregate;architecture;clean-architecture;clean-code;ddd;ddd-architecture;design-patterns;domain-driven-design;dotnet;dotnetcore;dotnet-core;dotnet-cli;dotnet-new;dotnet-template;generator;hexagonal-architecture;layered;onion;solid;solid-principles;tdd;webapi</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="6.1.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.12" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="LinqKit.Core" Version="1.2.7" />
+		<PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="8.1.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>

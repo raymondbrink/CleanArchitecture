@@ -30,7 +30,7 @@
         /// <param name="id">Id of the FeatureName to return.</param>
         /// <returns>FeatureName.</returns>
         [HttpGet("{id}", Name = "GetFeatureName")]
-        public async Task<IActionResult> GetAsync(Guid id)
+        public async Task<IActionResult> GetAsync(KeyType id)
         {
             var FeatureName = await _getOneQuery.ExecuteAsync(id);
             return FeatureName == null ? NotFound(id) : Ok(FeatureName);

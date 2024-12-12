@@ -8,14 +8,14 @@
 
     internal class GetFeatureNameQuery : IGetFeatureNameQuery
     {
-        private readonly IEntityQueryService<FeatureName, FeatureNameDetailModel, Guid> _query;
+        private readonly IEntityQueryService<FeatureName, FeatureNameDetailModel, KeyType> _query;
 
-        public GetFeatureNameQuery(IEntityQueryService<FeatureName, FeatureNameDetailModel, Guid> query)
+        public GetFeatureNameQuery(IEntityQueryService<FeatureName, FeatureNameDetailModel, KeyType> query)
         {
             _query = query;
         }
 
-        public Task<FeatureNameDetailModel> ExecuteAsync(Guid id)
+        public Task<FeatureNameDetailModel> ExecuteAsync(KeyType id)
         {
             return _query.GetAsync(id);
         }

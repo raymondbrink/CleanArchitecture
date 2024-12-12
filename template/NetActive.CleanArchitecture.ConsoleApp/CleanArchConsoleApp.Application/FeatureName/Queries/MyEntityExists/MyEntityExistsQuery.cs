@@ -2,15 +2,13 @@
 {
     using Domain.Entities;
 
-    using Models;
-
     using NetActive.CleanArchitecture.Application.Interfaces;
 
     internal class FeatureNameExistsQuery : IFeatureNameExistsQuery
     {
-        private readonly IEntityExistsService<FeatureName, Guid> _query;
+        private readonly IEntityExistsService<FeatureName, KeyType> _query;
 
-        public FeatureNameExistsQuery(IEntityExistsService<FeatureName, Guid> query)
+        public FeatureNameExistsQuery(IEntityExistsService<FeatureName, KeyType> query)
         {
             _query = query;
         }

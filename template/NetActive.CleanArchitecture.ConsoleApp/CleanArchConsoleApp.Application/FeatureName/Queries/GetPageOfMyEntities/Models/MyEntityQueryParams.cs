@@ -9,7 +9,7 @@
     using NetActive.CleanArchitecture.Application.Models;
 
     public class FeatureNameQueryParams
-        : BasePagedQueryParameters<FeatureName, Guid, FeatureNameSortBy?, FeatureNameFilterModel>
+        : BasePagedQueryParameters<FeatureName, KeyType, FeatureNameSortBy?, FeatureNameFilterModel>
     {
         public override Expression<Func<FeatureName, bool>> GetFilterExpression()
         {

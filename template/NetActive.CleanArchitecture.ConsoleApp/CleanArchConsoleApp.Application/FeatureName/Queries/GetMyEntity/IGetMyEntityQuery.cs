@@ -4,6 +4,6 @@
 
     public interface IGetFeatureNameQuery
     {
-        Task<FeatureNameDetailModel> ExecuteAsync(Guid id);
+        Task<FeatureNameDetailModel> ExecuteAsync(KeyType id);
     }
 }

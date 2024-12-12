@@ -13,6 +13,6 @@
         /// <param name="model">FeatureName to add.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Id of the added FeatureName.</returns>
-        Task<Guid> ExecuteAsync(AddFeatureNameCommandModel model, CancellationToken? cancellationToken = null);
+        Task<KeyType> ExecuteAsync(AddFeatureNameCommandModel model, CancellationToken? cancellationToken = null);
     }
 }
