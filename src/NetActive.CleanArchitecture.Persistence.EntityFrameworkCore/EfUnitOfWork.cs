@@ -9,7 +9,7 @@
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
-    /// Entity Framework Core (6) specific implementation of <see cref="IUnitOfWork"/>.
+    /// Entity Framework Core specific implementation of <see cref="IUnitOfWork"/>.
     /// </summary>
     public class EfUnitOfWork : IUnitOfWork, IDisposable
     {

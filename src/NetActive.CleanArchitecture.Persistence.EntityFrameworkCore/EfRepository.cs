@@ -16,7 +16,7 @@
         where TKey : struct
         where TDbContext : DbContext, IDbContext
     {
-        internal readonly DbSet<TEntity> ObjectSet;
+        private readonly DbSet<TEntity> _objectSet;
 
         /// <summary>
         /// Constructor used to create a new instance of <see cref="EfRepository{TEntity,TKey}"/>.
@@ -25,7 +25,7 @@
         public EfRepository(TDbContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
-            ObjectSet = context.Set<TEntity>();
+            _objectSet = context.Set<TEntity>();
         }
 
         /// <inheritdoc />
@@ -38,7 +38,7 @@
         public override TEntity Create()
         {
             var entity = Activator.CreateInstance<TEntity>();
-            ObjectSet.Attach(entity);
+            _objectSet.Attach(entity);
 
             return entity;
         }
@@ -46,7 +46,7 @@
         /// <inheritdoc />
         public override IQueryable<TEntity> All(string[] includes = null)
         {
-            IQueryable<TEntity> query = ObjectSet;
+            IQueryable<TEntity> query = _objectSet;
 
             if (includes != null)
             {
@@ -64,7 +64,7 @@
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            ObjectSet.Add(entity);
+            _objectSet.Add(entity);
         }
 
         /// <inheritdoc />
@@ -75,7 +75,7 @@
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            ObjectSet.Remove(entity);
+            _objectSet.Remove(entity);
         }
     }
 }
