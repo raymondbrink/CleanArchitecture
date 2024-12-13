@@ -1,9 +1,17 @@
-﻿namespace NetActive.CleanArchitecture.Application
+﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("NetActive.CleanArchitecture.Tests")]
+
+namespace NetActive.CleanArchitecture.Application
 {
     using System.Reflection;
 
-    public static class AssemblyReference
+    /// <summary>
+    /// Provides an easy reference to the current assembly.
+    /// </summary>
+    internal static class AssemblyReference
     {
+        /// <summary>
+        /// Gets the current assembly.
+        /// </summary>
         public static readonly Assembly Assembly = typeof(AssemblyReference).Assembly;
     }
 }
