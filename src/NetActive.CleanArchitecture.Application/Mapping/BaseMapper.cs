@@ -3,7 +3,6 @@
     using System;
 
     using AutoMapper;
-    //using AutoMapper.Internal; // Required for .NET 7+
 
     /// <summary>
     /// Base for a lazy loading mapper adding a generic AutoMapper profile.
@@ -23,7 +22,6 @@
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<TProfile>();
-                //cfg.Internal().MethodMappingEnabled = false; // Required for .NET 7+
             });
 
             config.AssertConfigurationIsValid();

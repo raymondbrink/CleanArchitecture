@@ -10,6 +10,9 @@
 
     using System;
 
+    /// <summary>
+    /// Extension methods for setting up persistence dependencies in an <see cref="IServiceCollection"/>.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
